@@ -17,4 +17,12 @@ public class UserController {
 
         return userService.register(request.toEntity());
     }
+
+    @PostMapping("/users/login")
+    public UserResponse login(@RequestBody UserLoginRequest request) {
+
+        return null;
+    }
+
+
 }
