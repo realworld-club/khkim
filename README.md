@@ -1,2 +1,40 @@
-# khkim
-real-world
+## TODO
+- [ ] jwt 를 이용한 인증
+- [ ] user 는 CRU* 가 가능하다 (삭제를 지원하지 않는다)
+    - Register
+    - Current User
+    - Update User
+    - Login 
+    - Login and Remember Token
+- [ ] article 은 CRUD 가 가능하다
+- [ ] comment 는 CR*D r가 가능하다 (수정을 지원하지 않는다)
+- [ ] article 은 paging 을 지원한다
+- [ ] article 은 favorite(좋아요) 가 가능하다
+    - All Articles
+    - Articles by Author
+    - Articles Favorited by Username
+    - Articles by Tag
+    - All Tags
+    - Create Article
+    - Feed
+    - All Articles
+    - All Articles with auth
+    - Articles by Author
+    - Articles by Author with auth
+    - Articles Favorited by Username
+    - Articles Favorited by Username with auth
+    - Single Article by slug
+    - Articles by Tag
+    - Update Article
+    - Favorite Article
+    - Unfavorite Article
+    - Create Comment for Article
+    - All Comments for Article
+    - All Comments for Article without login
+    - Delete Comment for Article
+    - Delete Article
+- [ ] user 가 다른 유저를 follow 가 가능하다
+    - Follow Profile
+    - Unfollow Profile
+    - Register Celeb
+    - Profile
