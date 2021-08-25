@@ -7,9 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserRegisterRequest {
-    String email;
-    String password;
-    String username;
+    private String email;
+    private String password;
+    private String username;
 
     public User toEntity() {
         return User.builder()

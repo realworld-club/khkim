@@ -24,11 +24,17 @@ public class User {
     @Column(nullable = false)
     private String password;
     private String email;
+    private String bio;
+    private String image;
+    private String token;
 
     @Builder
-    public User(String username, String password, String email) {
+    public User(String username, String password, String email, String bio, String image, String token) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.bio = bio;
+        this.image = image;
+        this.token = token;
     }
 }
