@@ -1,6 +1,5 @@
 package com.realworld.project.article.api;
 
-import com.realworld.project.article.api.CommentModel.CommentModelNested;
 import com.realworld.project.article.domain.Comment;
 import lombok.Value;
 
@@ -11,11 +10,11 @@ import static java.util.stream.Collectors.*;
 @Value
 public class MultipleCommentModel {
 
-    List<CommentModelNested> comments;
+    List<CommentModel> comments;
 
     public static MultipleCommentModel fromEntity(List<Comment> comments) {
-        List<CommentModelNested> list = comments.stream()
-                .map(CommentModelNested::fromEntity)
+        List<CommentModel> list = comments.stream()
+                .map(CommentModel::fromEntity)
                 .collect(toList());
         return new MultipleCommentModel(list);
     }

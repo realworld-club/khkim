@@ -9,11 +9,15 @@ import com.realworld.project.article.api.ArticleModel;
 import com.realworld.project.article.api.CommentModel;
 import com.realworld.project.article.api.MultipleArticleModel;
 import com.realworld.project.article.api.MultipleCommentModel;
+import com.realworld.project.article.api.wrapper.ArticleModelWrapper;
+import com.realworld.project.article.api.wrapper.CommentModelWrapper;
 import com.realworld.project.article.domain.Article;
 import com.realworld.project.article.domain.Comment;
 import com.realworld.project.article.domain.Tag;
 import com.realworld.project.user.api.ProfileModel;
 import com.realworld.project.user.api.UserModel;
+import com.realworld.project.user.api.wrapper.ProfileModelWrapper;
+import com.realworld.project.user.api.wrapper.UserModelWrapper;
 import com.realworld.project.user.domain.Profile;
 import com.realworld.project.user.domain.User;
 import org.junit.Before;
@@ -53,17 +57,19 @@ public class ModelTest {
     @Test
     void userModelTest() throws IOException {
         UserModel userModel = UserModel.fromEntity(user);
+        UserModelWrapper userModelWrapper = new UserModelWrapper(userModel);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        System.out.println(objectMapper.writeValueAsString(userModel));
+        System.out.println(objectMapper.writeValueAsString(userModelWrapper));
     }
 
     @Test
     void profileModelTest() throws JsonProcessingException {
         ProfileModel profileModel = ProfileModel.fromEntity(user);
+        ProfileModelWrapper profileWrapper = new ProfileModelWrapper(profileModel);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        System.out.println(objectMapper.writeValueAsString(profileModel));
+        System.out.println(objectMapper.writeValueAsString(profileWrapper));
     }
 
     @Test
@@ -85,9 +91,10 @@ public class ModelTest {
                 .favoritesCount(0)
                 .build();
         ArticleModel articleModel = ArticleModel.fromEntity(article);
+        ArticleModelWrapper articleModelWrapper = new ArticleModelWrapper(articleModel);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        System.out.println(objectMapper.registerModule(new JavaTimeModule()).writeValueAsString(articleModel));
+        System.out.println(objectMapper.registerModule(new JavaTimeModule()).writeValueAsString(articleModelWrapper));
     }
 
     @Test
@@ -125,9 +132,10 @@ public class ModelTest {
                 .updatedAt(LocalDateTime.now())
                 .build();
         CommentModel commentModel = CommentModel.fromEntity(comment);
+        CommentModelWrapper commentModelWrapper = new CommentModelWrapper(commentModel);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        System.out.println(objectMapper.registerModule(new JavaTimeModule()).writeValueAsString(commentModel));
+        System.out.println(objectMapper.registerModule(new JavaTimeModule()).writeValueAsString(commentModelWrapper));
     }
 
     @Test
