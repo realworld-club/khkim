@@ -1,4 +1,4 @@
-package com.realworld.project.nonProduct;
+package com.realworld.project.test;
 
 import com.google.common.base.Preconditions;
 import org.assertj.core.api.Assertions;

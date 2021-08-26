@@ -24,17 +24,17 @@ public class User {
     @Column(nullable = false)
     private String password;
     private String email;
-    private String bio;
-    private String image;
     private String token;
 
+    @Embedded
+    private Profile profile;
+
     @Builder
-    public User(String username, String password, String email, String bio, String image, String token) {
+    public User(String username, String password, String email, String token, Profile profile) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.bio = bio;
-        this.image = image;
         this.token = token;
+        this.profile = profile;
     }
 }

@@ -2,10 +2,10 @@ package com.realworld.project.user.api;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.Value;
 
-@Getter
-@Setter
+@Value
 public class UserLoginRequest {
-    private String email;
-    private String password;
+    String email;
+    String password;
 }

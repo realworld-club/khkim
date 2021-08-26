@@ -13,13 +13,13 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/users")
-    public UserResponse register(@RequestBody UserRegisterRequest request) {
+    public UserModel register(@RequestBody UserRegisterRequest request) {
 
         return userService.register(request.toEntity());
     }
 
     @PostMapping("/users/login")
-    public UserResponse login(@RequestBody UserLoginRequest request) {
+    public UserModel login(@RequestBody UserLoginRequest request) {
 
         return null;
     }
