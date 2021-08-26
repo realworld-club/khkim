@@ -17,7 +17,7 @@ import com.realworld.project.user.api.UserModel;
 import com.realworld.project.user.api.wrapper.ProfileModelWrapper;
 import com.realworld.project.user.api.wrapper.UserModelWrapper;
 import com.realworld.project.user.domain.Profile;
-import com.realworld.project.user.domain.aggregate.User;
+import com.realworld.project.user.domain.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
