@@ -13,18 +13,18 @@ public class UserModel {
     UserModelNested user;
 
     public static UserModel fromEntity(User user) {
-        return new UserModel(UserModelNested.generator(user));
+        return new UserModel(UserModelNested.fromEntity(user));
     }
 
     @Value
-    private static class UserModelNested {
+    public static class UserModelNested {
         String email;
         String token;
         String username;
         String bio;
         String image;
 
-        private static UserModelNested generator(User user) {
+        public static UserModelNested fromEntity(User user) {
             return new UserModelNested(
                     user.getEmail(),
                     user.getToken(),

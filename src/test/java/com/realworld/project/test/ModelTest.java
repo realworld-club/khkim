@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.realworld.project.article.api.ArticleModel;
 import com.realworld.project.article.api.CommentModel;
+import com.realworld.project.article.api.MultipleArticleModel;
+import com.realworld.project.article.api.MultipleCommentModel;
 import com.realworld.project.article.domain.Article;
 import com.realworld.project.article.domain.Comment;
 import com.realworld.project.article.domain.Tag;
@@ -22,7 +24,9 @@ import org.skyscreamer.jsonassert.JSONAssert;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ModelTest {
@@ -87,8 +91,28 @@ public class ModelTest {
     }
 
     @Test
-    void multipleArticles() {
+    void multipleArticles() throws JsonProcessingException {
+        Article article = Article.builder()
+                .author(user)
+                .slug("slug")
+                .title("title")
+                .description("description")
+                .body("body")
+                .tagList(tagList)
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
+                .favorited(false)
+                .favoritesCount(0)
+                .build();
 
+        List<Article> list = new ArrayList<>();
+        list.add(article);
+        list.add(article);
+        MultipleArticleModel multipleArticleModel = MultipleArticleModel.fromEntity(list);
+
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        System.out.println(objectMapper.registerModule(new JavaTimeModule()).writeValueAsString(multipleArticleModel));
     }
 
     @Test
@@ -107,7 +131,21 @@ public class ModelTest {
     }
 
     @Test
-    void multipleComments() {
+    void multipleComments() throws JsonProcessingException {
+        Comment comment = Comment.builder()
+                .id(1L)
+                .author(user)
+                .body("body")
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
+                .build();
 
+        List<Comment> list = new ArrayList<>();
+        list.add(comment);
+        list.add(comment);
+        MultipleCommentModel multipleCommentModel = MultipleCommentModel.fromEntity(list);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        System.out.println(objectMapper.registerModule(new JavaTimeModule()).writeValueAsString(multipleCommentModel));
     }
 }

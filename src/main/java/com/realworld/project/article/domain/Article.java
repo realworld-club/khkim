@@ -1,6 +1,5 @@
 package com.realworld.project.article.domain;
 
-import com.realworld.project.user.api.ProfileModel;
 import com.realworld.project.user.domain.User;
 import lombok.AccessLevel;
 import lombok.Builder;

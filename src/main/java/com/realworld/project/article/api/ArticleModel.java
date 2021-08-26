@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.realworld.project.article.domain.Article;
 import com.realworld.project.article.domain.Tag;
 import com.realworld.project.user.api.ProfileModel;
+import com.realworld.project.user.api.ProfileModel.ProfileModelNested;
 import com.realworld.project.user.domain.Profile;
 import com.realworld.project.user.domain.User;
 import lombok.Getter;
@@ -23,11 +24,11 @@ public class ArticleModel {
     ArticleModelNested article;
 
     public static ArticleModel fromEntity(Article article) {
-        return new ArticleModel(ArticleModelNested.generator(article));
+        return new ArticleModel(ArticleModelNested.fromEntity(article));
     }
 
     @Value
-    private static class ArticleModelNested {
+    public static class ArticleModelNested {
         String slug;
         String title;
         String description;
@@ -37,9 +38,9 @@ public class ArticleModel {
         LocalDateTime updatedAt;
         boolean favorited;
         int favoritesCount;
-        ProfileModel author;
+        ProfileModelNested author;
 
-        private static ArticleModelNested generator(Article article) {
+        public static ArticleModelNested fromEntity(Article article) {
             //converter tag data
             Set<Tag> tagList = article.getTagList();
             Set<String> tagModelList = new LinkedHashSet<>();
@@ -48,7 +49,7 @@ public class ArticleModel {
             }
 
             //converter profile data
-            ProfileModel profileModel = ProfileModel.fromEntity(article.getAuthor());
+            ProfileModelNested profileModelNested = ProfileModelNested.fromEntity(article.getAuthor());
 
             return new ArticleModelNested(
                     article.getSlug(),
@@ -60,7 +61,7 @@ public class ArticleModel {
                     article.getUpdatedAt(),
                     article.isFavorited(),
                     article.getFavoritesCount(),
-                    profileModel);
+                    profileModelNested);
         }
     }
 }

@@ -10,17 +10,17 @@ public class ProfileModel {
     ProfileModelNested profile;
 
     public static ProfileModel fromEntity(User user) {
-        return new ProfileModel(ProfileModelNested.generater(user));
+        return new ProfileModel(ProfileModelNested.fromEntity(user));
     }
 
     @Value
-    private static class ProfileModelNested {
+    public static class ProfileModelNested {
         String username;
         String bio;
         String image;
         boolean following;
 
-        private static ProfileModelNested generater(User user) {
+        public static ProfileModelNested fromEntity(User user) {
             return new ProfileModelNested(
                     user.getUsername(),
                     user.getProfile().getBio(),
