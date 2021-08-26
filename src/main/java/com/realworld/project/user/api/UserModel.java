@@ -1,10 +1,6 @@
 package com.realworld.project.user.api;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.realworld.project.user.domain.User;
-import lombok.Getter;
-import lombok.Setter;
+import com.realworld.project.user.domain.aggregate.User;
 import lombok.Value;
 
 @Value

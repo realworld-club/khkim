@@ -1,6 +1,6 @@
 package com.realworld.project.article.api;
 
-import com.realworld.project.article.domain.Comment;
+import com.realworld.project.article.domain.aggregate.Comment;
 import lombok.Value;
 
 import java.util.List;

@@ -1,10 +1,10 @@
-package com.realworld.project.user.domain;
+package com.realworld.project.user.domain.aggregate;
 
+import com.realworld.project.user.domain.Profile;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.checkerframework.common.aliasing.qual.Unique;
 
 import javax.persistence.*;
 

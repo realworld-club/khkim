@@ -1,8 +1,6 @@
 package com.realworld.project.test;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.realworld.project.article.api.ArticleModel;
@@ -11,20 +9,17 @@ import com.realworld.project.article.api.MultipleArticleModel;
 import com.realworld.project.article.api.MultipleCommentModel;
 import com.realworld.project.article.api.wrapper.ArticleModelWrapper;
 import com.realworld.project.article.api.wrapper.CommentModelWrapper;
-import com.realworld.project.article.domain.Article;
-import com.realworld.project.article.domain.Comment;
-import com.realworld.project.article.domain.Tag;
+import com.realworld.project.article.domain.aggregate.Article;
+import com.realworld.project.article.domain.aggregate.Comment;
+import com.realworld.project.article.domain.aggregate.Tag;
 import com.realworld.project.user.api.ProfileModel;
 import com.realworld.project.user.api.UserModel;
 import com.realworld.project.user.api.wrapper.ProfileModelWrapper;
 import com.realworld.project.user.api.wrapper.UserModelWrapper;
 import com.realworld.project.user.domain.Profile;
-import com.realworld.project.user.domain.User;
-import org.junit.Before;
-import org.junit.jupiter.api.BeforeAll;
+import com.realworld.project.user.domain.aggregate.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

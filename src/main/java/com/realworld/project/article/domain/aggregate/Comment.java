@@ -1,6 +1,6 @@
-package com.realworld.project.article.domain;
+package com.realworld.project.article.domain.aggregate;
 
-import com.realworld.project.user.domain.User;
+import com.realworld.project.user.domain.aggregate.User;
 import lombok.*;
 
 import javax.persistence.*;

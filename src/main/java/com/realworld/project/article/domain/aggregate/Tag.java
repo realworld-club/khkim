@@ -1,4 +1,4 @@
-package com.realworld.project.article.domain;
+package com.realworld.project.article.domain.aggregate;
 
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -1,10 +1,9 @@
 package com.realworld.project.article.api;
 
-import com.realworld.project.article.domain.Article;
+import com.realworld.project.article.domain.aggregate.Article;
 import lombok.Value;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 

@@ -1,7 +1,6 @@
 package com.realworld.project.user.api;
 
-import com.realworld.project.user.domain.Profile;
-import com.realworld.project.user.domain.User;
+import com.realworld.project.user.domain.aggregate.User;
 import lombok.Value;
 
 @Value

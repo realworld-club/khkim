@@ -1,18 +1,12 @@
 package com.realworld.project.article.api;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.realworld.project.article.domain.Article;
-import com.realworld.project.article.domain.Tag;
+import com.realworld.project.article.domain.aggregate.Article;
+import com.realworld.project.article.domain.aggregate.Tag;
 import com.realworld.project.user.api.ProfileModel;
-import com.realworld.project.user.domain.Profile;
-import com.realworld.project.user.domain.User;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.Value;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 

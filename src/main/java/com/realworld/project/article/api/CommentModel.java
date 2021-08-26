@@ -1,6 +1,6 @@
 package com.realworld.project.article.api;
 
-import com.realworld.project.article.domain.Comment;
+import com.realworld.project.article.domain.aggregate.Comment;
 import com.realworld.project.user.api.ProfileModel;
 import lombok.Value;
 

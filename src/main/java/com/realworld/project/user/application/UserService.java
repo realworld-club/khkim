@@ -1,7 +1,7 @@
 package com.realworld.project.user.application;
 
 import com.realworld.project.user.api.UserModel;
-import com.realworld.project.user.domain.User;
+import com.realworld.project.user.domain.aggregate.User;
 import com.realworld.project.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
