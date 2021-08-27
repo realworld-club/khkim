@@ -1,6 +1,8 @@
 package com.realworld.project.user.application;
 
+import com.realworld.project.user.api.UserLoginRequest;
 import com.realworld.project.user.api.UserModel;
+import com.realworld.project.user.api.UserRegisterRequest;
 import com.realworld.project.user.domain.User;
 import com.realworld.project.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,14 +14,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Service
 public class UserFacade {
 
-    private final UserRepository userRepository;
+    private final CredentialService credentialService;
 
     public UserModel register(User user) {
-        checkNotNull(user.getUsername());
-        checkNotNull(user.getPassword());
+        return UserModel.fromEntity(credentialService.register(user));
+    }
 
-        User userEntity = userRepository.save(user);
-
-        return UserModel.fromEntity(userEntity);
+    public UserModel login(UserLoginRequest request) {
+        return UserModel.fromEntity(credentialService.login(request));
     }
 }

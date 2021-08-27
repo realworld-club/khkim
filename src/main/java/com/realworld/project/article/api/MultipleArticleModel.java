@@ -1,6 +1,6 @@
 package com.realworld.project.article.api;
 
-import com.realworld.project.article.domain.aggregate.Article;
+import com.realworld.project.article.domain.Article;
 import lombok.Value;
 
 import java.util.List;

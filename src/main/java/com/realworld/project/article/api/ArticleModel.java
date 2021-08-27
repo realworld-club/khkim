@@ -1,7 +1,7 @@
 package com.realworld.project.article.api;
 
-import com.realworld.project.article.domain.aggregate.Article;
-import com.realworld.project.article.domain.aggregate.Tag;
+import com.realworld.project.article.domain.Article;
+import com.realworld.project.article.domain.Tag;
 import com.realworld.project.user.api.ProfileModel;
 import lombok.Getter;
 import lombok.Value;
