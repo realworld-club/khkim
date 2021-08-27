@@ -3,7 +3,9 @@ package com.realworld.project.article.api;
 import com.realworld.project.article.domain.Article;
 import com.realworld.project.article.domain.Tag;
 import com.realworld.project.user.api.ProfileModel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Value;
 
 import java.time.LocalDateTime;
@@ -11,18 +13,19 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Getter
-@Value
+@NoArgsConstructor
+@AllArgsConstructor
 public class ArticleModel {
-    String slug;
-    String title;
-    String description;
-    String body;
-    Set<String> tagList;
-    LocalDateTime createdAt;
-    LocalDateTime updatedAt;
-    boolean favorited;
-    int favoritesCount;
-    ProfileModel author;
+    private String slug;
+    private String title;
+    private String description;
+    private String body;
+    private Set<String> tagList;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private boolean favorited;
+    private int favoritesCount;
+    private ProfileModel author;
 
     public static ArticleModel fromEntity(Article article) {
         //converter tag data

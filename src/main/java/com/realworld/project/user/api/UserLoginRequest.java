@@ -1,11 +1,19 @@
 package com.realworld.project.user.api;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.Value;
+import com.realworld.project.user.domain.User;
+import lombok.*;
 
-@Value
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserLoginRequest {
-    String email;
-    String password;
+    private String email;
+    private String password;
+
+    public User toEntity() {
+        return User.builder()
+                .email(email)
+                .password(password)
+                .build();
+    }
 }

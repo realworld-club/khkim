@@ -24,11 +24,11 @@ public class CredentialService {
         return userRepository.save(user);
     }
 
-    public User login(UserLoginRequest request) {
-        checkNotNull(request.getEmail());
-        checkNotNull(request.getPassword());
+    public User login(User user) {
+        checkNotNull(user.getEmail());
+        checkNotNull(user.getPassword());
 
-        return userRepository.findByEmail(request.getEmail())
+        return userRepository.findByEmail(user.getEmail())
                 .orElseThrow(InvalidRequestException::new);
     }
 }

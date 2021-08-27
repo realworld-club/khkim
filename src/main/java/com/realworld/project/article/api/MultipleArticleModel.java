@@ -1,15 +1,20 @@
 package com.realworld.project.article.api;
 
 import com.realworld.project.article.domain.Article;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Value;
 
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-@Value
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class MultipleArticleModel {
-    List<ArticleModel> articles;
+    private List<ArticleModel> articles;
 
     public static MultipleArticleModel fromEntity(List<Article> articles) {
         List<ArticleModel> list = articles.stream()
