@@ -1,7 +1,5 @@
-package com.realworld.project.article.domain;
+package com.realworld.project.article.domain.aggregate;
 
-import com.realworld.project.user.api.ProfileModel;
-import com.realworld.project.user.domain.Profile;
 import com.realworld.project.user.domain.User;
 import lombok.*;
 

@@ -1,9 +1,6 @@
 package com.realworld.project.user.api;
 
-import com.realworld.project.user.domain.Profile;
 import com.realworld.project.user.domain.User;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.Value;
 
 @Value
