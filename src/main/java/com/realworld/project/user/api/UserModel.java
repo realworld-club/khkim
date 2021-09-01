@@ -1,15 +1,20 @@
 package com.realworld.project.user.api;
 
 import com.realworld.project.user.domain.User;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Value;
 
-@Value
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserModel {
-    String email;
-    String token;
-    String username;
-    String bio;
-    String image;
+    private String email;
+    private String token;
+    private String username;
+    private String bio;
+    private String image;
 
     public static UserModel fromEntity(User user) {
         return new UserModel(

@@ -18,7 +18,7 @@ public class User {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column(nullable = false)
@@ -35,6 +35,14 @@ public class User {
         this.password = password;
         this.email = email;
         this.token = token;
-        this.profile = profile;
+        this.profile = (profile != null) ? profile : new Profile();
+    }
+
+    public void encoder(String password) {
+        this.password = password;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

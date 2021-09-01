@@ -16,11 +16,15 @@ public class UserFacade {
 
     private final CredentialService credentialService;
 
-    public UserModel register(User user) {
-        return UserModel.fromEntity(credentialService.register(user));
+    public UserModel login(UserLoginRequest request) {
+        return UserModel.fromEntity(credentialService.login(request.toEntity()));
     }
 
-    public UserModel login(UserLoginRequest request) {
-        return UserModel.fromEntity(credentialService.login(request));
+    public UserModel register(UserRegisterRequest request) {
+        return UserModel.fromEntity(credentialService.register(request.toEntity()));
+    }
+
+    public UserModel getCurrentUser(String name) {
+        return UserModel.fromEntity(credentialService.getCurrentUser(name));
     }
 }
