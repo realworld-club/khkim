@@ -72,8 +72,7 @@ public class JwtTokenProvider {
 
     }
 
-
     public String subStringBearer(String token) {
-        return token.substring(7);
+        return token.substring(6);
     }
 }
