@@ -6,7 +6,11 @@ import com.realworld.project.user.api.wrapper.UserModelWrapper.UserRegisterReque
 import com.realworld.project.user.api.wrapper.UserModelWrapper.UserUpdateRequestWrapper;
 import com.realworld.project.user.application.UserFacade;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,9 +30,8 @@ public class UserController {
     }
 
     @GetMapping
-    public UserModelWrapper getAuthentication(){
-//        return new UserModelWrapper(userFacade.getAuth());
-        return null;
+    public UserModelWrapper getCurrentUser(Principal principal){
+        return new UserModelWrapper(userFacade.getCurrentUser(principal.getName()));
     }
 
     @PutMapping

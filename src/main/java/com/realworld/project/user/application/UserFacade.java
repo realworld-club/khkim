@@ -24,7 +24,7 @@ public class UserFacade {
         return UserModel.fromEntity(credentialService.register(request.toEntity()));
     }
 
-
-
-
+    public UserModel getCurrentUser(String name) {
+        return UserModel.fromEntity(credentialService.getCurrentUser(name));
+    }
 }
