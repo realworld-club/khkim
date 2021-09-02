@@ -19,7 +19,15 @@ public class UserFixture {
     public static final String password = "test-password";
     public static final String bio = "test-bio";
     public static final String image = "test-image";
+
+    public static final String new_username = "new test-username";
+    public static final String new_email = "new test-email@email.com";
+    public static final String new_password = "new test-password";
+    public static final String new_bio = "new test-bio";
+    public static final String new_image = "new test-image";
+
     private static final PasswordEncoder encoder = new BCryptPasswordEncoder();
+    public static final String token = JwtFixture.crateToken(userPk);
 
     public static UserLoginRequest ofLoginRequest() {
         return new UserLoginRequest(email, password);
@@ -35,16 +43,15 @@ public class UserFixture {
 
     public static UserUpdateRequest ofUpdateRequest() {
         return new UserUpdateRequest(
-                "new " + email,
-                "new " + password,
-                "new " + username,
-                "new " + bio,
-                "new " + image
+                new_email,
+                new_password,
+                new_username,
+                new_bio,
+                new_image
         );
     }
 
     public static UserModel ofModel() {
-        String token = JwtFixture.crateToken(userPk);
         return new UserModel(
                 email,
                 token,
@@ -61,9 +68,24 @@ public class UserFixture {
                 username,
                 encoder.encode(password),
                 email,
-                JwtFixture.crateToken(userPk),
+                token,
                 profile
         );
     }
 
+    public static User ofNewEntity() {
+        Profile profile = new Profile(new_bio, new_image, false);
+
+        return new User(
+                new_username,
+                encoder.encode(new_password),
+                new_email,
+                token,
+                profile
+        );
+    }
+
+    public static String getToken() {
+        return token;
+    }
 }

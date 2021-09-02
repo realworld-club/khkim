@@ -1,5 +1,6 @@
 package com.realworld.project.user;
 
+import com.realworld.project.fixture.JwtFixture;
 import com.realworld.project.fixture.UserFixture;
 import com.realworld.project.user.application.UpdateService;
 import com.realworld.project.user.domain.User;
@@ -18,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
+import static com.realworld.project.fixture.UserFixture.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.*;
@@ -38,17 +40,19 @@ public class UpdateServiceTest {
     @Test
     void 유저_업데이트_테스트() {
         //given
-        given(userRepository.findByUsername(any())).willReturn(Optional.of(UserFixture.ofEntity()));
-        given(userRepository.existsByUsername("new " + UserFixture.username)).willReturn(Optional.of(false));
-        given(userRepository.existsByEmail("new " + UserFixture.email)).willReturn(Optional.of(false));
+        given(userRepository.findByUsername(any())).willReturn(Optional.of(ofEntity()));
+        given(userRepository.existsByUsername(new_username)).willReturn(Optional.of(false));
+        given(userRepository.existsByEmail(new_email)).willReturn(Optional.of(false));
         //when
-        User user = updateService.updateUser(UserFixture.ofUpdateRequest(), UserFixture.username);
+        User user = updateService.updateUser(ofUpdateRequest(), username);
         //then
-        assertThat(user.getEmail()).isEqualTo("new " + UserFixture.email);
-        assertThat(user.getUsername()).isEqualTo("new " + UserFixture.username);
-        boolean matches = passwordEncoder.matches("new " + UserFixture.password, user.getPassword());
+        assertThat(user).usingRecursiveComparison()
+                .ignoringFields("password")
+                .isEqualTo(ofNewEntity());
+
+        //bcryption 결과 string 은 matches 를 통해 검증할 수 있다
+        boolean matches = passwordEncoder.matches(new_password, user.getPassword());
         assertThat(matches).isTrue();
-        assertThat(user.getProfile().getBio()).isEqualTo("new " + UserFixture.bio);
-        assertThat(user.getProfile().getImage()).isEqualTo("new " + UserFixture.image);
     }
+
 }

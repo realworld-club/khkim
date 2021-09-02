@@ -1,10 +1,7 @@
 package com.realworld.project.user.domain;
 
 import com.realworld.project.user.domain.Profile;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +9,8 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "user")
+@ToString
+@EqualsAndHashCode
 public class User {
 
     @Id @Column(name = "user_id")
