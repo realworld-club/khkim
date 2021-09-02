@@ -22,4 +22,11 @@ public class Profile {
         this.following = following;
     }
 
+    public void changeBio(String bio) {
+        this.bio = bio;
+    }
+
+    public void changeImage(String image) {
+        this.image = image;
+    }
 }
