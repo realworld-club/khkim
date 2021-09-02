@@ -1,7 +1,5 @@
-package com.realworld.project.test;
+package com.realworld.project.util;
 
-import com.google.common.base.Preconditions;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.base.Preconditions.checkArgument;
