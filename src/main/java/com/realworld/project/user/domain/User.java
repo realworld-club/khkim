@@ -1,10 +1,7 @@
 package com.realworld.project.user.domain;
 
 import com.realworld.project.user.domain.Profile;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +9,8 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "user")
+@ToString
+@EqualsAndHashCode
 public class User {
 
     @Id @Column(name = "user_id")
@@ -23,6 +22,8 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false, unique = true)
     private String email;
     private String token;
 
@@ -44,5 +45,22 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public void changeUsername(String username) {
+        this.username = username;
+    }
+
+    public void changePassword(String password) {
+        this.password = password;
+    }
+
+    public void changeEmail(String email) {
+        this.email = email;
+    }
+
+    public void changeProfile(Profile profile) {
+        this.profile.changeImage(profile.getImage());
+        this.profile.changeBio(profile.getBio());
     }
 }

@@ -1,8 +1,6 @@
 package com.realworld.project.user.domain;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -11,6 +9,8 @@ import javax.persistence.Embedded;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
+@ToString
+@EqualsAndHashCode
 public class Profile {
     private String bio;
     private String image;
@@ -22,4 +22,11 @@ public class Profile {
         this.following = following;
     }
 
+    public void changeBio(String bio) {
+        this.bio = bio;
+    }
+
+    public void changeImage(String image) {
+        this.image = image;
+    }
 }

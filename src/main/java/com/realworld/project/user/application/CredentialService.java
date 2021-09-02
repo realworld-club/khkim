@@ -10,20 +10,24 @@ import com.realworld.project.util.exception.InvalidRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-@Component
 @RequiredArgsConstructor
+@Component
 public class CredentialService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public User register(User user) {
-        checkNotNull(user.getUsername());
-        checkNotNull(user.getPassword());
+    public User register(UserRegisterRequest request) {
+        checkNotNull(request.getUsername());
+        checkNotNull(request.getPassword());
+
+        User user = request.toEntity();
+        user.encoder(passwordEncoder.encode(request.getPassword()));
 
         user.encoder(passwordEncoder.encode(user.getPassword()));
 
@@ -34,7 +38,19 @@ public class CredentialService {
         checkNotNull(user.getEmail());
         checkNotNull(user.getPassword());
 
-        User userEntity = userRepository.findByEmail(user.getEmail())
+        User userEntity = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(InvalidRequestException::new);
+
+        String jws = jwtTokenProvider.createToken(String.valueOf(userEntity.getId()), null);
+        userEntity.setToken(jws);
+
+        return userEntity;
+    }
+
+    public User getCurrentUser(String name) {
+        checkNotNull(name);
+
+        return userRepository.findByUsername(name)
                 .orElseThrow(InvalidRequestException::new);
 
         String jws = jwtTokenProvider.createToken(String.valueOf(userEntity.getId()), null);

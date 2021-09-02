@@ -1,4 +1,4 @@
-package com.realworld.project.test;
+package com.realworld.project.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
