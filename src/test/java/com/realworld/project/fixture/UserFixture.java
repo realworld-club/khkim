@@ -1,16 +1,13 @@
 package com.realworld.project.fixture;
 
-import com.realworld.project.user.api.UserLoginRequest;
-import com.realworld.project.user.api.UserModel;
-import com.realworld.project.user.api.UserRegisterRequest;
-import com.realworld.project.user.api.UserUpdateRequest;
+import com.realworld.project.user.api.dto.UserLoginRequest;
+import com.realworld.project.user.api.dto.UserModel;
+import com.realworld.project.user.api.dto.UserRegisterRequest;
+import com.realworld.project.user.api.dto.UserUpdateRequest;
 import com.realworld.project.user.domain.Profile;
 import com.realworld.project.user.domain.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 
 public class UserFixture {
     public static final String userPk = "40";

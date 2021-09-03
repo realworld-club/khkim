@@ -1,11 +1,9 @@
 package com.realworld.project.user.application;
 
-import com.realworld.project.user.api.UserLoginRequest;
-import com.realworld.project.user.api.UserModel;
-import com.realworld.project.user.api.UserRegisterRequest;
-import com.realworld.project.user.api.UserUpdateRequest;
-import com.realworld.project.user.domain.User;
-import com.realworld.project.user.domain.UserRepository;
+import com.realworld.project.user.api.dto.UserLoginRequest;
+import com.realworld.project.user.api.dto.UserModel;
+import com.realworld.project.user.api.dto.UserRegisterRequest;
+import com.realworld.project.user.api.dto.UserUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

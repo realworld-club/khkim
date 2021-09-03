@@ -1,6 +1,6 @@
 package com.realworld.project.user.application;
 
-import com.realworld.project.user.api.UserUpdateRequest;
+import com.realworld.project.user.api.dto.UserUpdateRequest;
 import com.realworld.project.user.domain.User;
 import com.realworld.project.user.domain.UserRepository;
 import com.realworld.project.util.exception.InvalidRequestException;

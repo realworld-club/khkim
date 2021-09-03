@@ -1,10 +1,10 @@
-package com.realworld.project.user.api;
+package com.realworld.project.user.api.dto;
 
+import com.realworld.project.user.domain.Profile;
 import com.realworld.project.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Value;
 
 @Getter
 @NoArgsConstructor
@@ -17,11 +17,12 @@ public class UserModel {
     private String image;
 
     public static UserModel fromEntity(User user) {
+        Profile profile = user.getProfile();
         return new UserModel(
                 user.getEmail(),
                 user.getToken(),
                 user.getUsername(),
-                user.getProfile().getBio(),
-                user.getProfile().getImage());
+                (profile != null) ? profile.getBio() : null,
+                (profile != null) ? profile.getImage() : null);
     }
 }

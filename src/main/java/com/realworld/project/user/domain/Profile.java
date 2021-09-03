@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
+import javax.persistence.Transient;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -14,6 +15,7 @@ import javax.persistence.Embedded;
 public class Profile {
     private String bio;
     private String image;
+    @Transient
     private boolean following;
 
     public Profile(String bio, String image, boolean following) {
@@ -25,8 +27,10 @@ public class Profile {
     public void changeBio(String bio) {
         this.bio = bio;
     }
-
     public void changeImage(String image) {
         this.image = image;
+    }
+    public void follow() { this.following = true;}
+    public void unfollow() {this.following = false;
     }
 }

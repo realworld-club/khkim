@@ -2,11 +2,10 @@ package com.realworld.project.article.api;
 
 import com.realworld.project.article.domain.Article;
 import com.realworld.project.article.domain.Tag;
-import com.realworld.project.user.api.ProfileModel;
+import com.realworld.project.user.api.dto.ProfileModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Value;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;

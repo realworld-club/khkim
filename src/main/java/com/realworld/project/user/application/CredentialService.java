@@ -1,8 +1,7 @@
 package com.realworld.project.user.application;
 
-import com.realworld.project.user.api.UserLoginRequest;
-import com.realworld.project.user.api.UserModel;
-import com.realworld.project.user.api.UserRegisterRequest;
+import com.realworld.project.user.api.dto.UserLoginRequest;
+import com.realworld.project.user.api.dto.UserRegisterRequest;
 import com.realworld.project.user.domain.User;
 import com.realworld.project.user.domain.UserRepository;
 import com.realworld.project.user.infra.jwt.JwtTokenProvider;
@@ -10,7 +9,6 @@ import com.realworld.project.util.exception.InvalidRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

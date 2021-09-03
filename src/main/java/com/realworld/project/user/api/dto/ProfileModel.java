@@ -1,10 +1,12 @@
-package com.realworld.project.user.api;
+package com.realworld.project.user.api.dto;
 
+import com.realworld.project.user.domain.Profile;
 import com.realworld.project.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Value;
+
+import java.util.Optional;
 
 @Getter
 @NoArgsConstructor
@@ -16,10 +18,11 @@ public class ProfileModel {
     private boolean following;
 
     public static ProfileModel fromEntity(User user) {
+        Profile profile = user.getProfile();
         return new ProfileModel(
                 user.getUsername(),
-                user.getProfile().getBio(),
-                user.getProfile().getImage(),
-                user.getProfile().isFollowing());
+                (profile != null) ? profile.getBio() : null,
+                (profile != null) ? profile.getImage() : null,
+                (profile != null) ? profile.isFollowing() : false);
     }
 }

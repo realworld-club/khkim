@@ -1,4 +1,4 @@
-package com.realworld.project.user.api;
+package com.realworld.project.user.api.dto;
 
 import com.realworld.project.user.domain.User;
 import lombok.AllArgsConstructor;
