@@ -1,10 +1,9 @@
 package com.realworld.project.user.api.wrapper;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.realworld.project.user.api.UserLoginRequest;
-import com.realworld.project.user.api.UserModel;
-import com.realworld.project.user.api.UserRegisterRequest;
-import com.realworld.project.user.api.UserUpdateRequest;
+import com.realworld.project.user.api.dto.UserLoginRequest;
+import com.realworld.project.user.api.dto.UserRegisterRequest;
+import com.realworld.project.user.api.dto.UserUpdateRequest;
 import lombok.*;
 
 @Getter

@@ -4,6 +4,9 @@ import com.realworld.project.user.domain.Profile;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -27,8 +30,17 @@ public class User {
     private String email;
     private String token;
 
+    //TODO Embedded 의 장점을 잘 못살리고있다
     @Embedded
     private Profile profile;
+
+    @ManyToMany
+    @JoinTable(
+            name = "follow_user",
+            joinColumns = @JoinColumn(name = "follower_id", referencedColumnName = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "followee_id", referencedColumnName = "user_id")
+    )
+    private List<User> follow = new ArrayList<>();
 
     @Builder
     public User(String username, String password, String email, String token, Profile profile) {
@@ -59,8 +71,17 @@ public class User {
         this.email = email;
     }
 
-    public void changeProfile(Profile profile) {
-        this.profile.changeImage(profile.getImage());
-        this.profile.changeBio(profile.getBio());
+    public void following(User user) {
+        this.follow.add(user);
+        this.profile.follow();
+    }
+
+    public void unfollow(User user) {
+        this.follow.remove(user);
+        this.profile.unfollow();
+    }
+
+    public void statusIsFollow() {
+        getProfile().follow();
     }
 }
