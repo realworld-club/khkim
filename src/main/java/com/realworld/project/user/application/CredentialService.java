@@ -9,7 +9,6 @@ import com.realworld.project.util.exception.InvalidRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -31,9 +30,9 @@ public class CredentialService {
         return userRepository.save(user);
     }
 
-    public User login(User user) {
-        checkNotNull(user.getEmail());
-        checkNotNull(user.getPassword());
+    public User login(UserLoginRequest request) {
+        checkNotNull(request.getEmail());
+        checkNotNull(request.getPassword());
 
         User userEntity = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(InvalidRequestException::new);
@@ -49,31 +48,5 @@ public class CredentialService {
 
         return userRepository.findByUsername(name)
                 .orElseThrow(InvalidRequestException::new);
-
-        String jws = jwtTokenProvider.createToken(String.valueOf(userEntity.getId()), null);
-        userEntity.setToken(jws);
-
-        return userEntity;
-    }
-
-    public User getCurrentUser(String name) {
-        checkNotNull(name);
-
-        return userRepository.findByUsername(name)
-                .orElseThrow(InvalidRequestException::new);
-
-        String jws = jwtTokenProvider.createToken(String.valueOf(userEntity.getId()), null);
-        userEntity.setToken(jws);
-
-        return userEntity;
-    }
-
-    public User getCurrentUser(String name) {
-        checkNotNull(name);
-
-        User userEntity = userRepository.findByUsername(name)
-                .orElseThrow(InvalidRequestException::new);
-
-        return userEntity;
     }
 }
