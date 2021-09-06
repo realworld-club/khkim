@@ -18,8 +18,22 @@ public class UserFacade {
     private final CredentialService credentialService;
     private final UpdateService updateService;
 
-    public UserModel login(UserLoginRequest request) {
-        return UserModel.fromEntity(credentialService.login(request));
+    public UserModel getCurrentUser(String name) {
+        return UserModel.fromEntity(credentialService.getCurrentUser(name));
+    }
+
+    @Transactional
+    public UserModel register(UserRegisterRequest request) {
+        return UserModel.fromEntity(credentialService.register(request));
+    }
+
+    public UserModel getCurrentUser(String name) {
+        return UserModel.fromEntity(credentialService.getCurrentUser(name));
+    }
+
+    @Transactional
+    public UserModel update(UserUpdateRequest request, String username) {
+        return UserModel.fromEntity(updateService.updateUser(request, username));
     }
 
     @Transactional
