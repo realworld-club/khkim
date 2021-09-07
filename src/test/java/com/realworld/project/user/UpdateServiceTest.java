@@ -5,7 +5,6 @@ import com.realworld.project.fixture.UserFixture;
 import com.realworld.project.user.application.UpdateService;
 import com.realworld.project.user.domain.User;
 import com.realworld.project.user.domain.UserRepository;
-import com.sun.xml.internal.ws.spi.db.FieldSetter;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;

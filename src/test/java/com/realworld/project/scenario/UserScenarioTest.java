@@ -1,7 +1,9 @@
 package com.realworld.project.scenario;
 
 import com.realworld.project.fixture.Token;
+import com.realworld.project.user.UserControllerUnit;
 import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,23 +31,21 @@ public class UserScenarioTest {
 
     @Test
     void 유저등록후_로그인_테스트() {
-        registerApi(register_json);
-        Response res = loginApi(user_json, token);
+        registerApi(register_json).statusCode(200);
+        loginApi(user_json, token).statusCode(200);
 
-        res.then()
-                .statusCode(200)
+        assertion().then()
                 .body("user.email", equalTo(email))
                 .body("user.username", equalTo(username));
     }
 
     @Test
     void 업데이트테스트() {
-        registerApi(register_json);
-        loginApi(user_json, token);
-        Response res = updateApi(update_json, token);
+        registerApi(register_json).statusCode(200);
+        loginApi(user_json, token).statusCode(200);
+        updateApi(update_json, token).statusCode(200);
 
-        res.then()
-                .statusCode(200)
+        assertion().then()
                 .body("user.email", equalTo(new_email))
                 .body("user.image", equalTo(new_image))
                 .body("user.bio", equalTo(new_bio));
@@ -58,8 +58,8 @@ public class UserScenarioTest {
     
     @AfterEach
     void after() {
-        if(token.getData() != null) deleteApi(username, token);
-        if(new_token.getData() != null) deleteApi(username, new_token);
+        if(token.getData() != null) deleteApi(username, token).statusCode(200);
+        if(new_token.getData() != null) deleteApi(username, new_token).statusCode(200);
         token = null;
         new_token = null;
 
