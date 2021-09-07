@@ -1,10 +1,9 @@
-package com.realworld.project.article.api;
+package com.realworld.project.article.api.dto;
 
 import com.realworld.project.article.domain.Article;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Value;
 
 import java.util.List;
 

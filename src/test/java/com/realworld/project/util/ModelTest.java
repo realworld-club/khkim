@@ -2,11 +2,12 @@ package com.realworld.project.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.realworld.project.article.api.ArticleModel;
-import com.realworld.project.article.api.CommentModel;
-import com.realworld.project.article.api.MultipleArticleModel;
-import com.realworld.project.article.api.MultipleCommentModel;
+import com.realworld.project.article.api.dto.ArticleModel;
+import com.realworld.project.article.api.dto.CommentModel;
+import com.realworld.project.article.api.dto.MultipleArticleModel;
+import com.realworld.project.article.api.dto.MultipleCommentModel;
 import com.realworld.project.article.api.wrapper.ArticleModelWrapper;
 import com.realworld.project.article.api.wrapper.CommentModelWrapper;
 import com.realworld.project.article.domain.Article;
@@ -55,7 +56,8 @@ public class ModelTest {
         UserModelWrapper userModelWrapper = new UserModelWrapper(userModel);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        System.out.println(objectMapper.writeValueAsString(userModelWrapper));
+        objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
+        System.out.println(objectMapper.writeValueAsString(userModel));
     }
 
     @Test

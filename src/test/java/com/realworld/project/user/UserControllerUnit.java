@@ -7,9 +7,14 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.*;
 
 public class UserControllerUnit {
-    public static String token = "Token ";
+    public static String token = null;
     public static void init() {
         RestAssured.port = 8081;
+    }
+
+    private static void generateToken(Response response) {
+        token = "Token ";
+        token += response.jsonPath().get("user.token");
     }
 
     public static Response registerApi(String input) {
@@ -25,9 +30,10 @@ public class UserControllerUnit {
                 .body(input)
                 .post("/users/login");
 
-        token += response.jsonPath().get("user.token");
+        generateToken(response);
         return response;
     }
+
 
     public static Response currentUserApi() {
         return when()
@@ -44,7 +50,7 @@ public class UserControllerUnit {
 
     public static Response deleteApi(String username) {
         return given()
-                .header("Authorization", "Token " + token)
+                .header("Authorization", token)
                 .param("username", username)
                 .delete("/user");
     }

@@ -1,5 +1,6 @@
-package com.realworld.project.article.api;
+package com.realworld.project.article.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
 import com.realworld.project.article.domain.Article;
 import com.realworld.project.article.domain.Tag;
 import com.realworld.project.user.api.dto.ProfileModel;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+@JsonRootName("article")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

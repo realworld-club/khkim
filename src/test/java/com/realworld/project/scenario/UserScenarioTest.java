@@ -50,7 +50,6 @@ public class UserScenarioTest {
                 .body("user.bio", equalTo(new_bio));
     }
 
-
     @AfterEach
     void after() {
         Response response = deleteApi(username);
