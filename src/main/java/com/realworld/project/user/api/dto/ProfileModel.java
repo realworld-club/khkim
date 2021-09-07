@@ -20,11 +20,10 @@ public class ProfileModel {
     private boolean following;
 
     public static ProfileModel fromEntity(User user) {
-        Profile profile = user.getProfile();
         return new ProfileModel(
                 user.getUsername(),
-                (profile != null) ? profile.getBio() : null,
-                (profile != null) ? profile.getImage() : null,
-                (profile != null) ? profile.isFollowing() : false);
+                user.getBio(),
+                user.getImage(),
+                user.isFollowing());
     }
 }

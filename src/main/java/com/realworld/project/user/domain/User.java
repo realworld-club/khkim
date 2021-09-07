@@ -30,9 +30,10 @@ public class User {
     private String email;
     private String token;
 
-    //TODO Embedded 의 장점을 잘 못살리고있다
-    @Embedded
-    private Profile profile;
+    private String bio;
+    private String image;
+    @Transient
+    private boolean following;
 
     @ManyToMany
     @JoinTable(
@@ -43,12 +44,14 @@ public class User {
     private List<User> follow = new ArrayList<>();
 
     @Builder
-    public User(String username, String password, String email, String token, Profile profile) {
+    public User(String username, String password, String email, String token, String bio, String image, boolean following) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.token = token;
-        this.profile = (profile != null) ? profile : new Profile();
+        this.bio = bio;
+        this.image = image;
+        this.following = following;
     }
 
     public void encoder(String password) {
@@ -73,15 +76,23 @@ public class User {
 
     public void following(User user) {
         this.follow.add(user);
-        this.profile.follow();
+        this.following = true;
     }
 
     public void unfollow(User user) {
         this.follow.remove(user);
-        this.profile.unfollow();
+        this.following = false;
     }
 
     public void statusIsFollow() {
-        getProfile().follow();
+        this.following = true;
+    }
+
+    public void changeImage(String image) {
+        this.image = image;
+    }
+
+    public void changeBio(String bio) {
+        this.bio = bio;
     }
 }

@@ -41,7 +41,7 @@ public class ProfileServiceTest {
         //when
         User user = profileService.follow(following, follower);
         //then
-        assertThat(user.getProfile().isFollowing()).isTrue();
+        assertThat(user.isFollowing()).isTrue();
     }
 
     @Test
@@ -52,7 +52,7 @@ public class ProfileServiceTest {
         //when
         User user = profileService.getProfile(following, follower);
         //then
-        assertThat(user.getProfile().isFollowing()).isTrue();
+        assertThat(user.isFollowing()).isTrue();
     }
 
     @Test
@@ -62,7 +62,7 @@ public class ProfileServiceTest {
         //when
         User user = profileService.getProfile(following, follower);
         //then
-        assertThat(user.getProfile().isFollowing()).isFalse();
+        assertThat(user.isFollowing()).isFalse();
     }
 
     @Test
@@ -73,7 +73,7 @@ public class ProfileServiceTest {
         //when
         User user = profileService.unFollow(following, follower);
         //then
-        assertThat(user.getProfile().isFollowing()).isFalse();
+        assertThat(user.isFollowing()).isFalse();
     }
 
     @Test
@@ -84,7 +84,7 @@ public class ProfileServiceTest {
         profileService.unFollow(following, follower);
         User user = profileService.unFollow(following, follower);
         //then
-        assertThat(user.getProfile().isFollowing()).isFalse();
+        assertThat(user.isFollowing()).isFalse();
     }
 
     @Test
@@ -95,7 +95,7 @@ public class ProfileServiceTest {
         profileService.follow(following, follower);
         User user = profileService.follow(following, follower);
         //then
-        assertThat(user.getProfile().isFollowing()).isTrue();
+        assertThat(user.isFollowing()).isTrue();
     }
 
     private void userRepositoryStubbing() {

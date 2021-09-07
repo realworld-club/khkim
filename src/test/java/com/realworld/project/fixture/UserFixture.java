@@ -90,19 +90,21 @@ public class UserFixture {
                 encoder.encode(password),
                 email,
                 token,
-                profile
+                bio,
+                image,
+                false
         );
     }
 
     public static User ofNewEntity() {
-        Profile profile = new Profile(new_bio, new_image, false);
-
         return new User(
                 new_username,
                 encoder.encode(new_password),
                 new_email,
                 token,
-                profile
+                new_bio,
+                new_image,
+                false
         );
     }
 

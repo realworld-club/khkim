@@ -19,12 +19,11 @@ public class UserModel {
     private String image;
 
     public static UserModel fromEntity(User user) {
-        Profile profile = user.getProfile();
         return new UserModel(
                 user.getEmail(),
                 user.getToken(),
                 user.getUsername(),
-                (profile != null) ? profile.getBio() : null,
-                (profile != null) ? profile.getImage() : null);
+                user.getBio(),
+                user.getImage());
     }
 }

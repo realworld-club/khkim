@@ -12,6 +12,7 @@ import java.util.Optional;
 
 import static com.realworld.project.fixture.UserFixture.*;
 import static com.realworld.project.user.UserControllerUnit.*;
+import static io.restassured.RestAssured.enableLoggingOfRequestAndResponseIfValidationFails;
 import static org.assertj.core.api.Assertions.*;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
@@ -24,6 +25,7 @@ public class UserScenarioTest {
     @BeforeEach
     void before() {
         init();
+
     }
 
     @Test
@@ -52,12 +54,13 @@ public class UserScenarioTest {
 
     @AfterEach
     void after() {
-        Response response = deleteApi(username);
-        Boolean result = response.then()
-                .statusCode(200)
-                .extract().response().as(Boolean.class);
+        Response res = deleteApi(username);
+        String aBoolean = res
+                            .jsonPath()
+                            .get("Boolean")
+                            .toString();
 
-        assertThat(result).isTrue();
+        assertThat(aBoolean).isEqualTo("true");
 
     }
 }
