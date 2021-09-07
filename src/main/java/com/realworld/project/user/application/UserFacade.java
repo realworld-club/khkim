@@ -35,4 +35,9 @@ public class UserFacade {
     public UserModel update(UserUpdateRequest request, String username) {
         return UserModel.fromEntity(updateService.updateUser(request, username));
     }
+
+    @Transactional
+    public boolean delete(String username) {
+        return credentialService.delete(username);
+    }
 }

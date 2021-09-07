@@ -41,4 +41,11 @@ public class UserController {
         return new UserModelWrapper<>(userFacade.update(request.getContent(), principal.getName()));
     }
 
+    @DeleteMapping("/user")
+    public boolean updateUser(String username){
+        checkNotNull(username);
+
+        return userFacade.delete(username);
+    }
+
 }

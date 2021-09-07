@@ -49,4 +49,11 @@ public class CredentialService {
         return userRepository.findByUsername(name)
                 .orElseThrow(InvalidRequestException::new);
     }
+
+    public boolean delete(String username) {
+        userRepository.findByUsername(username)
+                .orElseThrow(RuntimeException::new);
+
+        return userRepository.deleteByUsername(username) != 0;
+    }
 }

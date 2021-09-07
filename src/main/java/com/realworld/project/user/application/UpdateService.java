@@ -35,6 +35,9 @@ public class UpdateService {
     }
 
     private void updateImage(String image, User user) {
+        if(user.getProfile() == null)
+            return;
+
         if(image.equals(user.getProfile().getImage()))
             return;
 
@@ -59,6 +62,9 @@ public class UpdateService {
     }
 
     private void updateBio(String bio, User user) {
+        if(user.getProfile() == null)
+            return;
+
         if(bio.equals(user.getProfile().getBio()))
             return;
 

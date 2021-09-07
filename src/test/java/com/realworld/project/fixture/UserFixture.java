@@ -15,16 +15,40 @@ public class UserFixture {
     public static final String email = "test-email@email.com";
     public static final String password = "test-password";
     public static final String bio = "test-bio";
-    public static final String image = "test-image";
+    public static final String image = "test-image.jpg";
 
     public static final String new_username = "new test-username";
     public static final String new_email = "new test-email@email.com";
     public static final String new_password = "new test-password";
     public static final String new_bio = "new test-bio";
-    public static final String new_image = "new test-image";
+    public static final String new_image = "new test-image.jpg";
+
+    public static final String register_json = "{\n" +
+            "  \"user\": {\n" +
+            "    \"username\": \"test-username\",\n" +
+            "    \"email\": \"test-email@email.com\",\n" +
+            "    \"password\": \"test-password\"\n" +
+            "  }\n" +
+            "}";
+
+    public static final String user_json = "{\n" +
+            "  \"user\": {\n" +
+            "    \"email\": \"test-email@email.com\",\n" +
+            "    \"password\": \"test-password\"\n" +
+            "  }\n" +
+            "}";
+
+    public static String update_json = "{\n" +
+            "  \"user\": {\n" +
+            "    \"email\": \"new test-email@email.com\",\n" +
+            "    \"bio\": \"new test-bio\",\n" +
+            "    \"image\": \"new test-image.jpg\"\n" +
+            "  }\n" +
+            "}";
 
     private static final PasswordEncoder encoder = new BCryptPasswordEncoder();
     public static final String token = JwtFixture.crateToken(userPk);
+
 
     public static UserLoginRequest ofLoginRequest() {
         return new UserLoginRequest(email, password);
