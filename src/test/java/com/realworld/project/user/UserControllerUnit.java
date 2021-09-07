@@ -1,20 +1,14 @@
 package com.realworld.project.user;
 
+import com.realworld.project.fixture.Token;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.*;
 
 public class UserControllerUnit {
-    public static String token = null;
     public static void init() {
         RestAssured.port = 8081;
-    }
-
-    private static void generateToken(Response response) {
-        token = "Token ";
-        token += response.jsonPath().get("user.token");
     }
 
     public static Response registerApi(String input) {
@@ -24,13 +18,13 @@ public class UserControllerUnit {
                     .post("/users");
     }
 
-    public static Response loginApi(String input) {
+    public static Response loginApi(String input, Token token) {
         Response response = given()
                 .contentType("application/json")
                 .body(input)
                 .post("/users/login");
 
-        generateToken(response);
+        token.generateToken("Token " + response.jsonPath().get("user.token"));
         return response;
     }
 
@@ -40,18 +34,18 @@ public class UserControllerUnit {
                 .get("/users/login");
     }
 
-    public static Response updateApi(String input) {
+    public static Response updateApi(String input, Token token) {
         return given()
-                .header("Authorization", token)
+                .header("Authorization", token.getData())
                 .contentType("application/json")
                 .body(input)
                 .put("/user");
     }
 
-    public static Response deleteApi(String username) {
+    public static Response deleteApi(String input, Token token) {
         return given()
-                .header("Authorization", token)
-                .param("username", username)
+                .header("Authorization", token.getData())
+                .param("username", input)
                 .delete("/user");
     }
 }

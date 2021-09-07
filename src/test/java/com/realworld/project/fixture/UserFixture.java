@@ -23,29 +23,6 @@ public class UserFixture {
     public static final String new_bio = "new test-bio";
     public static final String new_image = "new test-image.jpg";
 
-    public static final String register_json = "{\n" +
-            "  \"user\": {\n" +
-            "    \"username\": \"test-username\",\n" +
-            "    \"email\": \"test-email@email.com\",\n" +
-            "    \"password\": \"test-password\"\n" +
-            "  }\n" +
-            "}";
-
-    public static final String user_json = "{\n" +
-            "  \"user\": {\n" +
-            "    \"email\": \"test-email@email.com\",\n" +
-            "    \"password\": \"test-password\"\n" +
-            "  }\n" +
-            "}";
-
-    public static String update_json = "{\n" +
-            "  \"user\": {\n" +
-            "    \"email\": \"new test-email@email.com\",\n" +
-            "    \"bio\": \"new test-bio\",\n" +
-            "    \"image\": \"new test-image.jpg\"\n" +
-            "  }\n" +
-            "}";
-
     private static final PasswordEncoder encoder = new BCryptPasswordEncoder();
     public static final String token = JwtFixture.crateToken(userPk);
 
