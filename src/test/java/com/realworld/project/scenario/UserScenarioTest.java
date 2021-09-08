@@ -52,14 +52,71 @@ public class UserScenarioTest {
     }
 
     @Test
-    void 팔로우_테스트() {
+    void 프로필_테스트() {
+        registerApi(register_json).statusCode(200);
+        loginApi(user_json, token).statusCode(200);
+        getProfileApi(username, token).statusCode(200);
 
+        assertion().then()
+                .body("profile.username", equalTo(username))
+                .body("profile.following", equalTo(false));
     }
-    
+
+    @Test
+    void 팔로우_테스트() {
+        registerApi(register_json).statusCode(200);
+        loginApi(user_json, token).statusCode(200);
+        registerApi(new_register_json).statusCode(200);
+        loginApi(new_user_json, new_token).statusCode(200);
+
+        //username 이 new_username 을 follow 하다
+        followApi(new_username, token).statusCode(200);
+
+        assertion().then()
+                .body("profile.username", equalTo(new_username))
+                .body("profile.following", equalTo(true));
+    }
+
+    @Test
+    void 팔로우_2번_선택시_테스트() {
+    }
+
+    @Test
+    void 언팔로우_테스트() {
+        registerApi(register_json).statusCode(200);
+        loginApi(user_json, token).statusCode(200);
+        registerApi(new_register_json).statusCode(200);
+        loginApi(new_user_json, new_token).statusCode(200);
+
+        //username 이 new_username 을 follow 하다
+        followApi(new_username, token).statusCode(200);
+        unFollowApi(new_username, token).statusCode(200);
+
+        assertion().then()
+                .body("profile.username", equalTo(new_username))
+                .body("profile.following", equalTo(false));
+    }
+
+    @Test
+    void 언팔로우_2번_테스트() {
+        registerApi(register_json).statusCode(200);
+        loginApi(user_json, token).statusCode(200);
+        registerApi(new_register_json).statusCode(200);
+        loginApi(new_user_json, new_token).statusCode(200);
+
+        //username 이 new_username 을 follow 하다
+        followApi(new_username, token).statusCode(200);
+        unFollowApi(new_username, token).statusCode(200);
+
+        assertion().then()
+                .body("profile.username", equalTo(new_username))
+                .body("profile.following", equalTo(false));
+    }
+
     @AfterEach
     void after() {
         if(token.getData() != null) deleteApi(username, token).statusCode(200);
-        if(new_token.getData() != null) deleteApi(username, new_token).statusCode(200);
+        if(new_token.getData() != null) deleteApi(new_username, new_token).statusCode(200);
         token = null;
         new_token = null;
 

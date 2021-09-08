@@ -2,6 +2,7 @@ package com.realworld.project.user.domain;
 
 import com.realworld.project.user.domain.Profile;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -35,14 +36,6 @@ public class User {
     @Transient
     private boolean following;
 
-    @ManyToMany
-    @JoinTable(
-            name = "follow_user",
-            joinColumns = @JoinColumn(name = "follower_id", referencedColumnName = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "followee_id", referencedColumnName = "user_id")
-    )
-    private List<User> follow = new ArrayList<>();
-
     @Builder
     public User(String username, String password, String email, String token, String bio, String image, boolean following) {
         this.username = username;
@@ -74,17 +67,7 @@ public class User {
         this.email = email;
     }
 
-    public void following(User user) {
-        this.follow.add(user);
-        this.following = true;
-    }
-
-    public void unfollow(User user) {
-        this.follow.remove(user);
-        this.following = false;
-    }
-
-    public void statusIsFollow() {
+    public void followingTrue() {
         this.following = true;
     }
 

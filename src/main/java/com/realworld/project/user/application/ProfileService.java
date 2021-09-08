@@ -1,11 +1,15 @@
 package com.realworld.project.user.application;
 
+import com.realworld.project.user.domain.Follow;
+import com.realworld.project.user.domain.FollowRepository;
 import com.realworld.project.user.domain.User;
 import com.realworld.project.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import java.util.Optional;
 
 import static com.google.common.base.Preconditions.*;
 
@@ -14,22 +18,22 @@ import static com.google.common.base.Preconditions.*;
 @Component
 public class ProfileService {
 
-    //TODO follow 시 entity 를 가져오는것은 비용이 많이든다
     private final UserRepository userRepository;
+    private final FollowRepository followRepository;
 
     public User getProfile(String username, String loginUser) {
         checkNotNull(username);
         checkNotNull(loginUser);
 
-        User user = getUser(username);
+        User target = getUser(username);
+        User user = getUser(loginUser);
+        Optional<Follow> follow = followRepository
+                .findByFollowUserIdAndFolloweeUserId(target.getId(), user.getId());
 
-        boolean match = user.getFollow().stream()
-                .anyMatch(u -> u.getUsername().equals(loginUser));
+        if(follow.isPresent())
+            target.followingTrue();
 
-        if(match)
-            user.statusIsFollow();
-
-        return user;
+        return target;
     }
 
     @Transactional
@@ -37,22 +41,30 @@ public class ProfileService {
         checkNotNull(username);
         checkNotNull(loginUser);
 
-        User follower = getUser(loginUser);
-        User user = getUser(username);
+        User follower = getUser(username);
+        User followee = getUser(loginUser);
+        Follow follow = new Follow(follower, followee);
+        follower.followingTrue();
 
-        user.following(follower);
+        followRepository.save(follow);
 
-        return user;
+        return follower;
     }
 
     @Transactional
     public User unFollow(String username, String loginUser) {
-        User follower = getUser(loginUser);
-        User user = getUser(username);
+        checkNotNull(username);
+        checkNotNull(loginUser);
 
-        user.unfollow(follower);
+        User follower = getUser(username);
+        User followee = getUser(loginUser);
 
-        return user;
+        Follow follow = followRepository.findByFollowUserIdAndFolloweeUserId(follower.getId(), followee.getId())
+                .orElseThrow(() -> new RuntimeException());
+
+        followRepository.delete(follow);
+
+        return follower;
     }
 
     private User getUser(String username) {

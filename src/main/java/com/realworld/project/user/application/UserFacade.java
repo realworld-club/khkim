@@ -37,7 +37,7 @@ public class UserFacade {
     }
 
     @Transactional
-    public boolean delete(String username) {
-        return credentialService.delete(username);
+    public void delete(String username) {
+        credentialService.delete(username);
     }
 }

@@ -41,10 +41,10 @@ public class UserController {
     }
 
     @DeleteMapping("/user")
-    public boolean updateUser(String username){
+    public void updateUser(String username){
         checkNotNull(username);
 
-        return userFacade.delete(username);
+        userFacade.delete(username);
     }
 
 }

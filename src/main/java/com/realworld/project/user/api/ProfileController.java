@@ -23,7 +23,7 @@ public class ProfileController {
 
     @PostMapping("/profiles/{username}/follow")
     public ProfileModel followUser
-            (@PathVariable String username, Principal principal) {
+                (@PathVariable String username, Principal principal) {
         return ProfileModel.fromEntity(profileService.follow(username, principal.getName()));
     }
 

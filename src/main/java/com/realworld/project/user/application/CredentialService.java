@@ -2,6 +2,8 @@ package com.realworld.project.user.application;
 
 import com.realworld.project.user.api.dto.UserLoginRequest;
 import com.realworld.project.user.api.dto.UserRegisterRequest;
+import com.realworld.project.user.domain.Follow;
+import com.realworld.project.user.domain.FollowRepository;
 import com.realworld.project.user.domain.User;
 import com.realworld.project.user.domain.UserRepository;
 import com.realworld.project.user.infra.jwt.JwtTokenProvider;
@@ -10,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 @RequiredArgsConstructor
@@ -17,6 +21,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class CredentialService {
 
     private final UserRepository userRepository;
+    private final FollowRepository followRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -50,10 +55,13 @@ public class CredentialService {
                 .orElseThrow(InvalidRequestException::new);
     }
 
-    public boolean delete(String username) {
-        userRepository.findByUsername(username)
+    public void delete(String username) {
+        User user = userRepository.findByUsername(username)
                 .orElseThrow(RuntimeException::new);
 
-        return userRepository.deleteByUsername(username) != 0;
+        List<Follow> followList = followRepository.findByFollowUserIdOrFolloweeUserId(user.getId(), user.getId());
+        followList.stream().forEach(followRepository::delete);
+
+        userRepository.deleteByUsername(username);
     }
 }
