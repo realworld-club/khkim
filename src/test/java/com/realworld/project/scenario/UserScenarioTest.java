@@ -83,9 +83,9 @@ public class UserScenarioTest {
         loginApi(user_json, token).statusCode(200);
         registerApi(new_register_json).statusCode(200);
         loginApi(new_user_json, new_token).statusCode(200);
-
-        //username 이 new_username 을 follow 하다
         followApi(new_username, token).statusCode(200);
+
+        //username 이 new_username 을 unfollow 하다
         unFollowApi(new_username, token).statusCode(200);
 
         assertion().then()
