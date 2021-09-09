@@ -1,13 +1,10 @@
 package com.realworld.project.user.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
-import com.realworld.project.user.domain.Profile;
 import com.realworld.project.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.Optional;
 
 @JsonRootName("profile")
 @Getter

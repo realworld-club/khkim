@@ -6,12 +6,14 @@ import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 
 import static io.restassured.RestAssured.*;
+import static io.restassured.config.LogConfig.logConfig;
 
 public class UserControllerUnit {
     private static Response result;
 
     public static void init() {
         RestAssured.port = 8081;
+        RestAssured.config = config().logConfig(logConfig().enableLoggingOfRequestAndResponseIfValidationFails());
     }
 
     public static ValidatableResponse registerApi(String input) {

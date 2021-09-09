@@ -16,6 +16,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class UserFacade {
 
     private final CredentialService credentialService;
+    private final DeleteService deleteService;
     private final UpdateService updateService;
 
     public UserModel login(UserLoginRequest request) {
@@ -38,6 +39,6 @@ public class UserFacade {
 
     @Transactional
     public void delete(String username) {
-        credentialService.delete(username);
+        deleteService.delete(username);
     }
 }

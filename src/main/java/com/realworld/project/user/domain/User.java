@@ -1,13 +1,8 @@
 package com.realworld.project.user.domain;
 
-import com.realworld.project.user.domain.Profile;
 import lombok.*;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

@@ -54,4 +54,14 @@ public class Article {
         this.favoritesCount = favoritesCount;
         this.author = author;
     }
+    /*
+        v 띄어쓰기는 하이픈(-)으로 대체
+        v 대문자는 소문자로
+        쉼표나 마침표 등 기호를 자동으로 삭제
+     */
+    public static String generateSlug(String context) {
+        context = context.replaceAll(" ", "-");
+        context = context.toLowerCase();
+        return context;
+    }
 }

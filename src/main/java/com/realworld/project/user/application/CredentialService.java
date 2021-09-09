@@ -55,13 +55,5 @@ public class CredentialService {
                 .orElseThrow(InvalidRequestException::new);
     }
 
-    public void delete(String username) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(RuntimeException::new);
 
-        List<Follow> followList = followRepository.findByFollowUserIdOrFolloweeUserId(user.getId(), user.getId());
-        followList.stream().forEach(followRepository::delete);
-
-        userRepository.deleteByUsername(username);
-    }
 }

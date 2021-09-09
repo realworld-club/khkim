@@ -4,7 +4,6 @@ import com.realworld.project.user.api.dto.UserLoginRequest;
 import com.realworld.project.user.api.dto.UserModel;
 import com.realworld.project.user.api.dto.UserRegisterRequest;
 import com.realworld.project.user.api.dto.UserUpdateRequest;
-import com.realworld.project.user.domain.Profile;
 import com.realworld.project.user.domain.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -60,8 +59,6 @@ public class UserFixture {
     }
 
     public static User ofEntity() {
-        Profile profile = new Profile(bio, image, false);
-
         return new User(
                 username,
                 encoder.encode(password),
