@@ -2,45 +2,47 @@ package com.realworld.project.article.application;
 
 import com.realworld.project.article.api.dto.ArticleCreateRequest;
 import com.realworld.project.article.api.dto.ArticleModel;
-import com.realworld.project.article.domain.Article;
-import com.realworld.project.article.domain.ArticleRepository;
-import com.realworld.project.article.domain.Tag;
+import com.realworld.project.article.domain.*;
 import com.realworld.project.user.domain.User;
 import com.realworld.project.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
-@Service
+@Component
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
     private final UserRepository userRepository;
+    private final ArticleRelationTagRepository articleRelationTagRepository;
 
+    /**
+     * - tag 등록
+     * - article 생성
+     * @param request
+     * @param writeUsername
+     * @return
+     */
     @Transactional
-    public ArticleModel createArticle(ArticleCreateRequest request, String writeUsername) {
-        Set<Tag> tags = new HashSet<>();
-        request.getTagList().stream()
-                .map(t -> tags.add(new Tag(t)));
-
+    public Article createArticle(ArticleCreateRequest request, String writeUsername) {
         User user = userRepository.findByUsername(writeUsername)
-                .orElseThrow(() -> new RuntimeException());
+                .orElseThrow(RuntimeException::new);
 
         Article article = Article.builder()
+                .slug(Article.generateSlug(request.getTitle()))
                 .title(request.getTitle())
                 .description(request.getDescription())
                 .body(request.getBody())
-                .tagList(tags)
                 .author(user)
                 .build();
 
-        Article savedArticle = articleRepository.save(article);
-
-        return ArticleModel.fromEntity(savedArticle);
+        return articleRepository.save(article);
     }
 }

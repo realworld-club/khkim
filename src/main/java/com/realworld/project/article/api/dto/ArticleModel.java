@@ -30,11 +30,7 @@ public class ArticleModel {
 
     public static ArticleModel fromEntity(Article article) {
         //converter tag data
-        Set<Tag> tagList = article.getTagList();
         Set<String> tagModelList = new LinkedHashSet<>();
-        for (Tag tag : tagList) {
-            tagModelList.add(tag.getName());
-        }
 
         //converter profile data
         ProfileModel profileModel = ProfileModel.fromEntity(article.getAuthor());

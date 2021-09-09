@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -25,13 +27,6 @@ public class Article {
     private String title;
     private String description;
     private String body;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "article_tag",
-            joinColumns = @JoinColumn(name = "article_id", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "tag_id", nullable = false))
-    Set<Tag> tagList = new HashSet<>();
-
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private boolean favorited;
@@ -42,23 +37,23 @@ public class Article {
     private User author;
 
     @Builder
-    public Article(String slug, String title, String description, String body, Set<Tag> tagList, LocalDateTime createdAt, LocalDateTime updatedAt, boolean favorited, int favoritesCount, User author) {
+    public Article(String slug, String title, String description, String body, LocalDateTime createdAt, LocalDateTime updatedAt, boolean favorited, int favoritesCount, User author) {
         this.slug = slug;
         this.title = title;
         this.description = description;
         this.body = body;
-        this.tagList = tagList;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.favorited = favorited;
         this.favoritesCount = favoritesCount;
         this.author = author;
     }
+
     /*
-        v 띄어쓰기는 하이픈(-)으로 대체
-        v 대문자는 소문자로
-        쉼표나 마침표 등 기호를 자동으로 삭제
-     */
+                v 띄어쓰기는 하이픈(-)으로 대체
+                v 대문자는 소문자로
+                쉼표나 마침표 등 기호를 자동으로 삭제
+             */
     public static String generateSlug(String context) {
         context = context.replaceAll(" ", "-");
         context = context.toLowerCase();

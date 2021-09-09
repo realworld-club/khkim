@@ -3,6 +3,7 @@ package com.realworld.project.article.api;
 import com.realworld.project.article.api.dto.ArticleCreateRequest;
 import com.realworld.project.article.api.dto.ArticleModel;
 import com.realworld.project.article.api.dto.MultipleArticleModel;
+import com.realworld.project.article.application.ArticleFacade;
 import com.realworld.project.article.application.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,7 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class ArticleController {
 
-    private final ArticleService articleService;
+    private final ArticleFacade articleFacade;
 
     @GetMapping("/articles")
     public MultipleArticleModel getArticles() {
@@ -29,7 +30,7 @@ public class ArticleController {
     public ArticleModel createArticle(
             @Valid @RequestBody ArticleCreateRequest request,
             Principal principal) {
-        return articleService.createArticle(request, principal.getName());
+        return articleFacade.createArticle(request, principal.getName());
     }
 
 }

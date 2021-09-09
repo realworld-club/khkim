@@ -7,13 +7,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static com.realworld.project.fixture.ArticleFixtureJson.article_json;
-import static com.realworld.project.fixture.UserFixture.new_username;
-import static com.realworld.project.fixture.UserFixture.username;
+import static com.realworld.project.fixture.UserFixture.*;
 import static com.realworld.project.fixture.UserFixtureJson.register_json;
 import static com.realworld.project.fixture.UserFixtureJson.user_json;
 import static com.realworld.project.user.ArticleControllerunit.createArticleApi;
 import static com.realworld.project.user.UserControllerUnit.*;
 import static com.realworld.project.user.UserControllerUnit.loginApi;
+import static org.hamcrest.Matchers.*;
 
 public class ArticleScenarioTest {
     Token token = null;
@@ -33,9 +33,18 @@ public class ArticleScenarioTest {
         loginApi(user_json, token).statusCode(200);
         createArticleApi(article_json, token).statusCode(200);
 
-        System.out.println("------------------");
-        ArticleControllerunit.assertion().getBody().prettyPrint();
-        System.out.println("------------------");
+        ArticleControllerunit.assertion().then()
+                .body("article.slug", equalTo("how-to-train-your-dragon"))
+                .body("article.title", equalTo("How to train your dragon"))
+                .body("article.description", equalTo("Ever wonder how?"))
+                .body("article.body", equalTo("Very carefully."))
+                .body("article.tagList", hasItems("dragons", "training"))
+                .body("article.favorited", equalTo(false))
+                .body("article.favoritesCount", equalTo(0))
+                .body("article.author.username", equalTo(username))
+                .body("article.author.bio", equalTo(bio))
+                .body("article.author.image", equalTo(image))
+                .body("article.author.following", equalTo(false));
 
     }
 
