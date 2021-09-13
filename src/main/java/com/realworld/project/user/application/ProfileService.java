@@ -25,8 +25,8 @@ public class ProfileService {
         checkNotNull(username);
         checkNotNull(loginUser);
 
-        User target = getUser(username);
-        User user = getUser(loginUser);
+        User target = getUserFromRepository(username);
+        User user = getUserFromRepository(loginUser);
         Optional<Follow> follow = followRepository
                 .findByFollowUserIdAndFolloweeUserId(target.getId(), user.getId());
 
@@ -41,8 +41,8 @@ public class ProfileService {
         checkNotNull(username);
         checkNotNull(loginUser);
 
-        User follower = getUser(username);
-        User followee = getUser(loginUser);
+        User follower = getUserFromRepository(username);
+        User followee = getUserFromRepository(loginUser);
         Follow follow = new Follow(follower, followee);
         follower.followingTrue();
 
@@ -56,8 +56,8 @@ public class ProfileService {
         checkNotNull(username);
         checkNotNull(loginUser);
 
-        User follower = getUser(username);
-        User followee = getUser(loginUser);
+        User follower = getUserFromRepository(username);
+        User followee = getUserFromRepository(loginUser);
 
         Follow follow = followRepository.findByFollowUserIdAndFolloweeUserId(follower.getId(), followee.getId())
                 .orElseThrow(() -> new RuntimeException());
@@ -67,7 +67,7 @@ public class ProfileService {
         return follower;
     }
 
-    private User getUser(String username) {
+    private User getUserFromRepository(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("runtime exception"));
     }
