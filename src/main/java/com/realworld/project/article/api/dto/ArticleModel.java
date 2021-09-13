@@ -1,5 +1,6 @@
-package com.realworld.project.article.api;
+package com.realworld.project.article.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
 import com.realworld.project.article.domain.Article;
 import com.realworld.project.article.domain.Tag;
 import com.realworld.project.user.api.dto.ProfileModel;
@@ -10,7 +11,9 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+@JsonRootName("article")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,13 +30,6 @@ public class ArticleModel {
     private ProfileModel author;
 
     public static ArticleModel fromEntity(Article article) {
-        //converter tag data
-        Set<Tag> tagList = article.getTagList();
-        Set<String> tagModelList = new LinkedHashSet<>();
-        for (Tag tag : tagList) {
-            tagModelList.add(tag.getName());
-        }
-
         //converter profile data
         ProfileModel profileModel = ProfileModel.fromEntity(article.getAuthor());
 
@@ -42,7 +38,8 @@ public class ArticleModel {
                 article.getTitle(),
                 article.getDescription(),
                 article.getBody(),
-                tagModelList,
+                article.getTagList().stream()
+                        .map(tag -> tag.getName()).collect(Collectors.toSet()),
                 article.getCreatedAt(),
                 article.getUpdatedAt(),
                 article.isFavorited(),

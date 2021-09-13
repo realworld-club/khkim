@@ -1,5 +1,6 @@
-package com.realworld.project.article.api;
+package com.realworld.project.article.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
 import com.realworld.project.article.domain.aggregate.Comment;
 import com.realworld.project.user.api.dto.ProfileModel;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+@JsonRootName("comment")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

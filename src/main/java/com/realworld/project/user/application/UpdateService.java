@@ -35,10 +35,10 @@ public class UpdateService {
     }
 
     private void updateImage(String image, User user) {
-        if(image.equals(user.getProfile().getImage()))
+        if(image.equals(user.getImage()))
             return;
 
-        user.getProfile().changeImage(image);
+        user.changeImage(image);
     }
 
 
@@ -59,10 +59,10 @@ public class UpdateService {
     }
 
     private void updateBio(String bio, User user) {
-        if(bio.equals(user.getProfile().getBio()))
+        if(bio.equals(user.getBio()))
             return;
 
-        user.getProfile().changeBio(bio);
+        user.changeBio(bio);
     }
 
     private void updateUsername(String username, User user) {

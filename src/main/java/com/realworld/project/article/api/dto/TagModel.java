@@ -1,4 +1,4 @@
-package com.realworld.project.article.api;
+package com.realworld.project.article.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;

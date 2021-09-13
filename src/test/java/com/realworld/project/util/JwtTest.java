@@ -1,4 +1,4 @@
-package com.realworld.project.test;
+package com.realworld.project.util;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;

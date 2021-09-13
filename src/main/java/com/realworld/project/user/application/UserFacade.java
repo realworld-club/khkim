@@ -16,10 +16,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class UserFacade {
 
     private final CredentialService credentialService;
+    private final DeleteService deleteService;
     private final UpdateService updateService;
 
-    public UserModel getCurrentUser(String name) {
-        return UserModel.fromEntity(credentialService.getCurrentUser(name));
+    public UserModel login(UserLoginRequest request) {
+        return UserModel.fromEntity(credentialService.login(request));
     }
 
     @Transactional
@@ -37,16 +38,7 @@ public class UserFacade {
     }
 
     @Transactional
-    public UserModel register(UserRegisterRequest request) {
-        return UserModel.fromEntity(credentialService.register(request));
-    }
-
-    public UserModel getCurrentUser(String name) {
-        return UserModel.fromEntity(credentialService.getCurrentUser(name));
-    }
-
-    @Transactional
-    public UserModel update(UserUpdateRequest request, String username) {
-        return UserModel.fromEntity(updateService.updateUser(request, username));
+    public void delete(String username) {
+        deleteService.delete(username);
     }
 }
