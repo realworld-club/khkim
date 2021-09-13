@@ -1,7 +1,10 @@
 package com.realworld.project.user.application;
 
+import com.realworld.project.fixture.FollowFixture;
 import com.realworld.project.fixture.UserFixture;
 import com.realworld.project.user.application.ProfileService;
+import com.realworld.project.user.domain.Follow;
+import com.realworld.project.user.domain.FollowRepository;
 import com.realworld.project.user.domain.User;
 import com.realworld.project.user.domain.UserRepository;
 import org.assertj.core.api.Assertions;
@@ -19,6 +22,8 @@ import java.util.Optional;
 import static com.realworld.project.fixture.UserFixture.*;
 import static java.util.Optional.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,6 +35,9 @@ public class ProfileServiceTest {
 
     @Mock
     UserRepository userRepository;
+
+    @Mock
+    FollowRepository followRepository;
 
     @InjectMocks
     ProfileService profileService;
@@ -48,7 +56,7 @@ public class ProfileServiceTest {
     void follow유저의_profile_테스트() {
         //given
         userRepositoryStubbing();
-        profileService.follow(following, follower);
+        followRepositoryPresent();
         //when
         User user = profileService.getProfile(following, follower);
         //then
@@ -59,6 +67,7 @@ public class ProfileServiceTest {
     void follow하지않은_유저의_profile_테스트() {
         //given
         userRepositoryStubbing();
+        followRepositoryNothing();
         //when
         User user = profileService.getProfile(following, follower);
         //then
@@ -69,37 +78,26 @@ public class ProfileServiceTest {
     void unfollow_테스트() {
         //given
         userRepositoryStubbing();
-        profileService.follow(following, follower);
+        followRepositoryPresent();
         //when
         User user = profileService.unFollow(following, follower);
         //then
         assertThat(user.isFollowing()).isFalse();
-    }
-
-    @Test
-    void 연속_unfollow_테스트() {
-        //given
-        userRepositoryStubbing();
-        //when
-        profileService.unFollow(following, follower);
-        User user = profileService.unFollow(following, follower);
-        //then
-        assertThat(user.isFollowing()).isFalse();
-    }
-
-    @Test
-    void 연속_follow_테스트() {
-        //given
-        userRepositoryStubbing();
-        //when
-        profileService.follow(following, follower);
-        User user = profileService.follow(following, follower);
-        //then
-        assertThat(user.isFollowing()).isTrue();
     }
 
     private void userRepositoryStubbing() {
         given(userRepository.findByUsername(follower)).willReturn(of(ofNewEntity()));
         given(userRepository.findByUsername(following)).willReturn(of(ofEntity()));
     }
+
+    private void followRepositoryNothing() {
+        given(followRepository.findByFollowUserIdAndFolloweeUserId(any(), any()))
+                .willReturn(Optional.empty());
+    }
+
+    private void followRepositoryPresent() {
+        given(followRepository.findByFollowUserIdAndFolloweeUserId(any(), any()))
+                .willReturn(of(FollowFixture.ofEntity()));
+    }
+
 }
