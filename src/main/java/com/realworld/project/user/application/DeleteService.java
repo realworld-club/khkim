@@ -27,7 +27,6 @@ public class DeleteService {
 
         articleRepository.deleteByAuthorId(user.getId());
 
-
         userRepository.deleteByUsername(username);
     }
 }

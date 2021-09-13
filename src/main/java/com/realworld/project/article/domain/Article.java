@@ -9,10 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -32,6 +29,9 @@ public class Article {
     private boolean favorited;
     private int favoritesCount;
 
+    @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
+    private Set<Tag> tagList = new HashSet<>();
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
@@ -50,10 +50,10 @@ public class Article {
     }
 
     /*
-                v 띄어쓰기는 하이픈(-)으로 대체
-                v 대문자는 소문자로
-                쉼표나 마침표 등 기호를 자동으로 삭제
-             */
+        v 띄어쓰기는 하이픈(-)으로 대체
+        v 대문자는 소문자로
+        쉼표나 마침표 등 기호를 자동으로 삭제
+     */
     public static String generateSlug(String context) {
         context = context.replaceAll(" ", "-");
         context = context.toLowerCase();

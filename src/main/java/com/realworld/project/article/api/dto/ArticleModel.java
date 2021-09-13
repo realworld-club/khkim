@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @JsonRootName("article")
 @Getter
@@ -29,9 +30,6 @@ public class ArticleModel {
     private ProfileModel author;
 
     public static ArticleModel fromEntity(Article article) {
-        //converter tag data
-        Set<String> tagModelList = new LinkedHashSet<>();
-
         //converter profile data
         ProfileModel profileModel = ProfileModel.fromEntity(article.getAuthor());
 
@@ -40,7 +38,8 @@ public class ArticleModel {
                 article.getTitle(),
                 article.getDescription(),
                 article.getBody(),
-                tagModelList,
+                article.getTagList().stream()
+                        .map(tag -> tag.getName()).collect(Collectors.toSet()),
                 article.getCreatedAt(),
                 article.getUpdatedAt(),
                 article.isFavorited(),

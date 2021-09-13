@@ -21,19 +21,11 @@ public class ArticleService {
 
     private final ArticleRepository articleRepository;
     private final UserRepository userRepository;
-    private final ArticleRelationTagRepository articleRelationTagRepository;
 
-    /**
-     * - tag 등록
-     * - article 생성
-     * @param request
-     * @param writeUsername
-     * @return
-     */
     @Transactional
     public Article createArticle(ArticleCreateRequest request, String writeUsername) {
         User user = userRepository.findByUsername(writeUsername)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new RuntimeException());
 
         Article article = Article.builder()
                 .slug(Article.generateSlug(request.getTitle()))

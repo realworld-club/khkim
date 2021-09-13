@@ -40,10 +40,7 @@ public class ArticleScenarioTest {
                 .body("article.tagList", hasItems("dragons", "training"))
                 .body("article.favorited", equalTo(false))
                 .body("article.favoritesCount", equalTo(0))
-                .body("article.author.username", equalTo(username))
-                .body("article.author.bio", equalTo(bio))
-                .body("article.author.image", equalTo(image))
-                .body("article.author.following", equalTo(false));
+                .body("article.author.username", equalTo(username));
 
     }
 
