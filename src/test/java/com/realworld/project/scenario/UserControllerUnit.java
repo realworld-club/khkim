@@ -1,4 +1,4 @@
-package com.realworld.project.user;
+package com.realworld.project.scenario;
 
 import com.realworld.project.fixture.Token;
 import io.restassured.RestAssured;

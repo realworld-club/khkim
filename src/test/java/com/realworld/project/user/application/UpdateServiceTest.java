@@ -1,4 +1,4 @@
-package com.realworld.project.user;
+package com.realworld.project.user.application;
 
 import com.realworld.project.fixture.JwtFixture;
 import com.realworld.project.fixture.UserFixture;

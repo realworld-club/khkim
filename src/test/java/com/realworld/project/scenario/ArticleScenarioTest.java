@@ -1,7 +1,6 @@
 package com.realworld.project.scenario;
 
 import com.realworld.project.fixture.Token;
-import com.realworld.project.user.ArticleControllerunit;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,9 +9,9 @@ import static com.realworld.project.fixture.ArticleFixtureJson.article_json;
 import static com.realworld.project.fixture.UserFixture.*;
 import static com.realworld.project.fixture.UserFixtureJson.register_json;
 import static com.realworld.project.fixture.UserFixtureJson.user_json;
-import static com.realworld.project.user.ArticleControllerunit.createArticleApi;
-import static com.realworld.project.user.UserControllerUnit.*;
-import static com.realworld.project.user.UserControllerUnit.loginApi;
+import static com.realworld.project.scenario.ArticleControllerunit.createArticleApi;
+import static com.realworld.project.scenario.UserControllerUnit.*;
+import static com.realworld.project.scenario.UserControllerUnit.loginApi;
 import static org.hamcrest.Matchers.*;
 
 public class ArticleScenarioTest {
