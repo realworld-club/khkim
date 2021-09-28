@@ -1,0 +1,20 @@
+user:
+    bio: fake_data
+    email: fake_data
+    following: false
+    id: 1
+    image: fake_data
+    password: fake_data
+    token: fake_data
+    username: fake_data
+
+new:
+    user:
+        bio: new_fake_data
+        email: new_fake_data
+        following: false
+        id: 2
+        image: new_fake_data
+        password: new_fake_data
+        token: new_fake_data
+        username: new_fake_data
