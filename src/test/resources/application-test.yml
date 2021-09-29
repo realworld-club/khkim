@@ -1,8 +1,0 @@
-jwt:
-    base64:
-        secretKey: Y29tLnJlYWx3b3JsZC5wcm9qZWN0LnVzZXIuaW5mcmEuand0
-spring:
-    main:
-        lazy-initialization: true
-    profiles:
-        include: user-fixture
