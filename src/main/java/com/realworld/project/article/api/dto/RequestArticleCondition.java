@@ -1,4 +1,4 @@
-package com.realworld.project.article.dto;
+package com.realworld.project.article.api.dto;
 
 import lombok.Getter;
 

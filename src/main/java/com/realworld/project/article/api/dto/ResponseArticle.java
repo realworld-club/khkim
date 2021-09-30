@@ -1,7 +1,7 @@
-package com.realworld.project.article.dto;
+package com.realworld.project.article.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
-import com.realworld.project.user.dto.ResponseProfile;
+import com.realworld.project.user.api.dto.ResponseProfile;
 import lombok.Getter;
 
 import java.time.LocalDateTime;

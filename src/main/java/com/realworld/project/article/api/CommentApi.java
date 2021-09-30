@@ -1,7 +1,7 @@
 package com.realworld.project.article.api;
 
-import com.realworld.project.article.dto.RequestComment;
-import com.realworld.project.article.dto.ResponseComment;
+import com.realworld.project.article.api.dto.RequestComment;
+import com.realworld.project.article.api.dto.ResponseComment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

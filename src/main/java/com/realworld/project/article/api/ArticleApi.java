@@ -1,6 +1,6 @@
 package com.realworld.project.article.api;
 
-import com.realworld.project.article.dto.*;
+import com.realworld.project.article.api.dto.*;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

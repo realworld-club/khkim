@@ -1,4 +1,4 @@
-package com.realworld.project.user.dto;
+package com.realworld.project.user.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Getter;

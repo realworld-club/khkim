@@ -1,9 +1,9 @@
 package com.realworld.project.user.api;
 
-import com.realworld.project.user.dto.RequestRegisterUser;
-import com.realworld.project.user.dto.RequestUpdateUser;
-import com.realworld.project.user.dto.ResponseProfile;
-import com.realworld.project.user.dto.ResponseUser;
+import com.realworld.project.user.api.dto.RequestRegisterUser;
+import com.realworld.project.user.api.dto.RequestUpdateUser;
+import com.realworld.project.user.api.dto.ResponseProfile;
+import com.realworld.project.user.api.dto.ResponseUser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

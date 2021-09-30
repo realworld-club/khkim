@@ -1,7 +1,7 @@
 package com.realworld.project.user.api;
 
-import com.realworld.project.user.dto.RequestLoginUser;
-import com.realworld.project.user.dto.ResponseUser;
+import com.realworld.project.user.api.dto.RequestLoginUser;
+import com.realworld.project.user.api.dto.ResponseUser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

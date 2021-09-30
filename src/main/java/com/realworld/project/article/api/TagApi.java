@@ -1,6 +1,6 @@
 package com.realworld.project.article.api;
 
-import com.realworld.project.article.dto.ResponseTag;
+import com.realworld.project.article.api.dto.ResponseTag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

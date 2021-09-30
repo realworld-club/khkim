@@ -1,14 +1,14 @@
-package com.realworld.project.user.dto;
+package com.realworld.project.user.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Getter;
 
 @Getter
-@JsonRootName("profile")
-public class ResponseProfile {
+@JsonRootName("user")
+public class ResponseUser {
+    private String email;
+    private String token;
     private String username;
     private String bio;
     private String image;
-    private String following;
-
 }
