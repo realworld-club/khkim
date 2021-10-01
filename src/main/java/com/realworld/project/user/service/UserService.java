@@ -1,4 +1,4 @@
-package com.realworld.project.user.application;
+package com.realworld.project.user.service;
 
 import com.realworld.project.user.api.dto.RequestRegisterUser;
 import com.realworld.project.user.api.dto.ResponseUser;
@@ -6,7 +6,6 @@ import com.realworld.project.user.domain.Users;
 import com.realworld.project.user.domain.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @Service
