@@ -1,9 +1,9 @@
 package com.realworld.project.fixture;
 
-import com.realworld.project.user.api.dto.RequestRegisterUser;
-import com.realworld.project.user.domain.Users;
-import com.realworld.project.user.domain.UsersRepository;
-import com.realworld.project.user.service.UserService;
+import com.realworld.project.application.user.api.dto.RequestRegisterUser;
+import com.realworld.project.application.user.domain.Users;
+import com.realworld.project.application.user.repository.UsersRepository;
+import com.realworld.project.application.user.service.UserService;
 
 import java.util.Optional;
 
