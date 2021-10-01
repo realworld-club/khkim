@@ -1,30 +1,29 @@
 package com.realworld.project.user.service;
 
 import com.realworld.project.user.api.dto.RequestLoginUser;
-import com.realworld.project.user.api.dto.RequestRegisterUser;
 import com.realworld.project.user.api.dto.ResponseUser;
 import com.realworld.project.user.domain.Users;
 import com.realworld.project.user.domain.UsersRepository;
+import com.realworld.project.user.infra.jwt.JwtTokenProvider;
 import com.realworld.project.utils.exception.BusinessException;
-import com.realworld.project.utils.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import static com.realworld.project.utils.exception.ErrorCode.USER_NOT_FOUND;
 
 @RequiredArgsConstructor
 @Service
-public class UserService {
+public class AuthService {
 
     private final UsersRepository usersRepository;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    @Transactional
-    public ResponseUser registerUsers(RequestRegisterUser requestRegisterUser) {
-        Users user = usersRepository.save(requestRegisterUser.toEntity());
+    public ResponseUser login(RequestLoginUser requestLoginUser) {
+        Users user = usersRepository.findByEmail(requestLoginUser.getEmail())
+                .orElseThrow(() -> new BusinessException(USER_NOT_FOUND));
 
-        return ResponseUser.of(user);
+        String token = jwtTokenProvider.createToken(Long.toString(user.getId()), null);
+
+        return ResponseUser.of(user, token);
     }
-
-
 }

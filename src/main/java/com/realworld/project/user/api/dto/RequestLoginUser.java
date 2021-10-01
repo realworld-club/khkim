@@ -13,4 +13,9 @@ public class RequestLoginUser {
 
     @NotEmpty
     private String password;
+
+    public RequestLoginUser(@NotEmpty String email, @NotEmpty String password) {
+        this.email = email;
+        this.password = password;
+    }
 }

@@ -25,7 +25,11 @@ public class ResponseUser {
         this.image = profile.getImage();
     }
 
+    public static ResponseUser of(Users user, String token) {
+        return new ResponseUser(user.getEmail(), token, user.getProfile());
+    }
+
     public static ResponseUser of(Users user) {
-        return new ResponseUser(user.getEmail(), user.getToken(), user.getProfile());
+        return new ResponseUser(user.getEmail(), null, user.getProfile());
     }
 }

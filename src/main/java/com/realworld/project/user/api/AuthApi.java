@@ -2,6 +2,9 @@ package com.realworld.project.user.api;
 
 import com.realworld.project.user.api.dto.RequestLoginUser;
 import com.realworld.project.user.api.dto.ResponseUser;
+import com.realworld.project.user.service.AuthService;
+import com.realworld.project.user.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,8 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+@RequiredArgsConstructor
 @RestController
 public class AuthApi {
+
+    private final AuthService authService;
 
     /**
      * 사용자 로그인
@@ -21,7 +27,7 @@ public class AuthApi {
     @PostMapping("/api/users/login")
     public ResponseEntity<ResponseUser> login(@Valid @RequestBody RequestLoginUser requestLoginUser) {
 
-        ResponseUser responseUser = null;
+        ResponseUser responseUser = authService.login(requestLoginUser);
 
         return ResponseEntity.ok(responseUser);
     }

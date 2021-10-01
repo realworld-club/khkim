@@ -19,7 +19,6 @@ public class Users {
 
     private String email;
     private String password;
-    private String token;
 
     @Embedded
     private Profile profile;
