@@ -19,7 +19,7 @@ class PasswordHelperTest {
 
     @DisplayName("패스워드 encode")
     @Test
-    void create() {
+    void encode() {
         //given
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         //when
