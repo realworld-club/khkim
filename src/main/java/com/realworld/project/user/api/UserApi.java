@@ -51,9 +51,11 @@ public class UserApi {
      * @return 사용자정보
      */
     @PutMapping("/api/user")
-    public ResponseEntity<ResponseUser> updateUser(@Valid @RequestBody RequestUpdateUser requestUpdateUser) {
+    public ResponseEntity<ResponseUser> updateUser(
+            Principal principal,
+            @Valid @RequestBody RequestUpdateUser requestUpdateUser) {
 
-        ResponseUser responseUser = null;
+        ResponseUser responseUser = userService.update(principal.getName(), requestUpdateUser);
 
         return ResponseEntity.ok(responseUser);
     }

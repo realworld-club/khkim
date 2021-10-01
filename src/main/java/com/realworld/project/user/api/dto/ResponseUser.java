@@ -29,7 +29,7 @@ public class ResponseUser {
         return new ResponseUser(user.getEmail(), token, user.getProfile());
     }
 
-    public static ResponseUser of(Users user) {
+    public static ResponseUser from(Users user) {
         return new ResponseUser(user.getEmail(), null, user.getProfile());
     }
 }
