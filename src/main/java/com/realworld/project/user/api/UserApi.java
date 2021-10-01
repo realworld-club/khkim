@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @RequiredArgsConstructor
 @RestController
@@ -37,9 +38,9 @@ public class UserApi {
      * @return 사용자정보
      */
     @GetMapping("/api/user")
-    public ResponseEntity<ResponseUser> getUser() {
+    public ResponseEntity<ResponseUser> getUser(Principal principal) {
 
-        ResponseUser responseUser = null;
+        ResponseUser responseUser = userService.getUserInfo(principal.getName());
 
         return ResponseEntity.ok(responseUser);
     }

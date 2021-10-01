@@ -19,6 +19,13 @@ public class UserService {
 
     private final UsersRepository usersRepository;
 
+    public ResponseUser getUserInfo(String userId) {
+        Users user = usersRepository.findById(Long.parseLong(userId))
+                .orElseThrow(() -> new BusinessException(USER_NOT_FOUND));
+
+        return ResponseUser.of(user);
+    }
+
     @Transactional
     public ResponseUser registerUsers(RequestRegisterUser requestRegisterUser) {
         Users user = usersRepository.save(requestRegisterUser.toEntity());
