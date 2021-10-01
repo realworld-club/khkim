@@ -2,6 +2,7 @@ package com.realworld.project.user.service;
 
 import com.realworld.project.user.api.dto.RequestLoginUser;
 import com.realworld.project.user.api.dto.RequestRegisterUser;
+import com.realworld.project.user.api.dto.ResponseProfile;
 import com.realworld.project.user.api.dto.ResponseUser;
 import com.realworld.project.user.domain.Users;
 import com.realworld.project.user.domain.UsersRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.realworld.project.utils.exception.ErrorCode.USER_NOT_FOUND;
+import static com.realworld.project.utils.exception.ErrorCode.USER_PROFILE_NOT_FOUND;
 
 @RequiredArgsConstructor
 @Service
@@ -34,4 +36,10 @@ public class UserService {
     }
 
 
+    public ResponseProfile getProfile(String username) {
+        Users users = usersRepository.findByProfileUsername(username)
+                .orElseThrow(() -> new BusinessException(USER_PROFILE_NOT_FOUND));
+
+        return ResponseProfile.from(users.getProfile());
+    }
 }

@@ -31,7 +31,7 @@ class AuthServiceTest {
         register(userService);
     }
 
-    @DisplayName("로그인 테스트")
+    @DisplayName("로그인")
     @Test
     void login() {
         //given
@@ -44,16 +44,4 @@ class AuthServiceTest {
         assertThat(responseUser.getToken()).isNotNull();
     }
 
-    @DisplayName("로그인 테스트")
-    @Test
-    void login1() {
-        //given
-        RequestLoginUser requestLoginUser = new RequestLoginUser(email, password);
-        //when
-        ResponseUser responseUser = authService.login(requestLoginUser);
-        //then
-        assertThat(responseUser.getEmail()).isEqualTo(email);
-        assertThat(responseUser.getUsername()).isEqualTo(username);
-        assertThat(responseUser.getToken()).isNotNull();
-    }
 }

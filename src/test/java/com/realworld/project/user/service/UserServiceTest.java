@@ -2,6 +2,7 @@ package com.realworld.project.user.service;
 
 import com.realworld.project.fixture.UserFixture;
 import com.realworld.project.user.api.dto.RequestRegisterUser;
+import com.realworld.project.user.api.dto.ResponseProfile;
 import com.realworld.project.user.api.dto.ResponseUser;
 import com.realworld.project.user.domain.Users;
 import com.realworld.project.user.domain.UsersRepository;
@@ -24,7 +25,7 @@ class UserServiceTest {
     @Autowired
     UsersRepository usersRepository;
 
-    @DisplayName("회원가입 테스트")
+    @DisplayName("회원가입")
     @Test
     void registerUsers() {
         //given
@@ -36,16 +37,30 @@ class UserServiceTest {
         assertThat(responseUser.getEmail()).isEqualTo(email);
     }
 
-    @DisplayName("유저정보 가져오기 테스트")
+    @DisplayName("유저정보 가져오기")
     @Test
     void getUserInfo() {
-        userService.registerUsers( new RequestRegisterUser(username, email, password));
+        //given
+        userService.registerUsers(new RequestRegisterUser(username, email, password));
         Users user = getUser(usersRepository, email);
         //when
         ResponseUser responseUser = userService.getUserInfo(Long.toString(user.getId()));
         //then
         assertThat(responseUser.getUsername()).isEqualTo(username);
         assertThat(responseUser.getEmail()).isEqualTo(email);
+
+    }
+
+    @DisplayName("유저 Profile 가져오기")
+    @Test
+    void getProfile() {
+        //given
+        userService.registerUsers(new RequestRegisterUser(username, email, password));
+        //when
+        ResponseProfile profile = userService.getProfile(username);
+        //then
+        assertThat(profile.getUsername()).isEqualTo(username);
+        assertThat(profile.isFollowing()).isEqualTo(false);
 
     }
 }

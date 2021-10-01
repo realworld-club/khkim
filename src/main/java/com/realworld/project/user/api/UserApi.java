@@ -67,7 +67,7 @@ public class UserApi {
     @GetMapping("/api/profiles/{username}")
     public ResponseEntity<ResponseProfile> getProfile(@PathVariable("username") String username) {
 
-        ResponseProfile responseProfile = null;
+        ResponseProfile responseProfile = userService.getProfile(username);
 
         return ResponseEntity.ok(responseProfile);
     }
