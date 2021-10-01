@@ -11,6 +11,15 @@ public class UserFixture {
     public static final String username = "test";
     public static final String email = "test@test.com";
     public static final String password = "123456789";
+    public static final String bio = "test-company";
+    public static final String image = "test.jpg";
+
+    public static final String usernameA = "test-A";
+    public static final String emailA = "test-A@test.com";
+    public static final String passwordA = "987654321";
+    public static final String bioA = "test-A-company";
+    public static final String imageA = "test-A.jpg";
+
 
     public static void register(UserService userService) {
         RequestRegisterUser requestRegisterUser = new RequestRegisterUser(username, email, password);

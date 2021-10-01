@@ -1,6 +1,7 @@
 package com.realworld.project.application.user.service;
 
 import com.realworld.project.application.user.api.dto.RequestRegisterUser;
+import com.realworld.project.application.user.api.dto.RequestUpdateUser;
 import com.realworld.project.application.user.api.dto.ResponseProfile;
 import com.realworld.project.application.user.api.dto.ResponseUser;
 import com.realworld.project.application.user.domain.Users;
@@ -9,6 +10,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.realworld.project.fixture.UserFixture.*;
@@ -61,5 +64,27 @@ class UserServiceTest {
         assertThat(profile.getUsername()).isEqualTo(username);
         assertThat(profile.isFollowing()).isEqualTo(false);
 
+    }
+
+    @DisplayName("유저정보 갱신")
+    @Test
+    void update() {
+        //given
+        userService.registerUsers(new RequestRegisterUser(username, email, password));
+        Users user = getUser(usersRepository, email);
+        RequestUpdateUser requestUpdateUser =
+                new RequestUpdateUser(emailA, bioA, imageA, usernameA, passwordA);
+        //when
+        ResponseUser update = userService.update(Long.toString(user.getId()), requestUpdateUser);
+        //then
+        assertThat(update.getEmail()).isEqualTo(emailA);
+        assertThat(update.getBio()).isEqualTo(bioA);
+        assertThat(update.getImage()).isEqualTo(imageA);
+        assertThat(update.getUsername()).isEqualTo(usernameA);
+
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        Users userA = getUser(usersRepository, emailA);
+        boolean matches = passwordEncoder.matches(passwordA, userA.getPassword());
+        assertThat(matches).isTrue();
     }
 }

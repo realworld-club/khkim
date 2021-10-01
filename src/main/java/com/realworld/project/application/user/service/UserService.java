@@ -44,7 +44,7 @@ public class UserService {
         Users user = usersRepository.findById(Long.parseLong(userId))
                 .orElseThrow(() -> new BusinessException(USER_NOT_FOUND));
 
-
+        user.update(requestUpdateUser);
 
         return ResponseUser.from(user);
     }

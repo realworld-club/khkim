@@ -19,4 +19,17 @@ public class Profile {
         this.username = username;
         following = false;
     }
+
+    public void updateUsername(String username) {
+        this.username = username;
+    }
+
+    public void updateBio(String bio) {
+        this.bio = bio;
+    }
+
+    public void changeImage(String image) {
+        this.image = image;
+    }
+
 }

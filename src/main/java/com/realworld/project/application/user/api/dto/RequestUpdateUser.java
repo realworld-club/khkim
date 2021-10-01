@@ -20,4 +20,11 @@ public class RequestUpdateUser {
     private String username;
     private String password;
 
+    public RequestUpdateUser(@NotEmpty String email, @NotEmpty String bio, @NotEmpty String image, String username, String password) {
+        this.email = email;
+        this.bio = bio;
+        this.image = image;
+        this.username = username;
+        this.password = password;
+    }
 }
