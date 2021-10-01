@@ -4,13 +4,18 @@ import com.realworld.project.user.api.dto.RequestRegisterUser;
 import com.realworld.project.user.api.dto.RequestUpdateUser;
 import com.realworld.project.user.api.dto.ResponseProfile;
 import com.realworld.project.user.api.dto.ResponseUser;
+import com.realworld.project.user.application.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@RequiredArgsConstructor
 @RestController
 public class UserApi {
+
+    private final UserService userService;
 
     /**
      * 회원가입
@@ -21,7 +26,7 @@ public class UserApi {
     @PostMapping("api/users")
     public ResponseEntity<ResponseUser> registration(@Valid @RequestBody RequestRegisterUser requestRegisterUser) {
 
-        ResponseUser responseUser = null;
+        ResponseUser responseUser = userService.registerUsers(requestRegisterUser);
 
         return ResponseEntity.ok(responseUser);
     }

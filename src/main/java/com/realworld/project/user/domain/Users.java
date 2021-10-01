@@ -1,6 +1,7 @@
 package com.realworld.project.user.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,10 +18,17 @@ public class Users {
     private Long id;
 
     private String email;
+    private String password;
+    private String token;
 
     @Embedded
     private Profile profile;
 
-
+    @Builder
+    public Users(String email, String password, Profile profile) {
+        this.email = email;
+        this.password = password;
+        this.profile = profile;
+    }
 
 }
