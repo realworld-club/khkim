@@ -4,7 +4,7 @@ import com.realworld.project.application.user.api.dto.ResponseProfile;
 import com.realworld.project.application.user.domain.Follow;
 import com.realworld.project.application.user.domain.User;
 import com.realworld.project.application.user.repository.FollowRepository;
-import com.realworld.project.application.user.repository.UsersRepository;
+import com.realworld.project.application.user.repository.UserRepository;
 import com.realworld.project.core.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,14 +17,14 @@ import static com.realworld.project.core.exception.ErrorCode.USER_NOT_FOUND;
 @Service
 public class FollowService {
 
-    private final UsersRepository usersRepository;
+    private final UserRepository userRepository;
     private final FollowRepository followRepository;
 
     @Transactional
     public ResponseProfile follow(String userEmail, String targetUsername) {
-        User user = usersRepository.findByEmail(userEmail)
+        User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new BusinessException(USER_NOT_FOUND));
-        User targetUser = usersRepository.findByProfileUsername(targetUsername)
+        User targetUser = userRepository.findByProfileUsername(targetUsername)
                 .orElseThrow(() -> new BusinessException(USER_NOT_FOUND));
 
         Follow follow = new Follow(user, targetUser);

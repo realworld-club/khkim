@@ -1,7 +1,7 @@
 package com.realworld.project.application.user.service;
 
 import com.realworld.project.application.user.domain.User;
-import com.realworld.project.application.user.repository.UsersRepository;
+import com.realworld.project.application.user.repository.UserRepository;
 import com.realworld.project.core.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,11 +17,11 @@ import static com.realworld.project.core.exception.ErrorCode.USER_NOT_FOUND;
 @Component
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UsersRepository usersRepository;
+    private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        User user = usersRepository.findById(Long.parseLong(id))
+        User user = userRepository.findById(Long.parseLong(id))
                 .orElseThrow(() -> new BusinessException(USER_NOT_FOUND));
 
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), Collections.EMPTY_LIST);

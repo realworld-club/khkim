@@ -2,7 +2,7 @@ package com.realworld.project.fixture;
 
 import com.realworld.project.application.user.api.dto.RequestRegisterUser;
 import com.realworld.project.application.user.domain.User;
-import com.realworld.project.application.user.repository.UsersRepository;
+import com.realworld.project.application.user.repository.UserRepository;
 import com.realworld.project.application.user.service.CredentialService;
 
 import java.util.Optional;
@@ -35,8 +35,8 @@ public class UserFixture {
         credentialService.registerUsers(requestRegisterUser);
     }
 
-    public static User getUser(UsersRepository usersRepository, String email) {
-        Optional<User> byEmail = usersRepository.findByEmail(email);
+    public static User getUser(UserRepository userRepository, String email) {
+        Optional<User> byEmail = userRepository.findByEmail(email);
         return byEmail.get();
     }
 }

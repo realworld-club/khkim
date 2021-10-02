@@ -4,7 +4,7 @@ import com.realworld.project.application.user.api.dto.RequestLoginUser;
 import com.realworld.project.application.user.api.dto.RequestRegisterUser;
 import com.realworld.project.application.user.api.dto.ResponseUser;
 import com.realworld.project.application.user.domain.User;
-import com.realworld.project.application.user.repository.UsersRepository;
+import com.realworld.project.application.user.repository.UserRepository;
 import com.realworld.project.core.jwt.JwtTokenProvider;
 import com.realworld.project.core.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +17,11 @@ import static com.realworld.project.core.exception.ErrorCode.USER_NOT_FOUND;
 @Service
 public class CredentialService {
 
-    private final UsersRepository usersRepository;
+    private final UserRepository userRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
     public ResponseUser login(RequestLoginUser requestLoginUser) {
-        User user = usersRepository.findByEmail(requestLoginUser.getEmail())
+        User user = userRepository.findByEmail(requestLoginUser.getEmail())
                 .orElseThrow(() -> new BusinessException(USER_NOT_FOUND));
 
         String token = jwtTokenProvider.createToken(Long.toString(user.getId()), null);
@@ -31,7 +31,7 @@ public class CredentialService {
 
     @Transactional
     public ResponseUser registerUsers(RequestRegisterUser requestRegisterUser) {
-        User user = usersRepository.save(requestRegisterUser.toEntity());
+        User user = userRepository.save(requestRegisterUser.toEntity());
 
         return ResponseUser.from(user);
     }

@@ -4,7 +4,7 @@ import com.realworld.project.application.user.api.dto.RequestUpdateUser;
 import com.realworld.project.application.user.api.dto.ResponseProfile;
 import com.realworld.project.application.user.api.dto.ResponseUser;
 import com.realworld.project.application.user.domain.User;
-import com.realworld.project.application.user.repository.UsersRepository;
+import com.realworld.project.application.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ class UserServiceTest {
     FollowService followService;
 
     @Autowired
-    UsersRepository usersRepository;
+    UserRepository userRepository;
 
     @BeforeEach
     void before() {
@@ -44,7 +44,7 @@ class UserServiceTest {
     @Test
     void getUserInfo() {
         //given
-        User user = getUser(usersRepository, email);
+        User user = getUser(userRepository, email);
         //when
         ResponseUser responseUser = userService.getUserInfo(email);
         //then
@@ -56,7 +56,7 @@ class UserServiceTest {
     @DisplayName("자기자신의 Profile 가져오기")
     @Test
     void getProfile_case1() {
-        User user = getUser(usersRepository, email);
+        User user = getUser(userRepository, email);
         //when
         ResponseProfile profile = userService.getProfile(email, username);
         //then
@@ -67,7 +67,7 @@ class UserServiceTest {
     @DisplayName("following 하지 않는 상대방의 Profile 가져오기")
     @Test
     void getProfile_case2() {
-        User user = getUser(usersRepository, email);
+        User user = getUser(userRepository, email);
         //when
         ResponseProfile profile = userService.getProfile(email, usernameA);
         //then
@@ -78,7 +78,7 @@ class UserServiceTest {
     @DisplayName("following 한 상대방의 Profile 가져오기")
     @Test
     void getProfile_case3() {
-        User user = getUser(usersRepository, email);
+        User user = getUser(userRepository, email);
         followService.follow(email, usernameA);
         //when
         ResponseProfile profile = userService.getProfile(email, usernameA);
@@ -93,7 +93,7 @@ class UserServiceTest {
     void update() {
         //given
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        User user = getUser(usersRepository, email);
+        User user = getUser(userRepository, email);
         RequestUpdateUser requestUpdateUser =
                 new RequestUpdateUser(emailB, bioB, imageB, usernameB, passwordB);
         //when
@@ -103,7 +103,7 @@ class UserServiceTest {
         assertThat(update.getBio()).isEqualTo(bioB);
         assertThat(update.getImage()).isEqualTo(imageB);
         assertThat(update.getUsername()).isEqualTo(usernameB);
-        boolean matches = passwordEncoder.matches(passwordB, getUser(usersRepository, emailB).getPassword());
+        boolean matches = passwordEncoder.matches(passwordB, getUser(userRepository, emailB).getPassword());
         assertThat(matches).isTrue();
     }
     

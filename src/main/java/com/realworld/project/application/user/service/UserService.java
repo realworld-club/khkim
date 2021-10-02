@@ -3,7 +3,7 @@ package com.realworld.project.application.user.service;
 import com.realworld.project.application.user.api.dto.*;
 import com.realworld.project.application.user.domain.Follow;
 import com.realworld.project.application.user.domain.User;
-import com.realworld.project.application.user.repository.UsersRepository;
+import com.realworld.project.application.user.repository.UserRepository;
 import com.realworld.project.core.exception.BusinessException;
 import com.realworld.project.core.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -19,19 +19,19 @@ import static com.realworld.project.core.exception.ErrorCode.USER_PROFILE_NOT_FO
 @Service
 public class UserService {
 
-    private final UsersRepository usersRepository;
+    private final UserRepository userRepository;
 
     public ResponseUser getUserInfo(String userEmail) {
-        User user = usersRepository.findByEmail(userEmail)
+        User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new BusinessException(USER_NOT_FOUND));
 
         return ResponseUser.from(user);
     }
 
     public ResponseProfile getProfile(String userEmail, String targetUsername) {
-        User user = usersRepository.findByEmail(userEmail)
+        User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new BusinessException(USER_PROFILE_NOT_FOUND));
-        User targetUser = usersRepository.findByProfileUsername(targetUsername)
+        User targetUser = userRepository.findByProfileUsername(targetUsername)
                 .orElseThrow(() -> new BusinessException(USER_PROFILE_NOT_FOUND));
 
         List<Follow> follows = user.getFollows();
@@ -44,7 +44,7 @@ public class UserService {
     @Transactional
     public ResponseUser update(String userEmail, RequestUpdateUser requestUpdateUser) {
         checkUnique(requestUpdateUser);
-        User user = usersRepository.findByEmail(userEmail)
+        User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new BusinessException(USER_NOT_FOUND));
 
         user.update(requestUpdateUser);
@@ -53,8 +53,8 @@ public class UserService {
     }
 
     private void checkUnique(RequestUpdateUser requestUpdateUser) {
-        boolean emailNotUnique = usersRepository.findByEmail(requestUpdateUser.getEmail()).isPresent();
-        boolean usernameNotUnique = usersRepository.findByProfileUsername(requestUpdateUser.getUsername()).isPresent();
+        boolean emailNotUnique = userRepository.findByEmail(requestUpdateUser.getEmail()).isPresent();
+        boolean usernameNotUnique = userRepository.findByProfileUsername(requestUpdateUser.getUsername()).isPresent();
 
         if(emailNotUnique)
             throw new BusinessException(ErrorCode.EMAIL_NOT_UNIQUE);
