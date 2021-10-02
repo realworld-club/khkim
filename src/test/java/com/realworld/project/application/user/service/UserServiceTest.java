@@ -43,8 +43,6 @@ class UserServiceTest {
     @DisplayName("유저정보 가져오기")
     @Test
     void getUserInfo() {
-        //given
-        User user = getUser(userRepository, email);
         //when
         ResponseUser responseUser = userService.getUserInfo(email);
         //then
@@ -56,7 +54,6 @@ class UserServiceTest {
     @DisplayName("자기자신의 Profile 가져오기")
     @Test
     void getProfile_case1() {
-        User user = getUser(userRepository, email);
         //when
         ResponseProfile profile = userService.getProfile(email, username);
         //then
@@ -67,7 +64,6 @@ class UserServiceTest {
     @DisplayName("following 하지 않는 상대방의 Profile 가져오기")
     @Test
     void getProfile_case2() {
-        User user = getUser(userRepository, email);
         //when
         ResponseProfile profile = userService.getProfile(email, usernameA);
         //then
@@ -78,7 +74,7 @@ class UserServiceTest {
     @DisplayName("following 한 상대방의 Profile 가져오기")
     @Test
     void getProfile_case3() {
-        User user = getUser(userRepository, email);
+        //given
         followService.follow(email, usernameA);
         //when
         ResponseProfile profile = userService.getProfile(email, usernameA);
@@ -93,7 +89,6 @@ class UserServiceTest {
     void update() {
         //given
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        User user = getUser(userRepository, email);
         RequestUpdateUser requestUpdateUser =
                 new RequestUpdateUser(emailB, bioB, imageB, usernameB, passwordB);
         //when

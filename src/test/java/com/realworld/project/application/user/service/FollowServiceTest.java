@@ -1,5 +1,9 @@
 package com.realworld.project.application.user.service;
 
+import com.realworld.project.application.user.api.dto.ResponseProfile;
+import com.realworld.project.application.user.domain.Follow;
+import com.realworld.project.application.user.repository.FollowRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -7,7 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static com.realworld.project.fixture.UserFixture.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("팔로우관련 테스트")
 @Transactional
@@ -20,6 +27,9 @@ class FollowServiceTest {
     @Autowired
     FollowService followService;
 
+    @Autowired
+    FollowRepository followRepository;
+
     @BeforeEach
     void before() {
         register_user(credentialService);
@@ -30,9 +40,12 @@ class FollowServiceTest {
     @Test
     void follow() {
         //when
-        followService.follow(username, usernameA);
+        ResponseProfile follow = followService.follow(email, usernameA);
+        List<Follow> followList = followRepository.findAll();
         //then
-
-
+        assertThat(follow.isFollowing()).isTrue();
+        assertThat(follow.getUsername()).isEqualTo(usernameA);
+        boolean match = followList.stream().allMatch(f -> f.getFollowing().getEmail().equals(emailA));
+        assertThat(match).isTrue();
     }
 }
