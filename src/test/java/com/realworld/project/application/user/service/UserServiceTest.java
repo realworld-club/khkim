@@ -74,14 +74,11 @@ class UserServiceTest {
         assertThat(profile.isFollowing()).isEqualTo(false);
     }
 
-    @Autowired
-    FollowRepository followRepository;
     @DisplayName("following 한 상대방의 Profile 가져오기")
     @Test
     void getProfile_case3() {
         //given
         followService.follow(email, usernameA);
-        List<Follow> all = followRepository.findAll();
         //when
         ResponseProfile profile = userService.getProfile(email, usernameA);
         //then
