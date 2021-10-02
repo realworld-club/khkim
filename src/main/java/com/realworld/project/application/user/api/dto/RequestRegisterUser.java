@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import com.realworld.project.application.user.domain.Profile;
 import com.realworld.project.application.user.domain.User;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 
 @Getter
+@NoArgsConstructor
 @JsonRootName("user")
 public class RequestRegisterUser {
     @NotEmpty

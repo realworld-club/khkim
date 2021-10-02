@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import static com.realworld.project.fixture.UserFixture.*;
 import static org.assertj.core.api.Assertions.*;
 
-@DisplayName("회원자격관련 서비스")
 @Transactional
 @SpringBootTest
 class CredentialServiceTest {

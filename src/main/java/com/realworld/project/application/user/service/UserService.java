@@ -28,6 +28,7 @@ public class UserService {
         return ResponseUser.from(user);
     }
 
+    @Transactional(readOnly = true)
     public ResponseProfile getProfile(String userEmail, String targetUsername) {
         User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new BusinessException(USER_PROFILE_NOT_FOUND));
@@ -35,6 +36,7 @@ public class UserService {
                 .orElseThrow(() -> new BusinessException(USER_PROFILE_NOT_FOUND));
 
         List<Follow> follows = user.getFollows();
+        List<Follow> follows1 = targetUser.getFollows();
         boolean matchResult = follows.stream()
                 .anyMatch(f -> f.getFollowing().getProfile().getUsername().equals(targetUsername));
 

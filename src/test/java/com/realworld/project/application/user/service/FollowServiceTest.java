@@ -16,7 +16,6 @@ import java.util.List;
 import static com.realworld.project.fixture.UserFixture.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("팔로우관련 테스트")
 @Transactional
 @SpringBootTest
 class FollowServiceTest {

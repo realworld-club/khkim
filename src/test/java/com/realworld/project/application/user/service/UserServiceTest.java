@@ -3,7 +3,9 @@ package com.realworld.project.application.user.service;
 import com.realworld.project.application.user.api.dto.RequestUpdateUser;
 import com.realworld.project.application.user.api.dto.ResponseProfile;
 import com.realworld.project.application.user.api.dto.ResponseUser;
+import com.realworld.project.application.user.domain.Follow;
 import com.realworld.project.application.user.domain.User;
+import com.realworld.project.application.user.repository.FollowRepository;
 import com.realworld.project.application.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,10 +16,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static com.realworld.project.fixture.UserFixture.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("회원관련 서비스")
 @Transactional
 @SpringBootTest
 class UserServiceTest {
@@ -71,11 +74,14 @@ class UserServiceTest {
         assertThat(profile.isFollowing()).isEqualTo(false);
     }
 
+    @Autowired
+    FollowRepository followRepository;
     @DisplayName("following 한 상대방의 Profile 가져오기")
     @Test
     void getProfile_case3() {
         //given
         followService.follow(email, usernameA);
+        List<Follow> all = followRepository.findAll();
         //when
         ResponseProfile profile = userService.getProfile(email, usernameA);
         //then

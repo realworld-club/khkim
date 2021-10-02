@@ -39,7 +39,7 @@ public class CredentialApi {
      * @param requestRegisterUser 가입정보
      * @return 사용자정보
      */
-    @PostMapping("api/users")
+    @PostMapping("/api/users")
     public ResponseEntity<ResponseUser> registration(@Valid @RequestBody RequestRegisterUser requestRegisterUser) {
 
         ResponseUser responseUser = credentialService.registerUsers(requestRegisterUser);

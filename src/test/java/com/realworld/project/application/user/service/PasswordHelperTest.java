@@ -14,7 +14,6 @@ import static com.realworld.project.fixture.UserFixture.password;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("패스워드 HelperClass ")
 @SpringBootTest
 class PasswordHelperTest {
 
