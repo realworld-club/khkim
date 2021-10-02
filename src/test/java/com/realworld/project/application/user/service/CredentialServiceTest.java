@@ -23,7 +23,7 @@ class CredentialServiceTest {
 
     @BeforeEach
     void before() {
-        register(credentialService);
+        register_user(credentialService);
     }
 
     @DisplayName("로그인")

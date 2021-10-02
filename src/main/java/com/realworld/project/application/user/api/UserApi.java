@@ -49,13 +49,16 @@ public class UserApi {
     /**
      * 프로필정보 요청
      *
+     * @param principal 로그인 유저
      * @param username 대상유저
      * @return 프로필
      */
     @GetMapping("/api/profiles/{username}")
-    public ResponseEntity<ResponseProfile> getProfile(@PathVariable("username") String username) {
+    public ResponseEntity<ResponseProfile> getProfile(
+            Principal principal,
+            @PathVariable("username") String username) {
 
-        ResponseProfile responseProfile = userService.getProfile(username);
+        ResponseProfile responseProfile = userService.getProfile(principal.getName(), username);
 
         return ResponseEntity.ok(responseProfile);
     }

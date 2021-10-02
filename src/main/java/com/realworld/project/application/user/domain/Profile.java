@@ -13,11 +13,9 @@ public class Profile {
     private String username;
     private String bio;
     private String image;
-    private boolean following;
 
     public Profile(String username) {
         this.username = username;
-        following = false;
     }
 
     public void updateUsername(String username) {
@@ -31,5 +29,4 @@ public class Profile {
     public void changeImage(String image) {
         this.image = image;
     }
-
 }

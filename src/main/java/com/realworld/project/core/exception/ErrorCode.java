@@ -7,6 +7,8 @@ public enum ErrorCode {
     //user
     USER_NOT_FOUND,
     USER_PROFILE_NOT_FOUND,
+    EMAIL_NOT_UNIQUE,
+    USERNAME_NOT_UNIQUE,
 
     //article
 }

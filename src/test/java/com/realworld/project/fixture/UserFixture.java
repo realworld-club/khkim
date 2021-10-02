@@ -21,9 +21,18 @@ public class UserFixture {
     public static final String bioA = "test-A-company";
     public static final String imageA = "test-A.jpg";
 
+    public static final String usernameB = "test-B";
+    public static final String emailB = "test-B@test.com";
+    public static final String passwordB = "123789456";
+    public static final String bioB = "test-B-company";
+    public static final String imageB = "test-B.jpg";
 
-    public static void register(CredentialService credentialService) {
+    public static void register_user(CredentialService credentialService) {
         RequestRegisterUser requestRegisterUser = new RequestRegisterUser(username, email, password);
+        credentialService.registerUsers(requestRegisterUser);
+    }
+    public static void register_userA(CredentialService credentialService) {
+        RequestRegisterUser requestRegisterUser = new RequestRegisterUser(usernameA, emailA, passwordA);
         credentialService.registerUsers(requestRegisterUser);
     }
 

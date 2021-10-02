@@ -19,11 +19,11 @@ public class ResponseProfile {
         this.following = following;
     }
 
-    public static ResponseProfile from(Profile profile) {
+    public static ResponseProfile of(Profile profile, boolean following) {
         return new ResponseProfile(
                 profile.getUsername(),
                 profile.getBio(),
                 profile.getImage(),
-                profile.isFollowing());
+                following);
     }
 }

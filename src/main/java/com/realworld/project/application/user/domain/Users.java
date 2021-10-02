@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -22,6 +24,9 @@ public class Users {
 
     private String email;
     private String password;
+
+    @OneToMany(mappedBy = "following", fetch = FetchType.LAZY)
+    private List<Follow> follows = new ArrayList<>();
 
     @Embedded
     private Profile profile;
