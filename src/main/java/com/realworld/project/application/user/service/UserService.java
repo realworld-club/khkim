@@ -2,7 +2,7 @@ package com.realworld.project.application.user.service;
 
 import com.realworld.project.application.user.api.dto.*;
 import com.realworld.project.application.user.domain.Follow;
-import com.realworld.project.application.user.domain.Users;
+import com.realworld.project.application.user.domain.User;
 import com.realworld.project.application.user.repository.UsersRepository;
 import com.realworld.project.core.exception.BusinessException;
 import com.realworld.project.core.exception.ErrorCode;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.realworld.project.core.exception.ErrorCode.USER_NOT_FOUND;
 import static com.realworld.project.core.exception.ErrorCode.USER_PROFILE_NOT_FOUND;
@@ -22,17 +21,17 @@ public class UserService {
 
     private final UsersRepository usersRepository;
 
-    public ResponseUser getUserInfo(String userId) {
-        Users user = usersRepository.findById(Long.parseLong(userId))
+    public ResponseUser getUserInfo(String userEmail) {
+        User user = usersRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new BusinessException(USER_NOT_FOUND));
 
         return ResponseUser.from(user);
     }
 
-    public ResponseProfile getProfile(String userId, String targetUsername) {
-        Users user = usersRepository.findById(Long.parseLong(userId))
+    public ResponseProfile getProfile(String userEmail, String targetUsername) {
+        User user = usersRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new BusinessException(USER_PROFILE_NOT_FOUND));
-        Users targetUser = usersRepository.findByProfileUsername(targetUsername)
+        User targetUser = usersRepository.findByProfileUsername(targetUsername)
                 .orElseThrow(() -> new BusinessException(USER_PROFILE_NOT_FOUND));
 
         List<Follow> follows = user.getFollows();
@@ -43,9 +42,9 @@ public class UserService {
     }
 
     @Transactional
-    public ResponseUser update(String userId, RequestUpdateUser requestUpdateUser) {
+    public ResponseUser update(String userEmail, RequestUpdateUser requestUpdateUser) {
         checkUnique(requestUpdateUser);
-        Users user = usersRepository.findById(Long.parseLong(userId))
+        User user = usersRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new BusinessException(USER_NOT_FOUND));
 
         user.update(requestUpdateUser);

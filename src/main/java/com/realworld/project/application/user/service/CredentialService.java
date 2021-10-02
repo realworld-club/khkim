@@ -3,7 +3,7 @@ package com.realworld.project.application.user.service;
 import com.realworld.project.application.user.api.dto.RequestLoginUser;
 import com.realworld.project.application.user.api.dto.RequestRegisterUser;
 import com.realworld.project.application.user.api.dto.ResponseUser;
-import com.realworld.project.application.user.domain.Users;
+import com.realworld.project.application.user.domain.User;
 import com.realworld.project.application.user.repository.UsersRepository;
 import com.realworld.project.core.jwt.JwtTokenProvider;
 import com.realworld.project.core.exception.BusinessException;
@@ -21,7 +21,7 @@ public class CredentialService {
     private final JwtTokenProvider jwtTokenProvider;
 
     public ResponseUser login(RequestLoginUser requestLoginUser) {
-        Users user = usersRepository.findByEmail(requestLoginUser.getEmail())
+        User user = usersRepository.findByEmail(requestLoginUser.getEmail())
                 .orElseThrow(() -> new BusinessException(USER_NOT_FOUND));
 
         String token = jwtTokenProvider.createToken(Long.toString(user.getId()), null);
@@ -31,7 +31,7 @@ public class CredentialService {
 
     @Transactional
     public ResponseUser registerUsers(RequestRegisterUser requestRegisterUser) {
-        Users user = usersRepository.save(requestRegisterUser.toEntity());
+        User user = usersRepository.save(requestRegisterUser.toEntity());
 
         return ResponseUser.from(user);
     }

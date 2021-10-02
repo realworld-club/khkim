@@ -1,6 +1,6 @@
 package com.realworld.project.application.article.domain;
 
-import com.realworld.project.application.user.domain.Users;
+import com.realworld.project.application.user.domain.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,5 +31,5 @@ public class Article {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private Users users;
+    private User user;
 }

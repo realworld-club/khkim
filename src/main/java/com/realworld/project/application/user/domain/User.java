@@ -15,8 +15,8 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "users")
-public class Users {
+@Table(name = "user")
+public class User {
 
     @Id @Column(name = "user_id")
     @GeneratedValue
@@ -32,7 +32,7 @@ public class Users {
     private Profile profile;
 
     @Builder
-    public Users(String email, String password, Profile profile) {
+    public User(String email, String password, Profile profile) {
         this.email = email;
         this.password = password;
         this.profile = profile;

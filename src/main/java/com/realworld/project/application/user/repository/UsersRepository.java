@@ -1,14 +1,14 @@
 package com.realworld.project.application.user.repository;
 
-import com.realworld.project.application.user.domain.Users;
+import com.realworld.project.application.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UsersRepository extends JpaRepository<Users, Long> {
+public interface UsersRepository extends JpaRepository<User, Long> {
 
-    Optional<Users> findByEmail(String email);
+    Optional<User> findByEmail(String email);
 
-    Optional<Users> findByProfileUsername(String username);
+    Optional<User> findByProfileUsername(String username);
 
 }

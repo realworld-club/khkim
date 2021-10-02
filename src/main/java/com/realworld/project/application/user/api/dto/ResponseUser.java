@@ -2,7 +2,7 @@ package com.realworld.project.application.user.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.realworld.project.application.user.domain.Profile;
-import com.realworld.project.application.user.domain.Users;
+import com.realworld.project.application.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,11 +24,11 @@ public class ResponseUser {
         this.image = profile.getImage();
     }
 
-    public static ResponseUser of(Users user, String token) {
+    public static ResponseUser of(User user, String token) {
         return new ResponseUser(user.getEmail(), token, user.getProfile());
     }
 
-    public static ResponseUser from(Users user) {
+    public static ResponseUser from(User user) {
         return new ResponseUser(user.getEmail(), null, user.getProfile());
     }
 }

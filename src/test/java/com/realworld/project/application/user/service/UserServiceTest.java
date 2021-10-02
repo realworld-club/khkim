@@ -3,7 +3,7 @@ package com.realworld.project.application.user.service;
 import com.realworld.project.application.user.api.dto.RequestUpdateUser;
 import com.realworld.project.application.user.api.dto.ResponseProfile;
 import com.realworld.project.application.user.api.dto.ResponseUser;
-import com.realworld.project.application.user.domain.Users;
+import com.realworld.project.application.user.domain.User;
 import com.realworld.project.application.user.repository.UsersRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -44,9 +44,9 @@ class UserServiceTest {
     @Test
     void getUserInfo() {
         //given
-        Users user = getUser(usersRepository, email);
+        User user = getUser(usersRepository, email);
         //when
-        ResponseUser responseUser = userService.getUserInfo(Long.toString(user.getId()));
+        ResponseUser responseUser = userService.getUserInfo(email);
         //then
         assertThat(responseUser.getUsername()).isEqualTo(username);
         assertThat(responseUser.getEmail()).isEqualTo(email);
@@ -56,9 +56,9 @@ class UserServiceTest {
     @DisplayName("자기자신의 Profile 가져오기")
     @Test
     void getProfile_case1() {
-        Users user = getUser(usersRepository, email);
+        User user = getUser(usersRepository, email);
         //when
-        ResponseProfile profile = userService.getProfile(Long.toString(user.getId()), username);
+        ResponseProfile profile = userService.getProfile(email, username);
         //then
         assertThat(profile.getUsername()).isEqualTo(username);
         assertThat(profile.isFollowing()).isEqualTo(false);
@@ -67,9 +67,9 @@ class UserServiceTest {
     @DisplayName("following 하지 않는 상대방의 Profile 가져오기")
     @Test
     void getProfile_case2() {
-        Users user = getUser(usersRepository, email);
+        User user = getUser(usersRepository, email);
         //when
-        ResponseProfile profile = userService.getProfile(Long.toString(user.getId()), usernameA);
+        ResponseProfile profile = userService.getProfile(email, usernameA);
         //then
         assertThat(profile.getUsername()).isEqualTo(usernameA);
         assertThat(profile.isFollowing()).isEqualTo(false);
@@ -78,10 +78,10 @@ class UserServiceTest {
     @DisplayName("following 한 상대방의 Profile 가져오기")
     @Test
     void getProfile_case3() {
-        Users user = getUser(usersRepository, email);
-        followService.follow(Long.toString(user.getId()), usernameA);
+        User user = getUser(usersRepository, email);
+        followService.follow(email, usernameA);
         //when
-        ResponseProfile profile = userService.getProfile(Long.toString(user.getId()), usernameA);
+        ResponseProfile profile = userService.getProfile(email, usernameA);
         //then
         assertThat(profile.getUsername()).isEqualTo(usernameA);
         assertThat(profile.isFollowing()).isEqualTo(true);
@@ -93,11 +93,11 @@ class UserServiceTest {
     void update() {
         //given
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        Users user = getUser(usersRepository, email);
+        User user = getUser(usersRepository, email);
         RequestUpdateUser requestUpdateUser =
                 new RequestUpdateUser(emailB, bioB, imageB, usernameB, passwordB);
         //when
-        ResponseUser update = userService.update(Long.toString(user.getId()), requestUpdateUser);
+        ResponseUser update = userService.update(email, requestUpdateUser);
         //then
         assertThat(update.getEmail()).isEqualTo(emailB);
         assertThat(update.getBio()).isEqualTo(bioB);

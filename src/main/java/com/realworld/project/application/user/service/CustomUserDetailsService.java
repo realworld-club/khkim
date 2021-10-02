@@ -1,10 +1,9 @@
 package com.realworld.project.application.user.service;
 
-import com.realworld.project.application.user.domain.Users;
+import com.realworld.project.application.user.domain.User;
 import com.realworld.project.application.user.repository.UsersRepository;
 import com.realworld.project.core.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,10 +21,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        Users user = usersRepository.findById(Long.parseLong(id))
+        User user = usersRepository.findById(Long.parseLong(id))
                 .orElseThrow(() -> new BusinessException(USER_NOT_FOUND));
 
-        return new User(Long.toString(user.getId()), user.getPassword(), Collections.EMPTY_LIST);
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), Collections.EMPTY_LIST);
     }
 
 }
