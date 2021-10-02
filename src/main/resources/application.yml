@@ -20,8 +20,16 @@ spring:
         properties:
             hibernate:
                 format_sql: true
+                use_sql_comments: false
         show-sql: true
 
+logging:
+    level:
+        org:
+            hibernate:
+                type:
+                    descriptor:
+                        sql: trace
 jwt:
     base64:
         secretKey: Y29tLnJlYWx3b3JsZC5wcm9qZWN0LnVzZXIuaW5mcmEuand0
