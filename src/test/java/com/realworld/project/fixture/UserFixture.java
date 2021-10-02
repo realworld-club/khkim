@@ -3,6 +3,7 @@ package com.realworld.project.fixture;
 import com.realworld.project.application.user.api.dto.RequestRegisterUser;
 import com.realworld.project.application.user.domain.Users;
 import com.realworld.project.application.user.repository.UsersRepository;
+import com.realworld.project.application.user.service.CredentialService;
 import com.realworld.project.application.user.service.UserService;
 
 import java.util.Optional;
@@ -21,9 +22,9 @@ public class UserFixture {
     public static final String imageA = "test-A.jpg";
 
 
-    public static void register(UserService userService) {
+    public static void register(CredentialService credentialService) {
         RequestRegisterUser requestRegisterUser = new RequestRegisterUser(username, email, password);
-        userService.registerUsers(requestRegisterUser);
+        credentialService.registerUsers(requestRegisterUser);
     }
 
     public static Users getUser(UsersRepository usersRepository, String email) {

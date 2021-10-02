@@ -19,20 +19,6 @@ public class UserApi {
     private final UserService userService;
 
     /**
-     * 회원가입
-     *
-     * @param requestRegisterUser 가입정보
-     * @return 사용자정보
-     */
-    @PostMapping("api/users")
-    public ResponseEntity<ResponseUser> registration(@Valid @RequestBody RequestRegisterUser requestRegisterUser) {
-
-        ResponseUser responseUser = userService.registerUsers(requestRegisterUser);
-
-        return ResponseEntity.ok(responseUser);
-    }
-
-    /**
      * 사용자정보 요청
      *
      * @return 사용자정보

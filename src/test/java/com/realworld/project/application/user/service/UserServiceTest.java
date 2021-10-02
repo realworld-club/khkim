@@ -6,6 +6,7 @@ import com.realworld.project.application.user.api.dto.ResponseProfile;
 import com.realworld.project.application.user.api.dto.ResponseUser;
 import com.realworld.project.application.user.domain.Users;
 import com.realworld.project.application.user.repository.UsersRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static com.realworld.project.fixture.UserFixture.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@DisplayName("회원관련 서비스")
 @Transactional
 @SpringBootTest
 class UserServiceTest {
@@ -25,25 +27,20 @@ class UserServiceTest {
     UserService userService;
 
     @Autowired
+    CredentialService credentialService;
+
+    @Autowired
     UsersRepository usersRepository;
 
-    @DisplayName("회원가입")
-    @Test
-    void registerUsers() {
-        //given
-        RequestRegisterUser requestRegisterUser = new RequestRegisterUser(username, email, password);
-        //when
-        ResponseUser responseUser = userService.registerUsers(requestRegisterUser);
-          //then
-        assertThat(responseUser.getUsername()).isEqualTo(username);
-        assertThat(responseUser.getEmail()).isEqualTo(email);
+    @BeforeEach
+    void before() {
+        register(credentialService);
     }
 
     @DisplayName("유저정보 가져오기")
     @Test
     void getUserInfo() {
         //given
-        userService.registerUsers(new RequestRegisterUser(username, email, password));
         Users user = getUser(usersRepository, email);
         //when
         ResponseUser responseUser = userService.getUserInfo(Long.toString(user.getId()));
@@ -56,8 +53,6 @@ class UserServiceTest {
     @DisplayName("유저 Profile 가져오기")
     @Test
     void getProfile() {
-        //given
-        userService.registerUsers(new RequestRegisterUser(username, email, password));
         //when
         ResponseProfile profile = userService.getProfile(username);
         //then
@@ -70,7 +65,6 @@ class UserServiceTest {
     @Test
     void update() {
         //given
-        userService.registerUsers(new RequestRegisterUser(username, email, password));
         Users user = getUser(usersRepository, email);
         RequestUpdateUser requestUpdateUser =
                 new RequestUpdateUser(emailA, bioA, imageA, usernameA, passwordA);

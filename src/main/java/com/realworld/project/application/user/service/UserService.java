@@ -24,14 +24,6 @@ public class UserService {
         return ResponseUser.from(user);
     }
 
-    @Transactional
-    public ResponseUser registerUsers(RequestRegisterUser requestRegisterUser) {
-        Users user = usersRepository.save(requestRegisterUser.toEntity());
-
-        return ResponseUser.from(user);
-    }
-
-
     public ResponseProfile getProfile(String username) {
         Users users = usersRepository.findByProfileUsername(username)
                 .orElseThrow(() -> new BusinessException(USER_PROFILE_NOT_FOUND));
