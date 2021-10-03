@@ -20,7 +20,6 @@ import static io.restassured.RestAssured.proxy;
 
 public class RestAssuredExtension implements BeforeAllCallback {
 
-
     @Override
     public void beforeAll(ExtensionContext context) {
         port = 8081;

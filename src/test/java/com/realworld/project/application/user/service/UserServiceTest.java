@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.List;
 import static com.realworld.project.fixture.UserFixture.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@ActiveProfiles("test")
 @Transactional
 @SpringBootTest
 class UserServiceTest {
