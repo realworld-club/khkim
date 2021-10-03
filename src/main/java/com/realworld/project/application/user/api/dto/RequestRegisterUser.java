@@ -3,6 +3,7 @@ package com.realworld.project.application.user.api.dto;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.realworld.project.application.user.domain.Profile;
 import com.realworld.project.application.user.domain.User;
+import com.realworld.project.application.user.service.PasswordHelper;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -30,7 +31,7 @@ public class RequestRegisterUser {
     public User toEntity() {
         return User.builder()
                 .email(email)
-                .password(password)
+                .password(PasswordHelper.encode(password))
                 .profile(new Profile(username))
                 .build();
     }
