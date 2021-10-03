@@ -27,6 +27,7 @@ public class UserFixture {
     public static final String imageB = "test-B.jpg";
 
     public static String token;
+    public static String tokenA;
 
     public static void register_user(CredentialService credentialService) {
         RequestRegisterUser requestRegisterUser = new RequestRegisterUser(username, email, password);

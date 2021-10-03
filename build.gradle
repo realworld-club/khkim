@@ -32,13 +32,23 @@ dependencies {
             'io.jsonwebtoken:jjwt-jackson:0.11.2'
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
     annotationProcessor 'org.projectlombok:lombok'
+
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
+
     testImplementation 'org.springframework.security:spring-security-test'
+
     testImplementation 'com.google.guava:guava-testlib:30.1.1-jre'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
     testImplementation 'io.rest-assured:rest-assured:4.4.0'
     testImplementation 'io.rest-assured:json-schema-validator:4.4.0'
+
+    testImplementation 'org.testcontainers:testcontainers:1.16.0'
+    testImplementation "org.testcontainers:junit-jupiter:1.16.0"
+    testImplementation "org.testcontainers:postgresql:1.16.0"
+
 }
 
 test {
