@@ -1,0 +1,35 @@
+server:
+    port: 8081
+spring:
+    datasource:
+        driver-class-name: org.h2.Driver
+        url: jdbc:h2:tcp://localhost/~/testdb
+        username: sa
+    h2:
+        console:
+            enabled: true
+    jackson:
+        deserialization:
+            unwrap-root-value: true
+        serialization:
+            wrap-root-value: true
+    jpa:
+        hibernate:
+            ddl-auto: create
+        open-in-view: false
+        properties:
+            hibernate:
+                format_sql: true
+                use_sql_comments: false
+        show-sql: true
+
+logging:
+    level:
+        org:
+            hibernate:
+                type:
+                    descriptor:
+                        sql: trace
+jwt:
+    base64:
+        secretKey: Y29tLnJlYWx3b3JsZC5wcm9qZWN0LnVzZXIuaW5mcmEuand0

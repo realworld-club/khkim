@@ -1,8 +1,20 @@
+server:
+    port: 9002
+spring:
+    datasource:
+        driver-class-name: org.h2.Driver
+        url: jdbc:h2:mem:testdb
+        username: sa
+    jackson:
+        deserialization:
+            unwrap-root-value: true
+        serialization:
+            wrap-root-value: true
+    jpa:
+        hibernate:
+            ddl-auto: create
+        open-in-view: false
+
 jwt:
     base64:
-        secretKey: Y29tLnJlYWx3b3JsZC5wcm9qZWN0LnVzZXIuaW5mcmEuand0
-spring:
-    main:
-        lazy-initialization: true
-    profiles:
-        include: user-fixture
+        secretKey: c3ByaW5nIGJvb3QgdGVzdCBpcyBkaWZmaWN1bHQgdmVyeSA=

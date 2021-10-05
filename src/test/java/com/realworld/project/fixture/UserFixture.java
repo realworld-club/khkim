@@ -1,88 +1,45 @@
 package com.realworld.project.fixture;
 
-import com.realworld.project.user.api.dto.UserLoginRequest;
-import com.realworld.project.user.api.dto.UserModel;
-import com.realworld.project.user.api.dto.UserRegisterRequest;
-import com.realworld.project.user.api.dto.UserUpdateRequest;
-import com.realworld.project.user.domain.User;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.realworld.project.application.user.api.dto.RequestRegisterUser;
+import com.realworld.project.application.user.domain.User;
+import com.realworld.project.application.user.repository.UserRepository;
+import com.realworld.project.application.user.service.CredentialService;
+
+import java.util.Optional;
 
 public class UserFixture {
-    public static final String userPk = "40";
-    public static final String username = "test-username";
-    public static final String email = "test-email@email.com";
-    public static final String password = "test-password";
-    public static final String bio = "test-bio";
-    public static final String image = "test-image.jpg";
+    public static final String username = "test";
+    public static final String email = "test@test.com";
+    public static final String password = "123456789";
+    public static final String bio = "test-company";
+    public static final String image = "test.jpg";
 
-    public static final String new_username = "new test-username";
-    public static final String new_email = "new test-email@email.com";
-    public static final String new_password = "new test-password";
-    public static final String new_bio = "new test-bio";
-    public static final String new_image = "new test-image.jpg";
+    public static final String usernameA = "test-A";
+    public static final String emailA = "test-A@test.com";
+    public static final String passwordA = "987654321";
+    public static final String bioA = "test-A-company";
+    public static final String imageA = "test-A.jpg";
 
-    private static final PasswordEncoder encoder = new BCryptPasswordEncoder();
-    public static final String token = JwtFixture.crateToken(userPk);
+    public static final String usernameB = "test-B";
+    public static final String emailB = "test-B@test.com";
+    public static final String passwordB = "123789456";
+    public static final String bioB = "test-B-company";
+    public static final String imageB = "test-B.jpg";
 
+    public static String token;
+    public static String tokenA;
 
-    public static UserLoginRequest ofLoginRequest() {
-        return new UserLoginRequest(email, password);
+    public static void register_user(CredentialService credentialService) {
+        RequestRegisterUser requestRegisterUser = new RequestRegisterUser(username, email, password);
+        credentialService.registerUsers(requestRegisterUser);
+    }
+    public static void register_userA(CredentialService credentialService) {
+        RequestRegisterUser requestRegisterUser = new RequestRegisterUser(usernameA, emailA, passwordA);
+        credentialService.registerUsers(requestRegisterUser);
     }
 
-    public static UserRegisterRequest ofRegisterRequest() {
-        return new UserRegisterRequest(email, password, username);
-    }
-
-    public static String encodedPassword(String password) {
-        return encoder.encode(password);
-    }
-
-    public static UserUpdateRequest ofUpdateRequest() {
-        return new UserUpdateRequest(
-                new_email,
-                new_password,
-                new_username,
-                new_bio,
-                new_image
-        );
-    }
-
-    public static UserModel ofModel() {
-        return new UserModel(
-                email,
-                token,
-                username,
-                bio,
-                image
-        );
-    }
-
-    public static User ofEntity() {
-        return new User(
-                username,
-                encoder.encode(password),
-                email,
-                token,
-                bio,
-                image,
-                false
-        );
-    }
-
-    public static User ofNewEntity() {
-        return new User(
-                new_username,
-                encoder.encode(new_password),
-                new_email,
-                token,
-                new_bio,
-                new_image,
-                false
-        );
-    }
-
-    public static String getToken() {
-        return token;
+    public static User getUser(UserRepository userRepository, String email) {
+        Optional<User> byEmail = userRepository.findByEmail(email);
+        return byEmail.get();
     }
 }
