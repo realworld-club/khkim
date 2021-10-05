@@ -3,10 +3,12 @@ package com.realworld.project.application.user.service;
 import com.realworld.project.application.user.api.dto.*;
 import com.realworld.project.application.user.domain.Follow;
 import com.realworld.project.application.user.domain.User;
+import com.realworld.project.application.user.repository.FollowRepository;
 import com.realworld.project.application.user.repository.UserRepository;
 import com.realworld.project.core.exception.BusinessException;
 import com.realworld.project.core.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,16 +30,16 @@ public class UserService {
         return ResponseUser.from(user);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public ResponseProfile getProfile(String userEmail, String targetUsername) {
         User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new BusinessException(USER_PROFILE_NOT_FOUND));
         User targetUser = userRepository.findByProfileUsername(targetUsername)
                 .orElseThrow(() -> new BusinessException(USER_PROFILE_NOT_FOUND));
 
-        List<Follow> follows = user.getFollows();
+        List<Follow> follows = user.getFollowing();
         boolean matchResult = follows.stream()
-                .anyMatch(f -> f.getFollowing().getProfile().getUsername().equals(targetUsername));
+                .anyMatch(f -> f.followingUserName().equals(targetUsername));
 
         return ResponseProfile.of(targetUser.getProfile(), matchResult);
     }

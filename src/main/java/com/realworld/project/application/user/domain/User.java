@@ -25,8 +25,8 @@ public class User {
     private String email;
     private String password;
 
-    @OneToMany(mappedBy = "follower", fetch = FetchType.EAGER)
-    private List<Follow> follows = new ArrayList<>();
+    @OneToMany(mappedBy = "following", fetch = FetchType.LAZY)
+    private List<Follow> following = new ArrayList<>();
 
     @Embedded
     private Profile profile;

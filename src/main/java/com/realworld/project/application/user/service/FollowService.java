@@ -28,6 +28,7 @@ public class FollowService {
                 .orElseThrow(() -> new BusinessException(USER_NOT_FOUND));
 
         Follow follow = new Follow(user, targetUser);
+        follow.following();
         followRepository.save(follow);
 
         return ResponseProfile.of(targetUser.getProfile(), true);

@@ -57,8 +57,8 @@ class UserApiTest extends ApiTest {
         response
             .then()
             .statusCode(200)
-            .body("user.email", is(emailA))
-            .body("user.following", is(false));
+            .body("profile.username", is(usernameA))
+            .body("profile.following", is(false));
     }
 
     private static void getProfileApi(String username) {
