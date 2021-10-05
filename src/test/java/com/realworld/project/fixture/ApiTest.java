@@ -9,18 +9,22 @@ import io.restassured.config.ObjectMapperConfig;
 import io.restassured.config.RestAssuredConfig;
 import io.restassured.response.Response;
 import io.restassured.specification.ProxySpecification;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 
 import static io.restassured.RestAssured.port;
 import static io.restassured.RestAssured.proxy;
 
 @ActiveProfiles("test")
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ApiTest {
 
     public static Response response;
@@ -28,13 +32,12 @@ public class ApiTest {
     @Autowired
     private UserRepository userRepository;
 
-    @Value("${server.port}")
-    public void setKey(int value) {
-        port = value;
-    }
+    @LocalServerPort
+    private int port;
 
-    @BeforeAll
-    static void beforeAll() {
+    @BeforeEach
+    public void beforeEach() {
+        RestAssured.port = port;
         //serialize, deserialize
         RestAssured.config = RestAssuredConfig.config()
                 .objectMapperConfig(
