@@ -1,7 +1,9 @@
 package com.realworld.project.application.article.domain;
 
 import com.realworld.project.application.user.domain.User;
+import com.realworld.project.core.jpa.BaseEntity;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "article")
-public class Article {
+public class Article extends BaseEntity {
 
     @Id @Column(name = "article_id")
     @GeneratedValue
@@ -32,4 +34,16 @@ public class Article {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @Builder
+    public Article(String slug, String title, String description, String body, Set<Tag> tagList, boolean favorited, int favoritesCount, User user) {
+        this.slug = slug;
+        this.title = title;
+        this.description = description;
+        this.body = body;
+        this.tagList = tagList;
+        this.favorited = favorited;
+        this.favoritesCount = favoritesCount;
+        this.user = user;
+    }
 }
