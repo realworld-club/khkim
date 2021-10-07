@@ -1,15 +1,21 @@
 package com.realworld.project.application.article.api;
 
 import com.realworld.project.application.article.api.dto.*;
+import com.realworld.project.application.article.service.ArticleService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 
+@RequiredArgsConstructor
 @RestController
 public class ArticleApi {
+
+    private final ArticleService articleService;
 
     /**
      * 글리스트 요청
@@ -65,9 +71,10 @@ public class ArticleApi {
      */
     @PostMapping("/api/articles")
     ResponseEntity<ResponseArticle> createArticle(
+            Principal principal,
             @Valid @RequestBody RequestCreateArticle requestCreateArticle) {
 
-        ResponseArticle responseArticle = null;
+        ResponseArticle responseArticle = articleService.create(principal.getName(), requestCreateArticle);
 
         return ResponseEntity.ok(responseArticle);
     }

@@ -30,20 +30,18 @@ public class UserFixture {
     public static String token;
     public static String tokenA;
 
-    public static void register_user(CredentialService credentialService) {
-        RequestRegisterUser requestRegisterUser = new RequestRegisterUser(username, email, password);
-        credentialService.registerUsers(requestRegisterUser);
-    }
-    public static void register_userA(CredentialService credentialService) {
-        RequestRegisterUser requestRegisterUser = new RequestRegisterUser(usernameA, emailA, passwordA);
-        credentialService.registerUsers(requestRegisterUser);
-    }
-
     public static User makeUser(UserRepository userRepository) {
         return userRepository.save(User.builder()
                 .email(email)
                 .password(password)
                 .profile(new Profile(username))
+                .build());
+    }
+    public static User makeUserA(UserRepository userRepository) {
+        return userRepository.save(User.builder()
+                .email(emailA)
+                .password(passwordA)
+                .profile(new Profile(usernameA))
                 .build());
     }
 

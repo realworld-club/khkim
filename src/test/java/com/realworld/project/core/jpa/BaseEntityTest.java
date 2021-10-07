@@ -21,10 +21,10 @@ import static org.assertj.core.api.Assertions.*;
 class BaseEntityTest {
 
     @Autowired
-    ArticleRepository articleRepository;
+    UserRepository userRepository;
 
     @Autowired
-    UserRepository userRepository;
+    ArticleRepository articleRepository;
 
     @DisplayName("Audit 적용 테스트")
     @Test
