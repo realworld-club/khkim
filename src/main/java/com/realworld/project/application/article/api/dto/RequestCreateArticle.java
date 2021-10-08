@@ -23,7 +23,14 @@ public class RequestCreateArticle {
     @NotEmpty
     private String body;
 
-    private Set<Tag> tagList;
+    private Set<String> tagList;
+
+    public RequestCreateArticle(String title, String description, String body, Set<String> tagList) {
+        this.title = title;
+        this.description = description;
+        this.body = body;
+        this.tagList = tagList;
+    }
 
     public Article toEntity(User user) {
         return Article.builder()
@@ -34,7 +41,7 @@ public class RequestCreateArticle {
                 .favoritesCount(0)
                 .favorited(false)
                 .user(user)
-                .tagList(tagList)
+//                .tagList(tagList)
                 .build();
     }
 }

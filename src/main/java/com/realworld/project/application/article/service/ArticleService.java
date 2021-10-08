@@ -23,6 +23,7 @@ public class ArticleService {
     public ResponseArticle create(String userEmail, RequestCreateArticle requestCreateArticle) {
         User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+
         Article article = articleRepository.save(requestCreateArticle.toEntity(user));
 
         return ResponseArticle.from(article);

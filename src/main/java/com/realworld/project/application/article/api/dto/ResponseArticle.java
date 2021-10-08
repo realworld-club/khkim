@@ -16,14 +16,14 @@ public class ResponseArticle {
     private String title;
     private String description;
     private String body;
-    private Set<Tag> tagList;
+    private Set<String> tagList;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private boolean favorited;
     private int favoriteCount;
     private ResponseProfile author;
 
-    public ResponseArticle(String slug, String title, String description, String body, Set<Tag> tagList, LocalDateTime createdAt, LocalDateTime updatedAt, boolean favorited, int favoriteCount, ResponseProfile author) {
+    public ResponseArticle(String slug, String title, String description, String body, Set<String> tagList, LocalDateTime createdAt, LocalDateTime updatedAt, boolean favorited, int favoriteCount, ResponseProfile author) {
         this.slug = slug;
         this.title = title;
         this.description = description;
@@ -42,7 +42,8 @@ public class ResponseArticle {
                 article.getTitle(),
                 article.getDescription(),
                 article.getBody(),
-                article.getTagList(),
+            null,
+//                article.getTagList(),
                 article.getCreatedDate(),
                 article.getModifiedDate(),
                 article.isFavorited(),
