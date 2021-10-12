@@ -24,7 +24,8 @@ public class ArticleService {
         User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
 
-        Article article = articleRepository.save(requestCreateArticle.toEntity(user));
+        Article entity = Article.of(requestCreateArticle, user);
+        Article article = articleRepository.save(entity);
 
         return ResponseArticle.from(article);
     }

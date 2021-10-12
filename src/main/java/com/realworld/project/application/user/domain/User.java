@@ -1,5 +1,6 @@
 package com.realworld.project.application.user.domain;
 
+import com.realworld.project.application.user.api.dto.RequestRegisterUser;
 import com.realworld.project.application.user.api.dto.RequestUpdateUser;
 import com.realworld.project.application.user.service.PasswordHelper;
 import lombok.AccessLevel;
@@ -36,6 +37,14 @@ public class User {
         this.email = email;
         this.password = password;
         this.profile = profile;
+    }
+
+    public static User from(RequestRegisterUser registerUser) {
+        return User.builder()
+                .email(registerUser.getEmail())
+                .password(PasswordHelper.encode(registerUser.getPassword()))
+                .profile(new Profile(registerUser.getUsername()))
+                .build();
     }
 
     public void update(RequestUpdateUser user) {

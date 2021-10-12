@@ -27,12 +27,4 @@ public class RequestRegisterUser {
         this.email = email;
         this.password = password;
     }
-
-    public User toEntity() {
-        return User.builder()
-                .email(email)
-                .password(PasswordHelper.encode(password))
-                .profile(new Profile(username))
-                .build();
-    }
 }

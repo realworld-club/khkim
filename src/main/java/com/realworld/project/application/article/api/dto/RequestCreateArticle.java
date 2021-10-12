@@ -31,17 +31,4 @@ public class RequestCreateArticle {
         this.body = body;
         this.tagList = tagList;
     }
-
-    public Article toEntity(User user) {
-        return Article.builder()
-                .title(title)
-                .slug(title)
-                .description(description)
-                .body(body)
-                .favoritesCount(0)
-                .favorited(false)
-                .user(user)
-//                .tagList(tagList)
-                .build();
-    }
 }
