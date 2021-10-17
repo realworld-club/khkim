@@ -1,6 +1,7 @@
 package com.realworld.project.application.article.domain;
 
 import com.realworld.project.application.article.api.dto.RequestCreateArticle;
+import com.realworld.project.application.article.service.SlugHelper;
 import com.realworld.project.application.user.domain.User;
 import com.realworld.project.core.jpa.BaseEntity;
 import lombok.AccessLevel;
@@ -51,7 +52,7 @@ public class Article extends BaseEntity {
     public static Article of(RequestCreateArticle createArticle, User user) {
         return Article.builder()
                 .title(createArticle.getTitle())
-                .slug(createArticle.getTitle())
+                .slug(SlugHelper.convert(createArticle.getTitle()))
                 .description(createArticle.getDescription())
                 .body(createArticle.getBody())
                 .favoritesCount(0)
