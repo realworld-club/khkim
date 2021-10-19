@@ -3,7 +3,9 @@ package com.realworld.project.application.article.service;
 import com.realworld.project.application.article.api.dto.RequestCreateArticle;
 import com.realworld.project.application.article.api.dto.ResponseArticle;
 import com.realworld.project.application.article.domain.Article;
+import com.realworld.project.application.article.domain.Tag;
 import com.realworld.project.application.article.repository.ArticleRepository;
+import com.realworld.project.application.article.repository.TagRepository;
 import com.realworld.project.application.user.domain.User;
 import com.realworld.project.application.user.repository.UserRepository;
 import com.realworld.project.core.exception.BusinessException;
@@ -11,6 +13,8 @@ import com.realworld.project.core.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Service

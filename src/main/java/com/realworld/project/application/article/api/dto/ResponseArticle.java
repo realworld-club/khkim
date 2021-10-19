@@ -8,6 +8,7 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @JsonRootName("article")
@@ -37,13 +38,16 @@ public class ResponseArticle {
     }
 
     public static ResponseArticle from(Article article) {
+        Set<String> tags = article.getTags().stream()
+                .map(Tag::getTagName)
+                .collect(Collectors.toSet());
+
         return new ResponseArticle(
                 article.getSlug(),
                 article.getTitle(),
                 article.getDescription(),
                 article.getBody(),
-            null,
-//                article.getTagList(),
+                tags,
                 article.getCreatedDate(),
                 article.getModifiedDate(),
                 article.isFavorited(),

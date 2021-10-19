@@ -1,5 +1,6 @@
 package com.realworld.project.core.jpa;
 
+import com.realworld.project.application.article.api.dto.RequestCreateArticle;
 import com.realworld.project.application.article.domain.Article;
 import com.realworld.project.application.article.repository.ArticleRepository;
 import com.realworld.project.application.user.repository.UserRepository;
@@ -29,7 +30,8 @@ class BaseEntityTest {
     @DisplayName("Audit 적용 테스트")
     @Test
     void test() {
-        Article article = articleRepository.save(new Article(slug, title, description, body, null, false, 0, makeUser(userRepository)));
+        RequestCreateArticle requestCreateArticle = new RequestCreateArticle(title, description, body, tags());
+        Article article = articleRepository.save(Article.of(requestCreateArticle, makeUser(userRepository)));
 
         assertThat(article.getCreatedDate()).isNotNull();
         assertThat(article.getModifiedDate()).isNotNull();

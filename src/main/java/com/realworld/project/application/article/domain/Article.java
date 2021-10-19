@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -27,9 +28,6 @@ public class Article extends BaseEntity {
     private String title;
     private String description;
     private String body;
-
-    @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
-    private Set<Tag> tagList = new HashSet<>();
     private boolean favorited;
     private int favoritesCount;
 
@@ -37,19 +35,29 @@ public class Article extends BaseEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "article_tag",
+        joinColumns = @JoinColumn(name = "article_id"),
+        inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private Set<Tag> tags = new HashSet<>();
+
     @Builder
-    public Article(String slug, String title, String description, String body, Set<Tag> tagList, boolean favorited, int favoritesCount, User user) {
+    public Article(String slug, String title, String description, String body, boolean favorited, int favoritesCount, User user, Set<Tag> tags) {
         this.slug = slug;
         this.title = title;
         this.description = description;
         this.body = body;
-        this.tagList = tagList;
         this.favorited = favorited;
         this.favoritesCount = favoritesCount;
         this.user = user;
+        this.tags = tags;
     }
 
     public static Article of(RequestCreateArticle createArticle, User user) {
+        Set<Tag> tags = createArticle.getTagList().stream()
+                .map(Tag::new)
+                .collect(Collectors.toSet());
+
         return Article.builder()
                 .title(createArticle.getTitle())
                 .slug(SlugHelper.convert(createArticle.getTitle()))
@@ -57,8 +65,19 @@ public class Article extends BaseEntity {
                 .body(createArticle.getBody())
                 .favoritesCount(0)
                 .favorited(false)
+                .tags(tags)
                 .user(user)
-//                .tagList(tagList)
                 .build();
     }
+
+    public void addTag(Tag tag) {
+        tags.add(tag);
+        tag.getArticles().add(this);
+    }
+
+    public void removeTag(Tag tag) {
+        tags.remove(tag);
+        tag.getArticles().remove(this);
+    }
+
 }
