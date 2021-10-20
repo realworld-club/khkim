@@ -1,6 +1,7 @@
 package com.realworld.project.fixture;
 
 import com.realworld.project.application.user.api.dto.RequestRegisterUser;
+import com.realworld.project.application.user.domain.Profile;
 import com.realworld.project.application.user.domain.User;
 import com.realworld.project.application.user.repository.UserRepository;
 import com.realworld.project.application.user.service.CredentialService;
@@ -29,13 +30,20 @@ public class UserFixture {
     public static String token;
     public static String tokenA;
 
-    public static void register_user(CredentialService credentialService) {
-        RequestRegisterUser requestRegisterUser = new RequestRegisterUser(username, email, password);
-        credentialService.registerUsers(requestRegisterUser);
+    public static User makeUser(UserRepository userRepository) {
+        return userRepository.save(User.builder()
+                .email(email)
+                .password(password)
+                .profile(new Profile(username))
+                .build());
     }
-    public static void register_userA(CredentialService credentialService) {
-        RequestRegisterUser requestRegisterUser = new RequestRegisterUser(usernameA, emailA, passwordA);
-        credentialService.registerUsers(requestRegisterUser);
+    public static User makeUserA(UserRepository userRepository) {
+        return userRepository.save(User.builder()
+                .email(emailA)
+                .password(passwordA)
+                .profile(new Profile(usernameA))
+                .build());
+
     }
 
     public static User getUser(UserRepository userRepository, String email) {

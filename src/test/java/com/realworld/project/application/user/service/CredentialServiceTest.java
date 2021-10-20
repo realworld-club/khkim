@@ -3,6 +3,7 @@ package com.realworld.project.application.user.service;
 import com.realworld.project.application.user.api.dto.RequestLoginUser;
 import com.realworld.project.application.user.api.dto.RequestRegisterUser;
 import com.realworld.project.application.user.api.dto.ResponseUser;
+import com.realworld.project.application.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,11 +21,14 @@ import static org.assertj.core.api.Assertions.*;
 class CredentialServiceTest {
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
     CredentialService credentialService;
 
     @BeforeEach
     void before() {
-        register_user(credentialService);
+        makeUser(userRepository);
     }
 
     @DisplayName("로그인")

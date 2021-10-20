@@ -3,7 +3,7 @@ package com.realworld.project.application.user.service;
 import com.realworld.project.application.user.api.dto.ResponseProfile;
 import com.realworld.project.application.user.domain.Follow;
 import com.realworld.project.application.user.repository.FollowRepository;
-import org.assertj.core.api.Assertions;
+import com.realworld.project.application.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class FollowServiceTest {
 
     @Autowired
-    CredentialService credentialService;
+    UserRepository userRepository;
 
     @Autowired
     FollowService followService;
@@ -33,8 +33,8 @@ class FollowServiceTest {
 
     @BeforeEach
     void before() {
-        register_user(credentialService);
-        register_userA(credentialService);
+        makeUser(userRepository);
+        makeUserA(userRepository);
     }
 
     @DisplayName("팔로우")

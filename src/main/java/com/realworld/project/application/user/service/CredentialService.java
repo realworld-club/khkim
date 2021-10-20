@@ -31,7 +31,8 @@ public class CredentialService {
 
     @Transactional
     public ResponseUser registerUsers(RequestRegisterUser requestRegisterUser) {
-        User user = userRepository.save(requestRegisterUser.toEntity());
+        User entity = User.from(requestRegisterUser);
+        User user = userRepository.save(entity);
 
         return ResponseUser.from(user);
     }
