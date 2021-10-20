@@ -43,6 +43,7 @@ public class UserFixture {
                 .password(passwordA)
                 .profile(new Profile(usernameA))
                 .build());
+
     }
 
     public static User getUser(UserRepository userRepository, String email) {

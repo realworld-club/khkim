@@ -22,7 +22,6 @@ public class RequestCreateArticle {
 
     @NotEmpty
     private String body;
-
     private Set<String> tagList;
 
     public RequestCreateArticle(String title, String description, String body, Set<String> tagList) {
