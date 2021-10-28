@@ -4,6 +4,8 @@ import com.realworld.project.application.article.api.dto.RequestCreateArticle;
 import com.realworld.project.application.article.api.dto.ResponseArticle;
 import com.realworld.project.application.article.domain.Tag;
 import com.realworld.project.application.user.repository.UserRepository;
+import com.realworld.project.core.exception.BusinessException;
+import com.realworld.project.core.exception.ErrorCode;
 import com.realworld.project.fixture.ArticleFixture;
 import com.realworld.project.fixture.UserFixture;
 import org.assertj.core.api.Assertions;
@@ -79,5 +81,18 @@ class ArticleServiceTest {
         assertThat(article.getCreatedAt()).isNotNull();
         assertThat(article.getUpdatedAt()).isNotNull();
         assertThat(article.getTagList()).isEqualTo(tags());
+    }
+
+    @DisplayName("게시판 삭제 테스트")
+    @Test
+    void delete() {
+        //given
+        RequestCreateArticle requestCreateArticle = new RequestCreateArticle(title, description, body, tags());
+        articleService.create(email, requestCreateArticle);
+        //when
+        articleService.delete(slug);
+        //then
+        assertThrows(BusinessException.class, () -> articleService.getBySlug(slug)
+        );
     }
 }

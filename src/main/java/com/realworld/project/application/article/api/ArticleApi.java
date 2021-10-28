@@ -105,6 +105,8 @@ public class ArticleApi {
      */
     @DeleteMapping("/api/articles/{slug}")
     public ResponseEntity<Void> deleteArticle(@PathVariable("slug") String slug) {
+
+        articleService.delete(slug);
         return ResponseEntity.noContent().build();
     }
 

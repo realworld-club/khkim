@@ -41,4 +41,12 @@ public class ArticleService {
 
         return ResponseArticle.from(article);
     }
+
+    @Transactional
+    public void delete(String slug) {
+        Article article = articleRepository.findBySlug(slug)
+                .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
+
+        articleRepository.delete(article);
+    }
 }
