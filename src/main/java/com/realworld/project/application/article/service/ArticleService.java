@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 public class ArticleService {
@@ -30,6 +31,13 @@ public class ArticleService {
 
         Article entity = Article.of(requestCreateArticle, user);
         Article article = articleRepository.save(entity);
+
+        return ResponseArticle.from(article);
+    }
+
+    public ResponseArticle getBySlug(String slug) {
+        Article article = articleRepository.findBySlug(slug)
+                .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
 
         return ResponseArticle.from(article);
     }

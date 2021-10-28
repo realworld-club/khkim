@@ -58,7 +58,7 @@ public class ArticleApi {
     @GetMapping("/api/articles/{slug}")
     ResponseEntity<ResponseArticle> getArticle(@PathVariable("slug") String slug) {
 
-        ResponseArticle responseArticle = null;
+        ResponseArticle responseArticle = articleService.getBySlug(slug);
 
         return ResponseEntity.ok(responseArticle);
     }

@@ -20,6 +20,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static com.realworld.project.fixture.ArticleFixture.*;
+import static com.realworld.project.fixture.UserFixture.*;
 import static com.realworld.project.fixture.UserFixture.email;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -37,7 +38,7 @@ class ArticleServiceTest {
 
     @BeforeEach
     void beforeEach() {
-        UserFixture.makeUser(userRepository);
+        makeUser(userRepository);
     }
 
     @DisplayName("게시판 생성 테스트")
@@ -58,5 +59,25 @@ class ArticleServiceTest {
         assertThat(article.getUpdatedAt()).isNotNull();
         assertThat(article.getTagList()).isEqualTo(tags());
 
+    }
+
+    @DisplayName("게시판 조회 테스트")
+    @Test
+    void get() {
+        //given
+        RequestCreateArticle requestCreateArticle = new RequestCreateArticle(title, description, body, tags());
+        articleService.create(email, requestCreateArticle);
+        //when
+        ResponseArticle article = articleService.getBySlug(slug);
+        //then
+        assertThat(article.getSlug()).isEqualTo(slug);
+        assertThat(article.getBody()).isEqualTo(body);
+        assertThat(article.getTitle()).isEqualTo(title);
+        assertThat(article.getDescription()).isEqualTo(description);
+        assertThat(article.isFavorited()).isEqualTo(false);
+        assertThat(article.getFavoriteCount()).isEqualTo(0);
+        assertThat(article.getCreatedAt()).isNotNull();
+        assertThat(article.getUpdatedAt()).isNotNull();
+        assertThat(article.getTagList()).isEqualTo(tags());
     }
 }
