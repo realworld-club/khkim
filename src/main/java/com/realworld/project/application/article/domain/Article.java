@@ -1,6 +1,7 @@
 package com.realworld.project.application.article.domain;
 
 import com.realworld.project.application.article.api.dto.RequestCreateArticle;
+import com.realworld.project.application.article.api.dto.RequestUpdateArticle;
 import com.realworld.project.application.article.service.SlugHelper;
 import com.realworld.project.application.user.domain.User;
 import com.realworld.project.core.jpa.BaseEntity;
@@ -8,6 +9,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -80,4 +82,18 @@ public class Article extends BaseEntity {
         tag.getArticles().remove(this);
     }
 
+    public void update(RequestUpdateArticle article) {
+        if(StringUtils.hasText(article.getTitle())) {
+            this.title = article.getTitle();
+            this.slug = SlugHelper.convert(this.title);
+        }
+
+        if(StringUtils.hasText(article.getBody()))
+            this.body = article.getBody();
+
+
+        if(StringUtils.hasText(article.getDescription()))
+            this.description = article.getDescription();
+
+    }
 }

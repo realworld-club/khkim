@@ -92,7 +92,7 @@ public class ArticleApi {
             @PathVariable("slug") String slug,
             @Valid @RequestBody RequestUpdateArticle requestUpdateArticle) {
 
-        ResponseArticle responseArticle = null;
+        ResponseArticle responseArticle = articleService.update(slug, requestUpdateArticle);
 
         return ResponseEntity.ok(responseArticle);
     }

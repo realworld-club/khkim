@@ -1,6 +1,7 @@
 package com.realworld.project.application.article.service;
 
 import com.realworld.project.application.article.api.dto.RequestCreateArticle;
+import com.realworld.project.application.article.api.dto.RequestUpdateArticle;
 import com.realworld.project.application.article.api.dto.ResponseArticle;
 import com.realworld.project.application.article.domain.Article;
 import com.realworld.project.application.article.domain.Tag;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.Set;
 
 @Transactional(readOnly = true)
@@ -48,5 +50,15 @@ public class ArticleService {
                 .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
 
         articleRepository.delete(article);
+    }
+
+    @Transactional
+    public ResponseArticle update(String slug, RequestUpdateArticle requestUpdateArticle) {
+        Article article = articleRepository.findBySlug(slug)
+                .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
+
+        article.update(requestUpdateArticle);
+
+        return ResponseArticle.from(article);
     }
 }

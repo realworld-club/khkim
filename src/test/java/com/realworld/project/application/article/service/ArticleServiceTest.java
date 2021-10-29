@@ -1,6 +1,7 @@
 package com.realworld.project.application.article.service;
 
 import com.realworld.project.application.article.api.dto.RequestCreateArticle;
+import com.realworld.project.application.article.api.dto.RequestUpdateArticle;
 import com.realworld.project.application.article.api.dto.ResponseArticle;
 import com.realworld.project.application.article.domain.Tag;
 import com.realworld.project.application.user.repository.UserRepository;
@@ -94,5 +95,21 @@ class ArticleServiceTest {
         //then
         assertThrows(BusinessException.class, () -> articleService.getBySlug(slug)
         );
+    }
+
+    @DisplayName("게시판 수정 테스트")
+    @Test
+    void update() {
+        //given
+        RequestCreateArticle requestCreateArticle = new RequestCreateArticle(title, description, body, tags());
+        articleService.create(email, requestCreateArticle);
+        RequestUpdateArticle requestUpdateArticle = new RequestUpdateArticle(titleA, descriptionA, bodyA);
+        //when
+        ResponseArticle update = articleService.update(slug, requestUpdateArticle);
+        //then
+        assertThat(update.getSlug()).isEqualTo(slugA);
+        assertThat(update.getBody()).isEqualTo(bodyA);
+        assertThat(update.getTitle()).isEqualTo(titleA);
+        assertThat(update.getDescription()).isEqualTo(descriptionA);
     }
 }

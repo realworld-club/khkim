@@ -15,6 +15,11 @@ public class ArticleFixture {
     public static final String tag2 = "tag2";
     public static final String tag3 = "tag3";
 
+    public static final String slugA = "article-a-test";
+    public static final String titleA = "article a test";
+    public static final String descriptionA = "article a test description";
+    public static final String bodyA = "article a test body";
+
     public static Set<String> tags() {
         Set<String> tags = new HashSet<>();
         tags.addAll(Arrays.asList(tag1, tag2, tag3));
