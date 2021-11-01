@@ -52,7 +52,7 @@ public class ResponseArticle {
                 article.getModifiedDate(),
                 article.isFavorited(),
                 article.getFavoritesCount(),
-                ResponseProfile.of(article.getUser().getProfile(), false));
+                ResponseProfile.of(article.getAuthor().getProfile(), false));
     }
 
 }

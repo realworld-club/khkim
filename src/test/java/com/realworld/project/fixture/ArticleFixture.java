@@ -1,5 +1,6 @@
 package com.realworld.project.fixture;
 
+import com.realworld.project.application.article.domain.Article;
 import com.realworld.project.application.article.domain.Tag;
 
 import java.util.Arrays;

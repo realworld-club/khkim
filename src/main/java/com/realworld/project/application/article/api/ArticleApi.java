@@ -2,6 +2,7 @@ package com.realworld.project.application.article.api;
 
 import com.realworld.project.application.article.api.dto.*;
 import com.realworld.project.application.article.service.ArticleService;
+import com.realworld.project.application.article.service.FavoriteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +17,11 @@ import java.security.Principal;
 public class ArticleApi {
 
     private final ArticleService articleService;
+    private final FavoriteService favoriteService;
 
     /**
      * 글리스트 요청
      * - 글리스트는 기본 최근순으로 나열한다
-     *
      *
      * @param condition filter 조건
      * @param pageable 페이징 조건
@@ -118,9 +119,12 @@ public class ArticleApi {
      */
     @PostMapping("/api/articles/{slug}/favorite")
     public ResponseEntity<ResponseArticle> favoriteArticle(
-            @PathVariable("slug") String slug) {
+            @PathVariable("slug") String slug,
+            Principal principal) {
 
-        return ResponseEntity.ok(null);
+        ResponseArticle responseArticle = favoriteService.add(slug, principal.getName());
+
+        return ResponseEntity.ok(responseArticle);
     }
 
     /**
