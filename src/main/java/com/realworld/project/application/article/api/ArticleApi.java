@@ -45,7 +45,7 @@ public class ArticleApi {
     @GetMapping("/api/articles/feed")
     public ResponseEntity<ResponseMultipleArticles> feedArticles(Pageable pageable, Principal principal) {
 
-        ResponseMultipleArticles responseMultipleArticles = articleService.getFeeds(pageable, principal.getName());
+        ResponseMultipleArticles responseMultipleArticles = articleService.getFeeds(principal.getName(), pageable);
 
         return ResponseEntity.ok(responseMultipleArticles);
     }

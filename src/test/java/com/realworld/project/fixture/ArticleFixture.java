@@ -1,5 +1,6 @@
 package com.realworld.project.fixture;
 
+import com.realworld.project.application.article.api.dto.RequestCreateArticle;
 import com.realworld.project.application.article.domain.Article;
 import com.realworld.project.application.article.domain.Tag;
 
@@ -27,4 +28,7 @@ public class ArticleFixture {
         return tags;
     }
 
+    public static RequestCreateArticle makeRequestCreateArticle() {
+        return new RequestCreateArticle(title, description, body, tags());
+    }
 }

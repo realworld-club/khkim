@@ -66,14 +66,12 @@ public class ArticleService {
         return ResponseArticle.from(article);
     }
 
-    public ResponseMultipleArticles getFeeds(Pageable pageable, String userEmail) {
+    public ResponseMultipleArticles getFeeds(String userEmail, Pageable pageable) {
         userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
 
-        //follow 가 없을떄
-
         List<Article> articles = articleRepository.findFeedArticles(userEmail, pageable);
 
-        return ResponseMultipleArticles.of(articles);
+        return ResponseMultipleArticles.from(articles);
     }
 }
