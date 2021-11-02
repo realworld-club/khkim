@@ -109,8 +109,8 @@ public class Article extends BaseEntity {
         user.getArticles().remove(this);
     }
 
-    public void setFavoriteTrue() {
-        favorited = true;
+    public void setFavorite(User user) {
+        favorited = favoriteUsers.contains(user);
     }
 
     public int getFavoritesCount() {

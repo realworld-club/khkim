@@ -26,7 +26,20 @@ public class FavoriteService {
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
 
         article.addFavoriteUser(user);
-        article.setFavoriteTrue();
+        article.setFavorite(user);
+
+        return ResponseArticle.from(article);
+    }
+
+    @Transactional
+    public ResponseArticle remove(String slug, String userEmail) {
+        Article article = articleRepository.findBySlug(slug)
+                .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+
+        article.removeFavorieUser(user);
+        article.setFavorite(user);
 
         return ResponseArticle.from(article);
     }

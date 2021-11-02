@@ -135,9 +135,12 @@ public class ArticleApi {
      */
     @DeleteMapping("/api/articles/{slug}/favorite")
     public ResponseEntity<ResponseArticle> deleteFavoriteArticle(
-            @PathVariable("slug") String slug) {
+            @PathVariable("slug") String slug,
+            Principal principal) {
 
-        return ResponseEntity.ok(null);
+        ResponseArticle responseArticle = favoriteService.remove(slug, principal.getName());
+
+        return ResponseEntity.ok(responseArticle);
     }
 
 }

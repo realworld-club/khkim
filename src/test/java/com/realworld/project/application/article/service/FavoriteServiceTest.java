@@ -44,12 +44,26 @@ class FavoriteServiceTest {
     void add() {
         //given
         RequestCreateArticle requestCreateArticle = new RequestCreateArticle(title, description, body, tags());
-        ResponseArticle article = articleService.create(email, requestCreateArticle);
+        articleService.create(email, requestCreateArticle);
         //when
         ResponseArticle responseArticle = favoriteService.add(slug, email);
         //then
         assertThat(responseArticle.isFavorited()).isTrue();
         assertThat(responseArticle.getFavoriteCount()).isEqualTo(1);
+    }
+
+    @DisplayName("좋아요 삭제 테스트")
+    @Test
+    void remove() {
+        //given
+        RequestCreateArticle requestCreateArticle = new RequestCreateArticle(title, description, body, tags());
+        articleService.create(email, requestCreateArticle);
+        favoriteService.add(slug, email);
+        //when
+        ResponseArticle responseArticle = favoriteService.remove(slug, email);
+        //then
+        assertThat(responseArticle.isFavorited()).isFalse();
+        assertThat(responseArticle.getFavoriteCount()).isEqualTo(0);
 
     }
 }
