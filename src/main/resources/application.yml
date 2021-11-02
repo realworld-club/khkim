@@ -19,9 +19,12 @@ spring:
         open-in-view: false
         properties:
             hibernate:
+                jdbc:
+                    batch_size: 100
+                order_inserts: true
+                order_updates: true
                 format_sql: true
                 use_sql_comments: false
-        show-sql: true
 
 logging:
     level:
