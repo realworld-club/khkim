@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 
 @Getter
 public class ResponseMultipleArticles {
-    private List<ResponseArticle> articles;
-    private int articlesCount;
+    private final List<ResponseArticle> articles;
+    private final int articlesCount;
 
     public ResponseMultipleArticles(List<ResponseArticle> articles, int articlesCount) {
         this.articles = articles;
@@ -19,7 +19,7 @@ public class ResponseMultipleArticles {
     public static ResponseMultipleArticles from(List<Article> articles) {
         return new ResponseMultipleArticles(
                 articles.stream()
-                        .map(article -> ResponseArticle.from(article))
+                        .map(ResponseArticle::from)
                         .collect(Collectors.toList()),
                 articles.size());
     }
