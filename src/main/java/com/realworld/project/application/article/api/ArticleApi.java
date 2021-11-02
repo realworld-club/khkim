@@ -43,9 +43,9 @@ public class ArticleApi {
      * @return 글 리스트
      */
     @GetMapping("/api/articles/feed")
-    public ResponseEntity<ResponseMultipleArticles> feedArticles(Pageable pageable) {
+    public ResponseEntity<ResponseMultipleArticles> feedArticles(Pageable pageable, Principal principal) {
 
-        ResponseMultipleArticles responseMultipleArticles = null;
+        ResponseMultipleArticles responseMultipleArticles = articleService.getFeeds(pageable, principal.getName());
 
         return ResponseEntity.ok(responseMultipleArticles);
     }
