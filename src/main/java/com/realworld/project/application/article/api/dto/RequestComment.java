@@ -10,4 +10,8 @@ import javax.validation.constraints.NotEmpty;
 public class RequestComment {
     @NotEmpty
     public String body;
+
+    public RequestComment(String body) {
+        this.body = body;
+    }
 }

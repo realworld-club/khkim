@@ -22,6 +22,8 @@ public class ArticleFixture {
     public static final String descriptionA = "article a test description";
     public static final String bodyA = "article a test body";
 
+    public static final String comment = "comment test";
+
     public static Set<String> tags() {
         Set<String> tags = new HashSet<>();
         tags.addAll(Arrays.asList(tag1, tag2, tag3));

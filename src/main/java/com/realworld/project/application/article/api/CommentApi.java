@@ -2,14 +2,20 @@ package com.realworld.project.application.article.api;
 
 import com.realworld.project.application.article.api.dto.RequestComment;
 import com.realworld.project.application.article.api.dto.ResponseComment;
+import com.realworld.project.application.article.service.CommentService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 public class CommentApi {
+
+    private final CommentService commentService;
 
     /**
      * 해당 slug의 글에 댓글 추가
@@ -21,9 +27,12 @@ public class CommentApi {
     @PostMapping("/api/articles/{slug}/comments")
     public ResponseEntity<ResponseComment> addComment(
             @PathVariable("slug") String slug,
-            @Valid @RequestBody RequestComment requestComment) {
+            @Valid @RequestBody RequestComment requestComment,
+            Principal principal) {
 
-        return ResponseEntity.ok(null);
+        ResponseComment responseComment = commentService.create(slug, requestComment, principal.getName());
+
+        return ResponseEntity.ok(responseComment);
     }
 
     /**
