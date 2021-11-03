@@ -1,5 +1,6 @@
 package com.realworld.project.application.user.domain;
 
+import com.realworld.project.application.article.domain.Article;
 import com.realworld.project.application.user.api.dto.RequestRegisterUser;
 import com.realworld.project.application.user.api.dto.RequestUpdateUser;
 import com.realworld.project.application.user.service.PasswordHelper;
@@ -11,7 +12,9 @@ import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -28,6 +31,9 @@ public class User {
 
     @OneToMany(mappedBy = "following", fetch = FetchType.LAZY)
     private List<Follow> following = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "favoriteUsers")
+    private Set<Article> articles = new HashSet<>();
 
     @Embedded
     private Profile profile;

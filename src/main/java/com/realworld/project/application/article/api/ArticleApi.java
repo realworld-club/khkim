@@ -2,6 +2,7 @@ package com.realworld.project.application.article.api;
 
 import com.realworld.project.application.article.api.dto.*;
 import com.realworld.project.application.article.service.ArticleService;
+import com.realworld.project.application.article.service.FavoriteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +17,11 @@ import java.security.Principal;
 public class ArticleApi {
 
     private final ArticleService articleService;
+    private final FavoriteService favoriteService;
 
     /**
      * 글리스트 요청
      * - 글리스트는 기본 최근순으로 나열한다
-     *
      *
      * @param condition filter 조건
      * @param pageable 페이징 조건
@@ -30,7 +31,7 @@ public class ArticleApi {
     public ResponseEntity<ResponseMultipleArticles> getArticles(
             RequestArticleCondition condition, Pageable pageable) {
 
-        ResponseMultipleArticles responseMultipleArticles = null;
+        ResponseMultipleArticles responseMultipleArticles = articleService.getArticles(condition, pageable);
 
         return ResponseEntity.ok(responseMultipleArticles);
     }
@@ -42,9 +43,9 @@ public class ArticleApi {
      * @return 글 리스트
      */
     @GetMapping("/api/articles/feed")
-    public ResponseEntity<ResponseMultipleArticles> feedArticles(Pageable pageable) {
+    public ResponseEntity<ResponseMultipleArticles> feedArticles(Pageable pageable, Principal principal) {
 
-        ResponseMultipleArticles responseMultipleArticles = null;
+        ResponseMultipleArticles responseMultipleArticles = articleService.getFeeds(principal.getName(), pageable);
 
         return ResponseEntity.ok(responseMultipleArticles);
     }
@@ -58,7 +59,7 @@ public class ArticleApi {
     @GetMapping("/api/articles/{slug}")
     ResponseEntity<ResponseArticle> getArticle(@PathVariable("slug") String slug) {
 
-        ResponseArticle responseArticle = null;
+        ResponseArticle responseArticle = articleService.getBySlug(slug);
 
         return ResponseEntity.ok(responseArticle);
     }
@@ -92,7 +93,7 @@ public class ArticleApi {
             @PathVariable("slug") String slug,
             @Valid @RequestBody RequestUpdateArticle requestUpdateArticle) {
 
-        ResponseArticle responseArticle = null;
+        ResponseArticle responseArticle = articleService.update(slug, requestUpdateArticle);
 
         return ResponseEntity.ok(responseArticle);
     }
@@ -105,6 +106,8 @@ public class ArticleApi {
      */
     @DeleteMapping("/api/articles/{slug}")
     public ResponseEntity<Void> deleteArticle(@PathVariable("slug") String slug) {
+
+        articleService.delete(slug);
         return ResponseEntity.noContent().build();
     }
 
@@ -116,9 +119,12 @@ public class ArticleApi {
      */
     @PostMapping("/api/articles/{slug}/favorite")
     public ResponseEntity<ResponseArticle> favoriteArticle(
-            @PathVariable("slug") String slug) {
+            @PathVariable("slug") String slug,
+            Principal principal) {
 
-        return ResponseEntity.ok(null);
+        ResponseArticle responseArticle = favoriteService.add(slug, principal.getName());
+
+        return ResponseEntity.ok(responseArticle);
     }
 
     /**
@@ -129,9 +135,12 @@ public class ArticleApi {
      */
     @DeleteMapping("/api/articles/{slug}/favorite")
     public ResponseEntity<ResponseArticle> deleteFavoriteArticle(
-            @PathVariable("slug") String slug) {
+            @PathVariable("slug") String slug,
+            Principal principal) {
 
-        return ResponseEntity.ok(null);
+        ResponseArticle responseArticle = favoriteService.remove(slug, principal.getName());
+
+        return ResponseEntity.ok(responseArticle);
     }
 
 }

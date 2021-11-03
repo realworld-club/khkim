@@ -11,4 +11,5 @@ public enum ErrorCode {
     USERNAME_NOT_UNIQUE,
 
     //article
+    ARTICLE_NOT_FOUND,
 }
