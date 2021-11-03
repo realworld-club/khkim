@@ -7,6 +7,10 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @JsonRootName("comment")
@@ -34,5 +38,12 @@ public class ResponseComment {
                 .body(comment.getBody())
                 .author(ResponseProfile.of(comment.getAuthor().getProfile(), false))
                 .build();
+    }
+
+    public static List<ResponseComment> from(Set<Comment> comments) {
+        return comments.stream()
+                .map(comment -> ResponseComment.from(comment))
+                .sorted(Comparator.comparing(ResponseComment::getCreatedAt))
+                .collect(Collectors.toList());
     }
 }

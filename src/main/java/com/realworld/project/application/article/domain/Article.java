@@ -13,6 +13,7 @@ import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -48,6 +49,8 @@ public class Article extends BaseEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private User author;
 
+    @OneToMany(mappedBy = "article", orphanRemoval = true)
+    private Set<Comment> comments = new HashSet<>();
 
     @Builder
     public Article(String slug, String title, String description, String body, Set<User> favoriteUsers, User author, Set<Tag> tags) {

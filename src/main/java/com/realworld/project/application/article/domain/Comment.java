@@ -38,4 +38,8 @@ public class Comment extends BaseEntity {
     public static Comment of(RequestComment requestComment, Article article, User author) {
         return new Comment(requestComment.getBody(), article, author);
     }
+
+    public void addComment(Article article) {
+        article.getComments().add(this);
+    }
 }

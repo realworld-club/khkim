@@ -14,6 +14,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Set;
+
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
@@ -31,8 +34,18 @@ public class CommentService {
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
 
         Comment entity = Comment.of(requestComment, article, user);
+        entity.addComment(article);
         Comment comment = commentRepository.save(entity);
 
         return ResponseComment.from(comment);
+    }
+
+    public List<ResponseComment> getComment(String slug) {
+        Article article = articleRepository.findBySlug(slug)
+                .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
+
+        Set<Comment> comments = article.getComments();
+
+        return ResponseComment.from(comments);
     }
 }

@@ -23,6 +23,9 @@ public class ArticleFixture {
     public static final String bodyA = "article a test body";
 
     public static final String comment = "comment test";
+    public static final String commentA = "comment testA";
+    public static final String commentB = "comment testB";
+    public static final String commentC = "comment testC";
 
     public static Set<String> tags() {
         Set<String> tags = new HashSet<>();

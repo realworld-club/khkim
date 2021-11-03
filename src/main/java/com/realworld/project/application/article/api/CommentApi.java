@@ -45,7 +45,9 @@ public class CommentApi {
     public ResponseEntity<List<ResponseComment>> getComments(
             @PathVariable("slug") String slug) {
 
-        return ResponseEntity.ok(null);
+        List<ResponseComment> comments = commentService.getComment(slug);
+
+        return ResponseEntity.ok(comments);
     }
 
     /**
