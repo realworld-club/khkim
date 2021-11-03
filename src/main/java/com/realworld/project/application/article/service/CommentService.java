@@ -48,4 +48,15 @@ public class CommentService {
 
         return ResponseComment.from(comments);
     }
+
+    @Transactional
+    public void delete(String slug, Long commentId) {
+        Article article = articleRepository.findBySlug(slug)
+                .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
+
+        comment.removeComment(article);
+        commentRepository.delete(comment);
+    }
 }

@@ -70,4 +70,17 @@ public class CommentServiceTest {
                 .contains(comment, commentA, commentB, commentC);
     }
 
+    @DisplayName("댓글 삭제")
+    @Test
+    void delete() {
+        //given
+        articleService.create(email, makeRequestCreateArticle());
+        ResponseComment responseComment = commentService.create(slug, new RequestComment(comment), email);
+        //when
+        commentService.delete(slug, responseComment.getId());
+        //then
+        List<ResponseComment> comments = commentService.getComment(slug);
+        assertThat(comments.size()).isEqualTo(0);
+    }
+
 }

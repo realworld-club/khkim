@@ -62,6 +62,8 @@ public class CommentApi {
             @PathVariable("slug") String slug,
             @PathVariable("id") Long id) {
 
+        commentService.delete(slug, id);
+
         return ResponseEntity.noContent().build();
     }
 }

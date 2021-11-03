@@ -42,4 +42,8 @@ public class Comment extends BaseEntity {
     public void addComment(Article article) {
         article.getComments().add(this);
     }
+
+    public void removeComment(Article article) {
+        article.getComments().remove(this);
+    }
 }
