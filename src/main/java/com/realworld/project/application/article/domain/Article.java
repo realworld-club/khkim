@@ -122,4 +122,5 @@ public class Article extends BaseEntity {
 
         return favoriteUsers.size();
     }
+
 }

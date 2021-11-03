@@ -18,4 +18,5 @@ public interface ArticleRepository extends JpaRepository<Article, Long>, Article
             "inner join Article a on a.author = f.following " +
             "order by a.id desc ")
     List<Article> findFeedArticles(@Param("userEmail") String userEmail, Pageable pageable);
+
 }

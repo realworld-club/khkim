@@ -41,7 +41,6 @@ public class ArticleService {
 
         return ResponseArticle.from(article);
     }
-
     public ResponseArticle getBySlug(String slug) {
         Article article = articleRepository.findBySlug(slug)
                 .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND));
