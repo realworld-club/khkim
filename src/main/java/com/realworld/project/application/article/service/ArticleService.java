@@ -1,9 +1,6 @@
 package com.realworld.project.application.article.service;
 
-import com.realworld.project.application.article.api.dto.RequestCreateArticle;
-import com.realworld.project.application.article.api.dto.RequestUpdateArticle;
-import com.realworld.project.application.article.api.dto.ResponseArticle;
-import com.realworld.project.application.article.api.dto.ResponseMultipleArticles;
+import com.realworld.project.application.article.api.dto.*;
 import com.realworld.project.application.article.domain.Article;
 import com.realworld.project.application.article.domain.Tag;
 import com.realworld.project.application.article.repository.ArticleRepository;
@@ -18,6 +15,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
@@ -71,6 +72,13 @@ public class ArticleService {
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
 
         List<Article> articles = articleRepository.findFeedArticles(userEmail, pageable);
+
+        return ResponseMultipleArticles.from(articles);
+    }
+
+    public ResponseMultipleArticles getArticles(RequestArticleCondition condition, Pageable pageable) {
+
+        List<Article> articles = articleRepository.getArticlesByCondition(condition, pageable);
 
         return ResponseMultipleArticles.from(articles);
     }

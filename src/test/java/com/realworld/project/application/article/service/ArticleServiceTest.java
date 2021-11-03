@@ -1,9 +1,6 @@
 package com.realworld.project.application.article.service;
 
-import com.realworld.project.application.article.api.dto.RequestCreateArticle;
-import com.realworld.project.application.article.api.dto.RequestUpdateArticle;
-import com.realworld.project.application.article.api.dto.ResponseArticle;
-import com.realworld.project.application.article.api.dto.ResponseMultipleArticles;
+import com.realworld.project.application.article.api.dto.*;
 import com.realworld.project.application.article.domain.Tag;
 import com.realworld.project.application.user.api.dto.ResponseProfile;
 import com.realworld.project.application.user.repository.UserRepository;
@@ -130,5 +127,34 @@ class ArticleServiceTest {
         //then
         assertThat(feeds.getArticlesCount()).isEqualTo(1);
         assertThat(feeds.getArticles().get(0).getTitle()).isEqualTo(title);
+    }
+
+    @DisplayName("게시글 가져오기")
+    @Test
+    void getArticles() {
+        //given
+        articleService.create(email, makeRequestCreateArticle());
+        articleService.create(emailA, makeRequestCreateArticle());
+        //when
+        ResponseMultipleArticles articles = articleService.getArticles(null, null);
+        //then
+        assertThat(articles.getArticlesCount()).isEqualTo(2);
+        assertThat(articles.getArticles().get(0).getAuthor().getUsername()).isEqualTo(username);
+        assertThat(articles.getArticles().get(1).getAuthor().getUsername()).isEqualTo(usernameA);
+    }
+
+    @DisplayName("게시글 조건별 가져오기")
+    @Test
+    void getArticlesCase1() {
+        //given
+        articleService.create(email, makeRequestCreateArticle());
+        articleService.create(emailA, makeRequestCreateArticle());
+        RequestArticleCondition requestArticleCondition = new RequestArticleCondition(tag2, username, null);
+        Pageable pageable = PageRequest.of(0, 10);
+        //when
+        ResponseMultipleArticles articles = articleService.getArticles(requestArticleCondition, pageable);
+        //then
+        assertThat(articles.getArticlesCount()).isEqualTo(1);
+        assertThat(articles.getArticles().get(0).getAuthor().getUsername()).isEqualTo(username);
     }
 }

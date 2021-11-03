@@ -31,7 +31,7 @@ public class ArticleApi {
     public ResponseEntity<ResponseMultipleArticles> getArticles(
             RequestArticleCondition condition, Pageable pageable) {
 
-        ResponseMultipleArticles responseMultipleArticles = null;
+        ResponseMultipleArticles responseMultipleArticles = articleService.getArticles(condition, pageable);
 
         return ResponseEntity.ok(responseMultipleArticles);
     }
