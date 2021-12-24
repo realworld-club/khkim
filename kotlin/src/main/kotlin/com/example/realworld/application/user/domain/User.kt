@@ -1,15 +1,15 @@
 package com.example.realworld.application.user.domain
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
 @Table(name = "user")
 class User (
-    @Id @GeneratedValue var id: Long? = null,
+    @Id @GeneratedValue
+    var id: Long? = null,
+
     var email: String,
-    var password: String) {
+    var password: String
+    ) {
 
 }
