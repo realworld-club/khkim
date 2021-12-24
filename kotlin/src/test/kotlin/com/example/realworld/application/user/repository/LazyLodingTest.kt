@@ -21,6 +21,8 @@ class LazyLodingTest (
         userRepository.save(user);
         articleRepository.save(article)
         //when
+        val articleEntity = articleRepository.findByTitle("title")
         //then
+        println(articleEntity.author)
     }
 }
