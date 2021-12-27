@@ -55,7 +55,6 @@ class ArticleServiceTest {
     @DisplayName("게시판 생성 테스트")
     @Test
     void create() {
-        PersistenceUnitUtil.
         //when
         ResponseArticle article = articleService.create(email, makeRequestCreateArticle());
         //then

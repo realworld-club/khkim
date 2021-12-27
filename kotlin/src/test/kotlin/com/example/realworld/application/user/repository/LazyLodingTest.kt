@@ -18,7 +18,6 @@ import javax.persistence.PersistenceUnitUtil
 
 @DataJpaTest
 class LazyLodingTest (
-    @Autowired val userRepository: UserRepository,
     @Autowired val articleRepository: ArticleRepository,
     @Autowired val em:EntityManager,
     @Autowired val emf:EntityManagerFactory
