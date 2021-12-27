@@ -20,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.PersistenceUnitUtil;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -54,6 +55,7 @@ class ArticleServiceTest {
     @DisplayName("게시판 생성 테스트")
     @Test
     void create() {
+        PersistenceUnitUtil.
         //when
         ResponseArticle article = articleService.create(email, makeRequestCreateArticle());
         //then
