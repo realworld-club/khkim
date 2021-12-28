@@ -20,12 +20,10 @@ class CredentialApi(@Autowired val credentialService: CredentialService) {
      * @return 사용자정보
      */
     @PostMapping("/api/users")
-    fun registration(@Valid @RequestBody requestRegisterUser: RequestRegisterUser?): ResponseEntity<ResponseUser?> {
+    fun registration(@Valid @RequestBody requestRegisterUser: RequestRegisterUser): ResponseEntity<ResponseUser> {
 
         val responseUser = credentialService.registerUsers(requestRegisterUser)
 
         return ResponseEntity.ok(responseUser)
     }
-
-
 }

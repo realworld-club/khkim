@@ -45,12 +45,17 @@ public class JwtTokenProvider {
 
     // 토큰의 유효성 + 만료일자 확인
     public boolean validateToken(String jwtToken) {
-        try {
+//        try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);
-            return !claims.getBody().getExpiration().before(new Date());
+        try {
+            throw new Exception();
         } catch (Exception e) {
-            throw new BusinessException(AUTH_FAIL);
+            e.printStackTrace();
         }
+            return !claims.getBody().getExpiration().before(new Date());
+//        } catch (Exception e) {
+//            throw new BusinessException(AUTH_FAIL);
+//        }
     }
 
     // JWT 토큰에서 인증 정보 조회
