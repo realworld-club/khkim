@@ -135,12 +135,13 @@ class ArticleServiceTest {
         //given
         articleService.create(email, makeRequestCreateArticle());
         articleService.create(emailA, makeRequestCreateArticle());
+        Pageable pageable = PageRequest.of(0, 10);
         //when
-        ResponseMultipleArticles articles = articleService.getArticles(null, null);
+        ResponseMultipleArticles articles = articleService.getArticles(null, pageable);
         //then
         assertThat(articles.getArticlesCount()).isEqualTo(2);
-        assertThat(articles.getArticles().get(0).getAuthor().getUsername()).isEqualTo(username);
-        assertThat(articles.getArticles().get(1).getAuthor().getUsername()).isEqualTo(usernameA);
+        assertThat(articles.getArticles().get(0).getAuthor().getUsername()).isEqualTo(usernameA);
+        assertThat(articles.getArticles().get(1).getAuthor().getUsername()).isEqualTo(username);
     }
 
     @DisplayName("게시글 조건별 가져오기")

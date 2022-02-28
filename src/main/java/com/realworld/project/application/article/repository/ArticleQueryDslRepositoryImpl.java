@@ -24,9 +24,9 @@ public class ArticleQueryDslRepositoryImpl implements ArticleQueryDslRepository 
         return query
                 .selectFrom(article)
                 .where(
-                        condition(condition.getTag(), article.tags.any().tagName::eq),
-                        condition(condition.getAuthor(), article.author.profile.username::eq),
-                        condition(condition.getFavorited(), article.favoriteUsers.any().profile.username::eq)
+                        condition(condition != null ? condition.getTag() : null, article.tags.any().tagName::eq),
+                        condition(condition != null ? condition.getAuthor() : null, article.author.profile.username::eq),
+                        condition(condition != null ? condition.getFavorited() : null, article.favoriteUsers.any().profile.username::eq)
                 )
                 .orderBy(article.createdDate.desc())
                 .offset(pageable.getOffset())
