@@ -7,7 +7,7 @@
 - **real-world** : 연습용
 - **real-world-v2** : realworld 요구사항 만족. JPA 사용
 
-## 특징
+## 특징 
 ### application 과 core package 의 분리
 - boilerplate 한 코드와 비즈니스 영역을 분리
 - layered architecture + DI 를 이용하여 도메인의 의존성 관리
